@@ -182,6 +182,24 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
 				</div>
 			</div>
 
+            <div class="bg-canvas border border-hairline rounded-lg p-6 shadow-level-1">
+				<h3 class="text-caption-mono text-mute uppercase mb-4">Export</h3>
+				<div class="flex flex-col gap-2">
+                    <button data-download="txt" class="w-full h-10 px-4 flex items-center justify-between text-body-sm font-medium bg-canvas text-ink border border-hairline rounded-md hover:bg-canvas-soft transition-colors group cursor-pointer">
+                        Plain Text (.txt)
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 group-hover:opacity-100 transition-opacity"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    </button>
+                    <button data-download="pdf" class="w-full h-10 px-4 flex items-center justify-between text-body-sm font-medium bg-canvas text-ink border border-hairline rounded-md hover:bg-canvas-soft transition-colors group cursor-pointer">
+                        PDF Document (.pdf)
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 group-hover:opacity-100 transition-opacity"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </button>
+                    <button data-download="docx" class="w-full h-10 px-4 flex items-center justify-between text-body-sm font-medium bg-canvas text-ink border border-hairline rounded-md hover:bg-canvas-soft transition-colors group cursor-pointer">
+                        Word Doc (.docx)
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 group-hover:opacity-100 transition-opacity"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>
+                    </button>
+				</div>
+			</div>
+
             <div class="bg-canvas-soft-2 rounded-lg p-6 border border-hairline">
                 <h4 class="text-body-sm-strong mb-2">Privacy First</h4>
                 <p class="text-caption text-body">
@@ -205,6 +223,9 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
 </div>
 
 <script>
+    import { jsPDF } from "jspdf";
+    import { Document, Packer, Paragraph, TextRun } from "docx";
+
     function setupWorkspace(root: HTMLElement) {
         const id = root.getAttribute('data-id');
         if (!id) return;
@@ -214,7 +235,6 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
         const copyBtn = document.getElementById(`copy-${id}`);
         const undoBtn = document.getElementById(`undo-${id}`) as HTMLButtonElement;
         const clearBtn = document.getElementById(`clear-${id}`);
-        const downloadBtn = document.getElementById(`download-${id}`);
 
         const switchTrigger = document.getElementById(`switch-trigger-${id}`);
         const switchMenu = document.getElementById(`switch-menu-${id}`);
@@ -520,6 +540,9 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
                 btn.addEventListener('click', () => {
                     const toolId = btn.getAttribute('data-tool');
                     if (toolId && tools[toolId]) {
+                        // Visual feedback for click
+                        btn.classList.add('bg-canvas-soft-2', 'scale-[0.98]');
+                        
                         saveState();
                         textarea.value = tools[toolId](textarea.value);
                         updateStats();
@@ -527,9 +550,22 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
                         saveToLocalHistory(textarea.value);
 
                         // Close the dropdown after selection
-                        document.querySelectorAll('.dropdown-container').forEach(d => {
-                            d.classList.remove('is-active');
-                        });
+                        const container = btn.closest('.dropdown-container');
+                        if (container) {
+                            container.classList.remove('is-active');
+                            container.classList.add('is-closed-on-click');
+                            
+                            // Remove the "closed" state only when mouse leaves the area
+                            // or after a fallback timeout
+                            const resetDropdown = () => {
+                                container.classList.remove('is-closed-on-click');
+                                btn.classList.remove('bg-canvas-soft-2', 'scale-[0.98]');
+                                container.removeEventListener('mouseleave', resetDropdown);
+                            };
+                            
+                            container.addEventListener('mouseleave', resetDropdown);
+                            setTimeout(resetDropdown, 1500); // Fallback
+                        }
                     }
                 });
             });
@@ -572,10 +608,13 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
         // --- Multi-Format Download Logic ---
         const downloadOptions = root.querySelectorAll('[data-download]');
         downloadOptions.forEach(opt => {
-            opt.addEventListener('click', () => {
+            opt.addEventListener('click', async () => {
                 const format = opt.getAttribute('data-download');
                 const text = textarea.value;
                 if (!text) return;
+
+                // Visual feedback for click
+                opt.classList.add('bg-canvas-soft-2', 'scale-[0.98]');
 
                 const filename = `${id}-processed`;
 
@@ -591,52 +630,70 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
                     URL.revokeObjectURL(url);
                 } 
                 else if (format === 'docx') {
-                    // Simple HTML for Word
-                    const content = `
-                        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-                        <head><meta charset='utf-8'><title>Export</title></head>
-                        <body>${text.split('\n').map(line => `<p>${line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>`).join('')}</body>
-                        </html>
-                    `;
-                    const blob = new Blob(['\ufeff', content], { type: 'application/msword' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `${filename}.doc`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
+                    try {
+                        const doc = new Document({
+                            sections: [{
+                                properties: {},
+                                children: text.split('\n').map(line => new Paragraph({
+                                    children: [new TextRun(line)],
+                                })),
+                            }],
+                        });
+
+                        const blob = await Packer.toBlob(doc);
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `${filename}.docx`;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    } catch (err) {
+                        console.error('Word export failed:', err);
+                    }
                 }
                 else if (format === 'pdf') {
-                    // Native Print to PDF approach (Privacy-first, no external libs)
-                    const printWindow = window.open('', '_blank');
-                    if (printWindow) {
-                        printWindow.document.write(`
-                            <html>
-                            <head>
-                                <title>${filename}</title>
-                                <style>
-                                    body { font-family: sans-serif; padding: 40px; line-height: 1.5; white-space: pre-wrap; font-size: 12pt; color: #171717; }
-                                    @page { margin: 2cm; }
-                                </style>
-                            </head>
-                            <body>${text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</body>
-                            </html>
-                        `);
-                        printWindow.document.close();
-                        printWindow.focus();
-                        setTimeout(() => {
-                            printWindow.print();
-                            printWindow.close();
-                        }, 250);
+                    try {
+                        const doc = new jsPDF();
+                        const margin = 10;
+                        const pageHeight = doc.internal.pageSize.height;
+                        const pageWidth = doc.internal.pageSize.width;
+                        const maxLineWidth = pageWidth - margin * 2;
+                        
+                        const lines = doc.splitTextToSize(text, maxLineWidth);
+                        let cursorY = margin + 5;
+
+                        lines.forEach((line) => {
+                            if (cursorY + 7 > pageHeight - margin) {
+                                doc.addPage();
+                                cursorY = margin + 5;
+                            }
+                            doc.text(line, margin, cursorY);
+                            cursorY += 7;
+                        });
+
+                        doc.save(`${filename}.pdf`);
+                    } catch (err) {
+                        console.error('PDF export failed:', err);
                     }
                 }
 
                 // Close the dropdown after selection
-                document.querySelectorAll('.dropdown-container').forEach(d => {
-                    d.classList.remove('is-active');
-                });
+                const container = opt.closest('.dropdown-container');
+                if (container) {
+                    container.classList.remove('is-active');
+                    container.classList.add('is-closed-on-click');
+
+                    const resetDropdown = () => {
+                        container.classList.remove('is-closed-on-click');
+                        opt.classList.remove('bg-canvas-soft-2', 'scale-[0.98]');
+                        container.removeEventListener('mouseleave', resetDropdown);
+                    };
+                    
+                    container.addEventListener('mouseleave', resetDropdown);
+                    setTimeout(resetDropdown, 1500); // Fallback
+                }
             });
         });
         // --- End Download Logic ---

@@ -19,59 +19,60 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
 		<!-- Main Text Area -->
 		<div class="lg:col-span-3 space-y-4">
             <div class="flex items-center justify-between mb-2">
-                <span class="text-caption-mono text-mute uppercase tracking-wider">Input Area</span>
-                <div class="flex items-center gap-4">
+                <span class="text-caption-mono text-mute uppercase tracking-wider hidden sm:inline-block">Input Area</span>
+                <div class="flex items-center justify-end gap-2 sm:gap-4 w-full sm:w-auto">
                     <!-- Quick Switch Dropdown -->
                     <div class="relative dropdown-container">
                         <button
                             id={`switch-trigger-${id}`}
-                            class="dropdown-trigger flex items-center gap-1.5 text-body-sm font-medium text-mute hover:text-ink transition-colors group"
+                            class="dropdown-trigger flex items-center gap-1 sm:gap-1.5 text-body-sm font-medium text-mute hover:text-ink transition-colors group cursor-pointer"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 7-3-3-3 3"/><path d="M18 4v10"/><path d="m3 17 3 3 3-3"/><path d="M6 20V6"/></svg>
-                            Switch Tool
+                            <span class="hidden xs:inline">Switch Tool</span>
+                            <span class="xs:hidden">Switch</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
                         </button>
                         
-                        <div id={`switch-menu-${id}`} class="dropdown-menu absolute right-0 top-full pt-2 hidden z-[100] min-w-[280px] sm:min-w-[320px]">
-                            <div class="bg-canvas border border-hairline rounded-lg shadow-level-4 p-4 max-h-[70vh] overflow-y-auto">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+                        <div id={`switch-menu-${id}`} class="dropdown-menu absolute right-[-40px] xs:right-0 top-full pt-2 hidden z-[100] min-w-[260px] xs:min-w-[280px] sm:min-w-[320px]">
+                            <div class="bg-canvas border border-hairline rounded-lg shadow-level-4 p-3 xs:p-4 max-h-[70vh] overflow-y-auto">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-6">
                                     <div>
                                         <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">Cleaning</h4>
                                         <div class="grid gap-1">
-                                            <button data-tool="plain-text" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Plain Text Converter</button>
-                                            <button data-tool="remove-extra-spaces" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Extra Spaces</button>
-                                            <button data-tool="remove-all-spaces" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">All Spaces</button>
-                                            <button data-tool="remove-blank-lines" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Blank Lines</button>
-                                            <button data-tool="strip-html-tags" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">HTML Tags</button>
-                                            <button data-tool="strip-emojis" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Emojis</button>
+                                            <button data-tool="plain-text" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Plain Text Converter</button>
+                                            <button data-tool="remove-extra-spaces" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Extra Spaces</button>
+                                            <button data-tool="remove-all-spaces" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">All Spaces</button>
+                                            <button data-tool="remove-blank-lines" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Blank Lines</button>
+                                            <button data-tool="strip-html-tags" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">HTML Tags</button>
+                                            <button data-tool="strip-emojis" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Strip Emojis</button>
                                         </div>
                                     </div>
                                     <div>
                                         <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">Duplicate</h4>
                                         <div class="grid gap-1">
-                                            <button data-tool="remove-duplicate-lines" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Lines</button>
-                                            <button data-tool="remove-duplicate-paragraphs" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Paragraphs</button>
-                                            <button data-tool="remove-duplicate-words" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Words</button>
-                                            <button data-tool="remove-duplicate-sentences" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Sentences</button>
+                                            <button data-tool="remove-duplicate-lines" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Lines</button>
+                                            <button data-tool="remove-duplicate-paragraphs" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Paragraphs</button>
+                                            <button data-tool="remove-duplicate-words" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Words</button>
+                                            <button data-tool="remove-duplicate-sentences" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Sentences</button>
                                         </div>
                                     </div>
                                     <div>
                                         <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">Lists</h4>
                                         <div class="grid gap-1">
-                                            <button data-tool="sort-az" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Sort A-Z</button>
-                                            <button data-tool="sort-za" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Sort Z-A</button>
-                                            <button data-tool="sort-length" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Sort by Length</button>
-                                            <button data-tool="line-numberer" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Line Numberer</button>
+                                            <button data-tool="sort-az" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Sort A-Z</button>
+                                            <button data-tool="sort-za" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Sort Z-A</button>
+                                            <button data-tool="sort-length" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Sort by Length</button>
+                                            <button data-tool="line-numberer" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Line Numberer</button>
                                         </div>
                                     </div>
                                     <div>
                                         <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">Advanced</h4>
                                         <div class="grid gap-1">
-                                            <button data-tool="case-uppercase" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">UPPERCASE</button>
-                                            <button data-tool="case-lowercase" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">lowercase</button>
-                                            <button data-tool="markdown-to-plain" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Markdown Strip</button>
-                                            <button data-tool="fix-pdf-breaks" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">PDF Breaks</button>
-                                            <button data-tool="decode-html" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Decode HTML</button>
+                                            <button data-tool="case-uppercase" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">UPPERCASE</button>
+                                            <button data-tool="case-lowercase" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">lowercase</button>
+                                            <button data-tool="markdown-to-plain" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Markdown Strip</button>
+                                            <button data-tool="fix-pdf-breaks" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">PDF Breaks</button>
+                                            <button data-tool="decode-html" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Decode HTML</button>
                                         </div>
                                     </div>
                                 </div>
@@ -81,10 +82,11 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
 
                     <button
                         id={`download-${id}`}
-                        class="flex items-center gap-1.5 text-body-sm font-medium text-ink hover:text-mute transition-colors group"
+                        class="flex items-center gap-1 sm:gap-1.5 text-body-sm font-medium text-ink hover:text-mute transition-colors group cursor-pointer"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-y-0.5 transition-transform"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                        Download as .txt
+                        <span class="hidden xs:inline">Download as .txt</span>
+                        <span class="xs:hidden">Download</span>
                     </button>
                 </div>
             </div>

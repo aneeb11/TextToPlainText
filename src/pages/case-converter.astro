@@ -65,32 +65,38 @@ const buttons = [
     };
 
     document.getElementById('uppercase').addEventListener('click', () => {
+        textarea.dispatchEvent(new Event('workspace:save'));
         textarea.value = textarea.value.toUpperCase();
-        textarea.dispatchEvent(new Event('input'));
+        textarea.dispatchEvent(new Event('workspace:complete'));
     });
 
     document.getElementById('lowercase').addEventListener('click', () => {
+        textarea.dispatchEvent(new Event('workspace:save'));
         textarea.value = textarea.value.toLowerCase();
-        textarea.dispatchEvent(new Event('input'));
+        textarea.dispatchEvent(new Event('workspace:complete'));
     });
 
     document.getElementById('title-case').addEventListener('click', () => {
+        textarea.dispatchEvent(new Event('workspace:save'));
         textarea.value = toTitleCase(textarea.value);
-        textarea.dispatchEvent(new Event('input'));
+        textarea.dispatchEvent(new Event('workspace:complete'));
     });
 
     document.getElementById('sentence-case').addEventListener('click', () => {
+        textarea.dispatchEvent(new Event('workspace:save'));
         textarea.value = toSentenceCase(textarea.value);
-        textarea.dispatchEvent(new Event('input'));
+        textarea.dispatchEvent(new Event('workspace:complete'));
     });
 
     document.getElementById('snake-case').addEventListener('click', () => {
+        textarea.dispatchEvent(new Event('workspace:save'));
         textarea.value = toSnakeCase(textarea.value);
-        textarea.dispatchEvent(new Event('input'));
+        textarea.dispatchEvent(new Event('workspace:complete'));
     });
 
     document.getElementById('camel-case').addEventListener('click', () => {
+        textarea.dispatchEvent(new Event('workspace:save'));
         textarea.value = toCamelCase(textarea.value);
-        textarea.dispatchEvent(new Event('input'));
+        textarea.dispatchEvent(new Event('workspace:complete'));
     });
 </script>

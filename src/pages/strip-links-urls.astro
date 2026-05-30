@@ -29,6 +29,7 @@ const description = "Cleanly remove all web addresses and URLs from your text co
 	const textarea = document.getElementById('url-stripper');
 
 	btn.addEventListener('click', () => {
+		textarea.dispatchEvent(new Event('workspace:save'));
 		const text = textarea.value;
         // Simple regex to match most URLs
 		const urlPattern = /(https?:\/\/[^\s]+|www\.[^\s]+)/gi;
@@ -36,5 +37,6 @@ const description = "Cleanly remove all web addresses and URLs from your text co
             
 		textarea.value = cleaned;
         textarea.dispatchEvent(new Event('input'));
+        textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>

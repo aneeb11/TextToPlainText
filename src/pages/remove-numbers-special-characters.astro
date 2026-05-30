@@ -29,7 +29,9 @@ const description = "Remove all numeric digits and special symbols from your tex
 	const stripBtn = document.getElementById('strip-btn');
 
 	stripBtn.addEventListener('click', () => {
+		textarea.dispatchEvent(new Event('workspace:save'));
 		textarea.value = textarea.value.replace(/[^a-zA-Z\s]/g, '');
 		textarea.dispatchEvent(new Event('input'));
+		textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>

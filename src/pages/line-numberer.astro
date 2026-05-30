@@ -2,22 +2,22 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Remove Duplicate Lines Online — Clean List Arrays";
-const description = "Instantly deduplicate lists and remove repeating lines from your text. Perfect for cleaning data and arrays.";
+const title = "Line Numberer — Add Numbers to Every Line";
+const description = "Automatically add line numbers to your text or code blocks. Perfect for making referenced lists.";
 ---
 
 <BaseLayout title={title} description={description}>
 	<Workspace 
-		title="Remove Duplicate Lines" 
-		description="Instantly deduplicate lists and remove repeating lines from your text. Perfect for cleaning data and arrays." 
-		id="duplicate-lines"
+		title="Line Numberer" 
+		description="Automatically prefix every line in your text with a sequential number (1., 2., 3.)." 
+		id="line-numberer"
 	>
 		<div slot="controls">
 			<button
-				id="remove-duplicates"
+				id="add-numbers"
 				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
 			>
-				Remove Duplicate Lines
+				Add Line Numbers
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
@@ -25,16 +25,15 @@ const description = "Instantly deduplicate lists and remove repeating lines from
 </BaseLayout>
 
 <script is:inline>
-	const btn = document.getElementById('remove-duplicates');
-	const textarea = document.getElementById('duplicate-lines');
+	const btn = document.getElementById('add-numbers');
+	const textarea = document.getElementById('line-numberer');
 
 	btn.addEventListener('click', () => {
-		textarea.dispatchEvent(new Event('workspace:save'));
-		const text = textarea.value;
-		const lines = text.split('\n');
-        const uniqueLines = [...new Set(lines)];
+        textarea.dispatchEvent(new Event('workspace:save'));
+		const lines = textarea.value.split('\n');
+		const numbered = lines.map((line, index) => `${index + 1}. ${line}`).join('\n');
             
-		textarea.value = uniqueLines.join('\n');
+		textarea.value = numbered;
         textarea.dispatchEvent(new Event('input'));
         textarea.dispatchEvent(new Event('workspace:complete'));
 	});

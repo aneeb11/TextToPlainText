@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Markdown to Plain Text Converter — Strip Markdown Syntax";
+const description = "Instantly remove Markdown syntax like headers, links, bold, and code blocks to get clean, pure text.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Markdown to Plain Text" 
+		description="Cleanly strip all Markdown formatting from your technical documents or GitHub readmes." 
+		id="markdown-to-plain"
+	>
+		<div slot="controls">
+			<button
+				id="strip-markdown-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Strip Markdown
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const btn = document.getElementById('strip-markdown-btn');
+	const textarea = document.getElementById('markdown-to-plain');
+
+    const stripMarkdown = (text) => {
+        return text
+            // Strip HTML tags (often found in markdown)
+            .replace(/<[^>]*>/g, '')
+            // Strip Markdown Links [text](url) -> text
+            .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+            // Strip Markdown Images ![alt](url) -> alt
+            .replace(/!\[([^\]]*)\]\([^\)]+\)/g, '$1')
+            // Strip Markdown Bold/Italic
+            .replace(/(\*\*|__|\*|_)/g, '')
+            // Strip Markdown Headers
+            .replace(/^#+\s+/gm, '')
+            // Strip Markdown Blockquotes
+            .replace(/^\s*>\s+/gm, '')
+            // Strip Markdown Lists
+            .replace(/^\s*([\*\+-]|\d+\.)\s+/gm, '')
+            // Strip Markdown Code Blocks
+            .replace(/`{3,}.*?\n([\s\S]*?)\n`{3,}/g, '$1')
+            // Strip Markdown Inline Code
+            .replace(/`([^`]+)`/g, '$1')
+            // Strip Markdown Horizontal Rules
+            .replace(/^\s*([-*_])(\s*\1){2,}\s*$/gm, '')
+            // Normalize multiple newlines
+            .replace(/\n{3,}/g, '\n\n')
+            .trim();
+    };
+
+	btn.addEventListener('click', () => {
+		textarea.dispatchEvent(new Event('workspace:save'));
+		const text = textarea.value;
+		const cleaned = stripMarkdown(text);
+            
+		textarea.value = cleaned;
+        textarea.dispatchEvent(new Event('workspace:complete'));
+	});
+</script>

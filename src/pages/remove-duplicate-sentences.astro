@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Remove Duplicate Sentences Online — Clean Up Repeating Text";
+const description = "Instantly remove repeating sentences from your content. Perfect for cleaning up AI-generated text or redundant drafts.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Remove Duplicate Sentences" 
+		description="Purge identical sentences and redundant phrasing from your text instantly." 
+		id="duplicate-sentences"
+	>
+		<div slot="controls">
+			<button
+				id="remove-duplicates-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Remove Duplicates
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const btn = document.getElementById('remove-duplicates-btn');
+	const textarea = document.getElementById('duplicate-sentences');
+
+	btn.addEventListener('click', () => {
+		textarea.dispatchEvent(new Event('workspace:save'));
+		const text = textarea.value;
+		// Split by sentence terminators followed by space or end of string
+		const sentences = text.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+(?:\s|$)/g) || [];
+        const uniqueSentences = [];
+        const seen = new Set();
+        
+        for (const sentence of sentences) {
+            const trimmed = sentence.trim();
+            const lower = trimmed.toLowerCase();
+            if (trimmed && !seen.has(lower)) {
+                seen.add(lower);
+                uniqueSentences.push(sentence.trim());
+            }
+        }
+            
+		textarea.value = uniqueSentences.join(' ');
+        textarea.dispatchEvent(new Event('workspace:complete'));
+	});
+</script>

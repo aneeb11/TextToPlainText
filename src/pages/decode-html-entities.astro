@@ -35,7 +35,8 @@ const description = "Instantly decode HTML entities like &amp;, &lt;, and &gt; b
 	};
 
 	decodeBtn.addEventListener('click', () => {
+		textarea.dispatchEvent(new Event('workspace:save'));
 		textarea.value = decodeHTMLEntities(textarea.value);
-		textarea.dispatchEvent(new Event('input'));
+		textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>

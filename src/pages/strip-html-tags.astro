@@ -29,10 +29,12 @@ const description = "Cleanly remove all HTML tags from your source code or web c
 	const textarea = document.getElementById('html-tags');
 
 	btn.addEventListener('click', () => {
+		textarea.dispatchEvent(new Event('workspace:save'));
 		const text = textarea.value;
 		const cleaned = text.replace(/<[^>]*>/g, '');
             
 		textarea.value = cleaned;
         textarea.dispatchEvent(new Event('input'));
+        textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>

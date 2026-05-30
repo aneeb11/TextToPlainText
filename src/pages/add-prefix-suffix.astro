@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Add Prefix or Suffix to Lines — Bulk Text Editor";
+const description = "Automatically add a character, bullet point, or text to the beginning or end of every line in your list.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Add Prefix & Suffix" 
+		description="Bulk edit every line in your text by adding custom characters to the start or end." 
+		id="prefix-suffix"
+	>
+		<div slot="controls" class="space-y-4">
+            <div class="space-y-2">
+                <label class="text-caption-mono text-mute uppercase tracking-widest px-1">Prefix</label>
+                <input 
+                    id="prefix-input"
+                    type="text" 
+                    placeholder="e.g. - or >"
+                    class="w-full h-10 px-3 bg-canvas border border-hairline rounded-md text-body-sm focus:ring-1 focus:ring-ink outline-none"
+                />
+            </div>
+            <div class="space-y-2">
+                <label class="text-caption-mono text-mute uppercase tracking-widest px-1">Suffix</label>
+                <input 
+                    id="suffix-input"
+                    type="text" 
+                    placeholder="e.g. ,"
+                    class="w-full h-10 px-3 bg-canvas border border-hairline rounded-md text-body-sm focus:ring-1 focus:ring-ink outline-none"
+                />
+            </div>
+			<button
+				id="apply-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Apply to All Lines
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const btn = document.getElementById('apply-btn');
+	const textarea = document.getElementById('prefix-suffix');
+    const prefixInput = document.getElementById('prefix-input');
+    const suffixInput = document.getElementById('suffix-input');
+
+	btn.addEventListener('click', () => {
+        textarea.dispatchEvent(new Event('workspace:save'));
+		const text = textarea.value;
+        const prefix = prefixInput.value;
+        const suffix = suffixInput.value;
+
+		const cleaned = text
+            .split('\n')
+            .map(line => `${prefix}${line}${suffix}`)
+            .join('\n');
+            
+		textarea.value = cleaned;
+        textarea.dispatchEvent(new Event('input'));
+        textarea.dispatchEvent(new Event('workspace:complete'));
+	});
+</script>

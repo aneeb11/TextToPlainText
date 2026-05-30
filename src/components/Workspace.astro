@@ -9,7 +9,7 @@ interface Props {
 const { title, description, placeholder = "Paste your text here...", id } = Astro.props;
 ---
 
-<div class="max-w-[1400px] mx-auto px-4 md:px-8 py-12">
+<div class="max-w-[1400px] mx-auto px-4 md:px-8 py-12 workspace-root" data-id={id}>
 	<div class="mb-8">
 		<h1 class="text-display-lg tracking-tight mb-2">{title}.</h1>
 		<p class="text-body-lg text-body">{description}</p>
@@ -18,7 +18,89 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
 	<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
 		<!-- Main Text Area -->
 		<div class="lg:col-span-3 space-y-4">
-			<div class="relative bg-canvas border border-hairline rounded-lg shadow-level-2 focus-within:ring-1 focus-within:ring-ink transition-all">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-caption-mono text-mute uppercase tracking-wider">Input Area</span>
+                <div class="flex items-center gap-4">
+                    <!-- Quick Switch Dropdown -->
+                    <div class="relative group/switch">
+                        <button
+                            class="flex items-center gap-1.5 text-body-sm font-medium text-mute hover:text-ink transition-colors group"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 7-3-3-3 3"/><path d="M18 4v10"/><path d="m3 17 3 3 3-3"/><path d="M6 20V6"/></svg>
+                            Switch Tool
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 group-hover:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                        
+                        <div class="absolute right-0 top-full pt-2 opacity-0 translate-y-2 pointer-events-none group-hover/switch:opacity-100 group-hover/switch:translate-y-0 group-hover/switch:pointer-events-auto transition-all duration-200 z-[100]">
+                            <div class="bg-canvas border border-hairline rounded-lg shadow-level-4 p-4 min-w-[240px] max-h-[400px] overflow-y-auto">
+                                <div class="space-y-4">
+                                    <div>
+                                        <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">Cleaning</h4>
+                                        <div class="grid gap-1">
+                                            <button data-tool="plain-text" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Plain Text Converter</button>
+                                            <button data-tool="remove-extra-spaces" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Extra Spaces</button>
+                                            <button data-tool="remove-all-spaces" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove All Spaces</button>
+                                            <button data-tool="remove-blank-lines" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Blank Lines</button>
+                                            <button data-tool="strip-html-tags" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip HTML Tags</button>
+                                            <button data-tool="strip-emojis" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Emojis</button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">Duplicate</h4>
+                                        <div class="grid gap-1">
+                                            <button data-tool="remove-duplicate-lines" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Duplicate Lines</button>
+                                            <button data-tool="remove-duplicate-paragraphs" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Duplicate Paragraphs</button>
+                                            <button data-tool="remove-duplicate-words" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Duplicate Words</button>
+                                            <button data-tool="remove-duplicate-sentences" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Duplicate Sentences</button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">Lists</h4>
+                                        <div class="grid gap-1">
+                                            <button data-tool="sort-az" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Sort A-Z</button>
+                                            <button data-tool="sort-za" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Sort Z-A</button>
+                                            <button data-tool="sort-length" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Sort by Length</button>
+                                            <button data-tool="line-numberer" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Line Numberer</button>
+                                            <a href="/add-prefix-suffix" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Add Prefix / Suffix...</a>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">Advanced</h4>
+                                        <div class="grid gap-1">
+                                            <button data-tool="case-uppercase" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">UPPERCASE</button>
+                                            <button data-tool="case-lowercase" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">lowercase</button>
+                                            <button data-tool="markdown-to-plain" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Markdown to Plain Text</button>
+                                            <button data-tool="fix-pdf-breaks" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Fix PDF Line Breaks</button>
+                                            <button data-tool="decode-html" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Decode HTML Entities</button>
+                                            <a href="/find-and-replace" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Find and Replace...</a>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">Filter</h4>
+                                        <div class="grid gap-1">
+                                            <button data-tool="strip-links" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Links & URLs</button>
+                                            <button data-tool="strip-emails" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Emails</button>
+                                            <button data-tool="strip-symbols" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Symbols & Numbers</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        id={`download-${id}`}
+                        class="flex items-center gap-1.5 text-body-sm font-medium text-ink hover:text-mute transition-colors group"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-y-0.5 transition-transform"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        Download as .txt
+                    </button>
+                </div>
+            </div>
+			<div 
+                id={`container-${id}`}
+                class="relative bg-canvas border border-hairline rounded-lg shadow-level-2 focus-within:ring-1 focus-within:ring-ink transition-all duration-200 group"
+            >
 				<textarea
 					id={id}
 					class="w-full h-[500px] p-6 bg-transparent border-none focus:ring-0 text-body-md font-mono resize-none placeholder:text-mute"
@@ -32,12 +114,35 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
 						Copy to Clipboard
 					</button>
                     <button
+						id={`undo-${id}`}
+						class="h-8 px-3 flex items-center text-body-sm-strong bg-canvas text-ink border border-hairline rounded-pill hover:bg-canvas-soft transition-colors shadow-sm opacity-50 pointer-events-none"
+						title="Undo last change"
+					>
+						Undo
+					</button>
+                    <button
 						id={`clear-${id}`}
 						class="h-8 px-3 flex items-center text-body-sm-strong bg-canvas text-ink border border-hairline rounded-pill hover:bg-canvas-soft transition-colors shadow-sm"
 					>
 						Clear
 					</button>
 				</div>
+
+                <!-- Success Flash Card (Small, Top-Right) -->
+                <div 
+                    id={`success-card-${id}`}
+                    class="absolute top-4 right-4 z-50 opacity-0 pointer-events-none transition-all duration-300 -translate-y-2"
+                >
+                    <div class="bg-canvas border border-hairline shadow-level-3 rounded-lg p-3 pr-4 flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center text-success shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <div class="whitespace-nowrap">
+                            <p class="text-body-sm-strong leading-none mb-0.5">Conversion Completed</p>
+                            <p class="text-[11px] text-mute leading-none">Text processed successfully</p>
+                        </div>
+                    </div>
+                </div>
 			</div>
 
 			<div class="flex flex-wrap items-center gap-6 text-caption-mono text-mute">
@@ -71,38 +176,403 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
                     Your text is processed entirely in your browser. No data is ever sent to a server.
                 </p>
             </div>
+
+            <!-- Local History / Recovery Section -->
+            <div id={`history-container-${id}`} class="hidden bg-canvas border border-hairline rounded-lg p-6 shadow-level-1">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-caption-mono text-mute uppercase">Recover History</h3>
+                    <button id={`clear-history-${id}`} class="text-[10px] text-mute hover:text-ink transition-colors uppercase tracking-widest font-bold">Clear All</button>
+                </div>
+                <div id={`history-list-${id}`} class="space-y-3">
+                    <!-- History items will be injected here -->
+                </div>
+                <p class="text-[10px] text-mute mt-4 italic">Auto-saves last 5 transformations locally.</p>
+            </div>
 		</div>
 	</div>
 </div>
 
-<script is:inline define:vars={{ id }}>
-    const textarea = document.getElementById(id);
-    const copyBtn = document.getElementById(`copy-${id}`);
-    const clearBtn = document.getElementById(`clear-${id}`);
-    const charCount = document.getElementById(`${id}-chars`);
-    const wordCount = document.getElementById(`${id}-words`);
-    const lineCount = document.getElementById(`${id}-lines`);
+<script>
+    function setupWorkspace(root: HTMLElement) {
+        const id = root.getAttribute('data-id');
+        if (!id) return;
 
-    function updateStats() {
-        const text = textarea.value;
-        charCount.textContent = text.length;
-        wordCount.textContent = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
-        lineCount.textContent = text === "" ? 0 : text.split(/\n/).length;
+        const textarea = document.getElementById(id) as HTMLTextAreaElement;
+        const container = document.getElementById(`container-${id}`);
+        const copyBtn = document.getElementById(`copy-${id}`);
+        const undoBtn = document.getElementById(`undo-${id}`) as HTMLButtonElement;
+        const clearBtn = document.getElementById(`clear-${id}`);
+        const downloadBtn = document.getElementById(`download-${id}`);
+        
+        let history: string[] = [];
+        const MAX_HISTORY = 50;
+
+        const charCount = document.getElementById(`${id}-chars`);
+        const wordCount = document.getElementById(`${id}-words`);
+        const lineCount = document.getElementById(`${id}-lines`);
+
+        // Find primary action button (marked with data-action="clean")
+        const actionBtn = root.querySelector('[data-action="clean"]') as HTMLButtonElement;
+
+        const updateStats = () => {
+            const text = textarea.value;
+            if (charCount) charCount.textContent = text.length.toLocaleString();
+            if (wordCount) {
+                const words = text.match(/\S+/g)?.length || 0;
+                wordCount.textContent = words.toLocaleString();
+            }
+            if (lineCount) {
+                const lines = text === "" ? 0 : text.split('\n').length;
+                lineCount.textContent = lines.toLocaleString();
+            }
+        };
+
+        const saveState = () => {
+            const currentText = textarea.value;
+            const lastSavedText = history[history.length - 1];
+
+            // Only save if the text has actually changed and is not identical to last state
+            if (currentText !== lastSavedText) {
+                history.push(currentText);
+                if (history.length > MAX_HISTORY) {
+                    history.shift();
+                }
+                
+                if (undoBtn) {
+                    undoBtn.classList.remove('opacity-50', 'pointer-events-none');
+                }
+            }
+        };
+
+        const undo = () => {
+            if (history.length > 0) {
+                const prevState = history.pop();
+                if (prevState !== undefined) {
+                    textarea.value = prevState;
+                    updateStats();
+                    
+                    if (history.length === 0 && undoBtn) {
+                        undoBtn.classList.add('opacity-50', 'pointer-events-none');
+                    }
+                    
+                    // Visual feedback for undo
+                    if (container) {
+                        container.classList.add('ring-2', 'ring-mute');
+                        setTimeout(() => container.classList.remove('ring-2', 'ring-mute'), 200);
+                    }
+                }
+            }
+        };
+
+        // --- Local Storage Recovery Logic ---
+        const historyContainer = document.getElementById(`history-container-${id}`);
+        const historyList = document.getElementById(`history-list-${id}`);
+        const clearHistoryBtn = document.getElementById(`clear-history-${id}`);
+
+        const getLocalHistory = () => {
+            const stored = localStorage.getItem(`text-history-${id}`);
+            return stored ? JSON.parse(stored) : [];
+        };
+
+        const saveToLocalHistory = (text: string) => {
+            if (!text || text.trim() === "") return;
+            
+            let localHistory = getLocalHistory();
+            // Don't save if it's same as the last one
+            if (localHistory.length > 0 && localHistory[0].text === text) return;
+
+            const newItem = {
+                text: text,
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                length: text.length
+            };
+
+            localHistory.unshift(newItem);
+            localHistory = localHistory.slice(0, 5); // Keep last 5
+            localStorage.setItem(`text-history-${id}`, JSON.stringify(localHistory));
+            renderHistory();
+        };
+
+        const renderHistory = () => {
+            const localHistory = getLocalHistory();
+            if (!historyList || !historyContainer) return;
+
+            if (localHistory.length === 0) {
+                historyContainer.classList.add('hidden');
+                return;
+            }
+
+            historyContainer.classList.remove('hidden');
+            historyList.innerHTML = localHistory.map((item: any, index: number) => `
+                <button 
+                    data-history-index="${index}"
+                    class="w-full text-left p-3 rounded-md bg-canvas-soft-2 border border-hairline hover:border-ink transition-all group/item"
+                >
+                    <div class="flex justify-between items-start mb-1">
+                        <span class="text-[10px] font-bold text-mute uppercase">${item.timestamp}</span>
+                        <span class="text-[10px] text-mute">${item.length} chars</span>
+                    </div>
+                    <p class="text-body-sm text-body line-clamp-1 group-hover/item:text-ink transition-colors">
+                        ${item.text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+                    </p>
+                </button>
+            `).join('');
+
+            // Add listeners to history items
+            historyList.querySelectorAll('[data-history-index]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const idx = parseInt(btn.getAttribute('data-history-index') || "0");
+                    const item = localHistory[idx];
+                    if (item) {
+                        saveState(); // Save current to undo stack
+                        textarea.value = item.text;
+                        updateStats();
+                        triggerFeedback();
+                    }
+                });
+            });
+        };
+
+        if (clearHistoryBtn) {
+            clearHistoryBtn.addEventListener('click', () => {
+                localStorage.removeItem(`text-history-${id}`);
+                renderHistory();
+            });
+        }
+        // --- End Local Storage Logic ---
+
+        const cleanText = (text: string): string => {
+            return text
+                // Strip HTML tags
+                .replace(/<[^>]*>/g, '')
+                // Strip Markdown Links [text](url) -> text
+                .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+                // Strip Markdown Images ![alt](url) -> alt
+                .replace(/!\[([^\]]*)\]\([^\)]+\)/g, '$1')
+                // Strip Markdown Bold/Italic
+                .replace(/(\*\*|__|\*|_)/g, '')
+                // Strip Markdown Headers
+                .replace(/^#+\s+/gm, '')
+                // Strip Markdown Blockquotes
+                .replace(/^\s*>\s+/gm, '')
+                // Strip Markdown Lists
+                .replace(/^\s*([\*\+-]|\d+\.)\s+/gm, '')
+                // Strip Markdown Code Blocks
+                .replace(/`{3,}.*?\n([\s\S]*?)\n`{3,}/g, '$1')
+                // Strip Markdown Inline Code
+                .replace(/`([^`]+)`/g, '$1')
+                // Strip Markdown Horizontal Rules
+                .replace(/^\s*([-*_])(\s*\1){2,}\s*$/gm, '')
+                // Normalize multiple newlines
+                .replace(/\n{3,}/g, '\n\n')
+                .trim();
+        };
+
+        const stripMarkdown = (text: string): string => {
+            return text
+                .replace(/<[^>]*>/g, '')
+                .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+                .replace(/!\[([^\]]*)\]\([^\)]+\)/g, '$1')
+                .replace(/(\*\*|__|\*|_)/g, '')
+                .replace(/^#+\s+/gm, '')
+                .replace(/^\s*>\s+/gm, '')
+                .replace(/^\s*([\*\+-]|\d+\.)\s+/gm, '')
+                .replace(/`{3,}.*?\n([\s\S]*?)\n`{3,}/g, '$1')
+                .replace(/`([^`]+)`/g, '$1')
+                .replace(/^\s*([-*_])(\s*\1){2,}\s*$/gm, '')
+                .replace(/\n{3,}/g, '\n\n')
+                .trim();
+        };
+
+        const tools: Record<string, (t: string) => string> = {
+            'plain-text': (t) => cleanText(t),
+            'remove-extra-spaces': (t) => t.split('\n').map(l => l.trim().replace(/\s+/g, ' ')).join('\n'),
+            'remove-all-spaces': (t) => t.replace(/\s+/g, ''),
+            'remove-blank-lines': (t) => t.split('\n').filter(l => l.trim() !== '').join('\n'),
+            'strip-html-tags': (t) => t.replace(/<[^>]*>/g, ''),
+            'strip-emojis': (t) => t.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, ''),
+            'remove-duplicate-lines': (t) => [...new Set(t.split('\n'))].join('\n'),
+            'remove-duplicate-paragraphs': (t) => [...new Set(t.split(/\n\s*\n/).map(p => p.trim()).filter(p => p !== ''))].join('\n\n'),
+            'remove-duplicate-words': (t) => {
+                const words = t.match(/\b[\w']+\b/g) || [];
+                const uniqueWords: string[] = [];
+                const seen = new Set();
+                for (const word of words) {
+                    const lower = word.toLowerCase();
+                    if (!seen.has(lower)) {
+                        seen.add(lower);
+                        uniqueWords.push(word);
+                    }
+                }
+                return uniqueWords.join(' ');
+            },
+            'remove-duplicate-sentences': (t) => {
+                const sentences = t.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+(?:\s|$)/g) || [];
+                const uniqueSentences: string[] = [];
+                const seen = new Set();
+                for (const sentence of sentences) {
+                    const trimmed = sentence.trim();
+                    const lower = trimmed.toLowerCase();
+                    if (trimmed && !seen.has(lower)) {
+                        seen.add(lower);
+                        uniqueSentences.push(sentence.trim());
+                    }
+                }
+                return uniqueSentences.join(' ');
+            },
+            'case-uppercase': (t) => t.toUpperCase(),
+            'case-lowercase': (t) => t.toLowerCase(),
+            'markdown-to-plain': (t) => stripMarkdown(t),
+            'fix-pdf-breaks': (t) => t.replace(/([^\n])\n([^\n])/g, '$1 $2'),
+            'decode-html': (t) => {
+                const d = document.createElement('div');
+                d.innerHTML = t;
+                return d.textContent || t;
+            },
+            'strip-links': (t) => t.replace(/https?:\/\/\S+/gi, ''),
+            'strip-emails': (t) => t.replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, ''),
+            'strip-symbols': (t) => t.replace(/[^a-zA-Z0-9\s]/g, ''),
+            'sort-az': (t) => t.split('\n').sort((a, b) => a.localeCompare(b)).join('\n'),
+            'sort-za': (t) => t.split('\n').sort((a, b) => b.localeCompare(a)).join('\n'),
+            'sort-length': (t) => t.split('\n').sort((a, b) => a.length - b.length).join('\n'),
+            'line-numberer': (t) => t.split('\n').map((l, i) => `${i + 1}. ${l}`).join('\n')
+        };
+
+        const triggerFeedback = () => {
+            // Feedback Loop A: Workspace Flash
+            if (container) {
+                container.classList.add('ring-2', 'ring-ink', 'bg-canvas-soft-2');
+                setTimeout(() => {
+                    container.classList.remove('ring-2', 'ring-ink', 'bg-canvas-soft-2');
+                }, 250);
+            }
+
+            // Feedback Loop B: Button State Morph
+            if (actionBtn) {
+                const originalContent = actionBtn.innerHTML;
+                actionBtn.disabled = true;
+                actionBtn.classList.add('opacity-50', 'pointer-events-none');
+                actionBtn.innerText = '✨ Text Cleaned';
+
+                setTimeout(() => {
+                    actionBtn.disabled = false;
+                    actionBtn.classList.remove('opacity-50', 'pointer-events-none');
+                    actionBtn.innerHTML = originalContent;
+                }, 1500);
+            }
+
+            // Feedback Loop C: Success Flash Card (Small, Top-Right)
+            const successCard = document.getElementById(`success-card-${id}`);
+            if (successCard) {
+                successCard.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
+                successCard.classList.add('opacity-100', 'translate-y-0');
+                
+                setTimeout(() => {
+                    successCard.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+                    successCard.classList.remove('opacity-100', 'translate-y-0');
+                }, 2000);
+            }
+        };
+
+        // Debounced input tracking for manual typing
+        let debounceTimer: any;
+        const handleInput = () => {
+            updateStats();
+            
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                saveState();
+            }, 1000); // Save state after 1 second of inactivity
+        };
+
+        if (textarea) {
+            textarea.addEventListener('input', handleInput);
+
+            // Listen for save signal before changes happen
+            textarea.addEventListener('workspace:save', () => {
+                saveState();
+            });
+
+            // Listen for completion signal from individual tool scripts
+            textarea.addEventListener('workspace:complete', () => {
+                updateStats();
+                triggerFeedback();
+                saveToLocalHistory(textarea.value);
+            });
+
+            // Listen for quick switch tool application
+            root.querySelectorAll('[data-tool]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const toolId = btn.getAttribute('data-tool');
+                    if (toolId && tools[toolId]) {
+                        saveState();
+                        textarea.value = tools[toolId](textarea.value);
+                        updateStats();
+                        triggerFeedback();
+                        saveToLocalHistory(textarea.value);
+                    }
+                });
+            });
+        }
+
+        if (actionBtn) {
+            actionBtn.addEventListener('click', () => {
+                saveState();
+                const result = cleanText(textarea.value);
+                textarea.value = result;
+                updateStats();
+                triggerFeedback();
+                saveToLocalHistory(textarea.value);
+            });
+        }
+
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(textarea.value);
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        if (undoBtn) {
+            undoBtn.addEventListener('click', undo);
+        }
+
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                saveState();
+                textarea.value = '';
+                updateStats();
+            });
+        }
+
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', () => {
+                const text = textarea.value;
+                if (!text) return;
+                
+                const blob = new Blob([text], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${id}-processed.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+        }
+        
+        // Initial telemetry
+        updateStats();
+        renderHistory();
     }
 
-    textarea.addEventListener('input', updateStats);
-
-    copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(textarea.value);
-        const originalText = copyBtn.textContent;
-        copyBtn.textContent = 'Copied!';
-        setTimeout(() => {
-            copyBtn.textContent = originalText;
-        }, 2000);
-    });
-
-    clearBtn.addEventListener('click', () => {
-        textarea.value = '';
-        updateStats();
+    // Initialize all workspaces
+    document.querySelectorAll('.workspace-root').forEach(root => {
+        setupWorkspace(root as HTMLElement);
     });
 </script>

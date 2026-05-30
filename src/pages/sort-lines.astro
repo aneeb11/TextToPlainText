@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Sort Lines Online — Alphabetical & Length Sorting";
+const description = "Instantly sort your lines of text alphabetically (A-Z, Z-A) or by character length.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Sort Lines" 
+		description="Reorder your list items instantly. Sort by alphabet or by line length." 
+		id="sort-lines"
+	>
+		<div slot="controls" class="space-y-2">
+			<button
+				id="sort-az"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Sort A-Z
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+            <button
+				id="sort-za"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-canvas text-ink border border-hairline rounded-md hover:bg-canvas-soft transition-colors group"
+			>
+				Sort Z-A
+			</button>
+            <button
+				id="sort-length"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-canvas text-ink border border-hairline rounded-md hover:bg-canvas-soft transition-colors group"
+			>
+				Sort by Length
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const textarea = document.getElementById('sort-lines');
+
+	document.getElementById('sort-az').addEventListener('click', () => {
+        textarea.dispatchEvent(new Event('workspace:save'));
+		textarea.value = textarea.value.split('\n').sort((a, b) => a.localeCompare(b)).join('\n');
+        textarea.dispatchEvent(new Event('workspace:complete'));
+	});
+
+    document.getElementById('sort-za').addEventListener('click', () => {
+        textarea.dispatchEvent(new Event('workspace:save'));
+		textarea.value = textarea.value.split('\n').sort((a, b) => b.localeCompare(a)).join('\n');
+        textarea.dispatchEvent(new Event('workspace:complete'));
+	});
+
+    document.getElementById('sort-length').addEventListener('click', () => {
+        textarea.dispatchEvent(new Event('workspace:save'));
+		textarea.value = textarea.value.split('\n').sort((a, b) => a.length - b.length).join('\n');
+        textarea.dispatchEvent(new Event('workspace:complete'));
+	});
+</script>

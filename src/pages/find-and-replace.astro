@@ -56,6 +56,7 @@ const description = "Instantly find and replace words, phrases, or characters in
     const caseSensitive = document.getElementById('case-sensitive');
 
 	executeBtn.addEventListener('click', () => {
+		textarea.dispatchEvent(new Event('workspace:save'));
 		const findText = findInput.value;
         const replaceText = replaceInput.value;
 		
@@ -70,7 +71,7 @@ const description = "Instantly find and replace words, phrases, or characters in
         
         textarea.value = text.replace(regex, replaceText);
         
-        // Trigger input event to update stats
-        textarea.dispatchEvent(new Event('input'));
+        // Trigger workspace:complete event to update stats and show success
+        textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>

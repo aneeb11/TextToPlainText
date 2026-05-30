@@ -29,6 +29,7 @@ const description = "Protect privacy by stripping all email addresses from your 
 	const textarea = document.getElementById('email-stripper');
 
 	btn.addEventListener('click', () => {
+		textarea.dispatchEvent(new Event('workspace:save'));
 		const text = textarea.value;
         // Basic email regex
 		const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
@@ -36,5 +37,6 @@ const description = "Protect privacy by stripping all email addresses from your 
             
 		textarea.value = cleaned;
         textarea.dispatchEvent(new Event('input'));
+        textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>

@@ -2,22 +2,22 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Remove Extra Spaces Online — Clean Text Spacing";
-const description = "Remove double spaces, trailing spaces, and redundant whitespace from your text instantly.";
+const title = "Strip Emojis From Text — Remove Symbols Online";
+const description = "Instantly remove all emojis, symbols, and special characters from your text to leave only clean alphanumeric content.";
 ---
 
 <BaseLayout title={title} description={description}>
 	<Workspace 
-		title="Remove Extra Spaces" 
-		description="Clean up your text by removing redundant whitespace and normalizing spacing between words." 
-		id="extra-spaces"
+		title="Strip Emojis & Symbols" 
+		description="Purge all emojis and non-alphanumeric symbols from your text string instantly." 
+		id="strip-emojis"
 	>
 		<div slot="controls">
 			<button
-				id="remove-spaces"
+				id="strip-emojis-btn"
 				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
 			>
-				Remove Extra Spaces
+				Strip Emojis
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
@@ -25,23 +25,17 @@ const description = "Remove double spaces, trailing spaces, and redundant whites
 </BaseLayout>
 
 <script is:inline>
-	const btn = document.getElementById('remove-spaces');
-	const textarea = document.getElementById('extra-spaces');
+	const btn = document.getElementById('strip-emojis-btn');
+	const textarea = document.getElementById('strip-emojis');
 
 	btn.addEventListener('click', () => {
 		textarea.dispatchEvent(new Event('workspace:save'));
 		const text = textarea.value;
-		// 1. Split into lines
-        // 2. Trim each line
-        // 3. Replace multiple spaces with a single space within each line
-        // 4. Join back
-		const cleaned = text
-            .split('\n')
-            .map(line => line.trim().replace(/\s+/g, ' '))
-            .join('\n');
+		// Regex to remove emojis and non-standard symbols, keeping alphanumeric and basic punctuation
+        // This is a common pattern for stripping emojis
+		const cleaned = text.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
             
 		textarea.value = cleaned;
-        textarea.dispatchEvent(new Event('input'));
         textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>

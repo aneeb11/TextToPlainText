@@ -29,6 +29,7 @@ const description = "Repair broken line breaks and formatting artifacts from PDF
 	const textarea = document.getElementById('pdf-fixer');
 
 	btn.addEventListener('click', () => {
+		textarea.dispatchEvent(new Event('workspace:save'));
 		const text = textarea.value;
 		// Replace single newlines with spaces, but keep double newlines (paragraphs)
         // We normalize line endings first
@@ -37,6 +38,6 @@ const description = "Repair broken line breaks and formatting artifacts from PDF
         const cleaned = normalized.replace(/(?<!\n)\n(?!\n)/g, ' ');
             
 		textarea.value = cleaned;
-        textarea.dispatchEvent(new Event('input'));
+        textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>

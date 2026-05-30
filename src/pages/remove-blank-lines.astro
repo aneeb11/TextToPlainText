@@ -29,6 +29,7 @@ const description = "Instantly remove empty lines and white space gaps from your
 	const textarea = document.getElementById('blank-lines');
 
 	btn.addEventListener('click', () => {
+		textarea.dispatchEvent(new Event('workspace:save'));
 		const text = textarea.value;
 		const cleaned = text
             .split('\n')
@@ -36,6 +37,6 @@ const description = "Instantly remove empty lines and white space gaps from your
             .join('\n');
             
 		textarea.value = cleaned;
-        textarea.dispatchEvent(new Event('input'));
+        textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>

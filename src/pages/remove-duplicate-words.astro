@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Remove Duplicate Words Online — Clean Up Repetition";
+const description = "Instantly remove repeating words from your text. Clean up stuttering, redundant vocabulary, and word lists.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Remove Duplicate Words" 
+		description="Purge identical words and redundant vocabulary from your text instantly." 
+		id="duplicate-words"
+	>
+		<div slot="controls">
+			<button
+				id="remove-duplicates-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Remove Duplicates
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const btn = document.getElementById('remove-duplicates-btn');
+	const textarea = document.getElementById('duplicate-words');
+
+	btn.addEventListener('click', () => {
+		textarea.dispatchEvent(new Event('workspace:save'));
+		const text = textarea.value;
+		// Match words (including those with apostrophes)
+		const words = text.match(/\b[\w']+\b/g) || [];
+        const uniqueWords = [];
+        const seen = new Set();
+        
+        // We preserve the order of the first occurrence
+        for (const word of words) {
+            const lower = word.toLowerCase();
+            if (!seen.has(lower)) {
+                seen.add(lower);
+                uniqueWords.push(word);
+            }
+        }
+            
+		textarea.value = uniqueWords.join(' ');
+        textarea.dispatchEvent(new Event('workspace:complete'));
+	});
+</script>

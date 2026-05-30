@@ -2,22 +2,22 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Remove Duplicate Lines Online — Clean List Arrays";
-const description = "Instantly deduplicate lists and remove repeating lines from your text. Perfect for cleaning data and arrays.";
+const title = "Remove Duplicate Paragraphs Online — Clean Text Blocks";
+const description = "Instantly remove repeating blocks of text and paragraphs from your content. Perfect for cleaning up large documents.";
 ---
 
 <BaseLayout title={title} description={description}>
 	<Workspace 
-		title="Remove Duplicate Lines" 
-		description="Instantly deduplicate lists and remove repeating lines from your text. Perfect for cleaning data and arrays." 
-		id="duplicate-lines"
+		title="Remove Duplicate Paragraphs" 
+		description="Purge identical blocks of text and redundant paragraphs instantly." 
+		id="duplicate-paragraphs"
 	>
 		<div slot="controls">
 			<button
-				id="remove-duplicates"
+				id="remove-duplicates-btn"
 				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
 			>
-				Remove Duplicate Lines
+				Remove Duplicates
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
@@ -25,17 +25,17 @@ const description = "Instantly deduplicate lists and remove repeating lines from
 </BaseLayout>
 
 <script is:inline>
-	const btn = document.getElementById('remove-duplicates');
-	const textarea = document.getElementById('duplicate-lines');
+	const btn = document.getElementById('remove-duplicates-btn');
+	const textarea = document.getElementById('duplicate-paragraphs');
 
 	btn.addEventListener('click', () => {
 		textarea.dispatchEvent(new Event('workspace:save'));
 		const text = textarea.value;
-		const lines = text.split('\n');
-        const uniqueLines = [...new Set(lines)];
+		// Split by double newlines or more
+		const paragraphs = text.split(/\n\s*\n/);
+        const uniqueParagraphs = [...new Set(paragraphs.map(p => p.trim()))].filter(p => p !== '');
             
-		textarea.value = uniqueLines.join('\n');
-        textarea.dispatchEvent(new Event('input'));
+		textarea.value = uniqueParagraphs.join('\n\n');
         textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>

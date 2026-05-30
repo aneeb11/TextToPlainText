@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "HTML Entity Decoder Online — Convert &amp; to &";
+const description = "Instantly decode HTML entities like &amp;, &lt;, and &gt; back into their original characters.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="HTML Entity Decoder" 
+		description="Safely convert encoded HTML entities back into their readable character equivalents." 
+		id="html-decoder"
+	>
+		<div slot="controls">
+			<button
+				id="decode-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Decode Entities
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Convert</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const textarea = document.getElementById('html-decoder');
+	const decodeBtn = document.getElementById('decode-btn');
+
+	const decodeHTMLEntities = (text) => {
+		const textArea = document.createElement('textarea');
+		textArea.innerHTML = text;
+		return textArea.value;
+	};
+
+	decodeBtn.addEventListener('click', () => {
+		textarea.value = decodeHTMLEntities(textarea.value);
+		textarea.dispatchEvent(new Event('input'));
+	});
+</script>

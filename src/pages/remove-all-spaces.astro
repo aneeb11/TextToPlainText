@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Remove All Spaces From Text — Condensed Text Tool";
+const description = "Strip all spaces, tabs, and whitespace characters from your text to create a single condensed block.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Remove All Spaces" 
+		description="Instantly eliminate every whitespace character from your text to create a compact, continuous string." 
+		id="remove-all-spaces"
+	>
+		<div slot="controls">
+			<button
+				id="remove-spaces-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Remove All Spaces
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Strip</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const textarea = document.getElementById('remove-all-spaces');
+	const removeBtn = document.getElementById('remove-spaces-btn');
+
+	removeBtn.addEventListener('click', () => {
+		textarea.value = textarea.value.replace(/\s+/g, '');
+		textarea.dispatchEvent(new Event('input'));
+	});
+</script>

@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Privacy Policy — Text to Plain Text";
+const description = "Our commitment to your privacy. Learn why Text to Plain Text is the safest way to process your data.";
+---
+
+<BaseLayout title={title} description={description}>
+	<div class="max-w-[700px] mx-auto py-20 px-6">
+		<header class="mb-12">
+			<h1 class="text-display-lg mb-4">Privacy Policy</h1>
+			<p class="text-body-lg text-body">
+				Your privacy is not just a feature; it's our entire architecture. 
+				Text to Plain Text was built from the ground up to ensure your data stays where it belongs: on your machine.
+			</p>
+		</header>
+
+		<div class="space-y-8">
+			<section>
+				<h2 class="text-display-sm mb-3">No Server-Side Processing</h2>
+				<p class="text-body-md text-body">
+					Unlike many online text tools, we do not send your text to a server for processing. 
+					All transformations—stripping formatting, removing lines, converting case—are performed locally in your browser using JavaScript and TypeScript.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="text-display-sm mb-3">No Tracking or Logs</h2>
+				<p class="text-body-md text-body">
+					We do not use tracking cookies, analytics scripts, or logging mechanisms. 
+					We have no way of knowing what you process or who you are. This tool is completely anonymous by design.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="text-display-sm mb-3">Open Source</h2>
+				<p class="text-body-md text-body">
+					Transparency is the best way to prove privacy. The entire source code for this suite is available on 
+					<a href="https://github.com/aneeb/text-to-plain-text" target="_blank" rel="noopener noreferrer" class="text-ink underline decoration-hairline-strong hover:decoration-ink transition-colors">GitHub</a> 
+					for you to audit and verify.
+				</p>
+			</section>
+
+			<section class="pt-8 border-t border-hairline">
+				<p class="text-caption text-mute italic">
+					Last Updated: January 2026
+				</p>
+			</section>
+		</div>
+	</div>
+</BaseLayout>

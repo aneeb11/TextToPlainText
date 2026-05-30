@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Fix PDF Line Breaks Online — Restore Text Flow";
+const description = "Repair broken line breaks and formatting artifacts from PDF copy-pastes. Restores text into unified blocks.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Fix PDF Line Breaks" 
+		description="Repair broken line breaks and formatting artifacts from PDF copy-pastes. Restores text into unified blocks." 
+		id="pdf-fixer"
+	>
+		<div slot="controls">
+			<button
+				id="fix-breaks"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Fix Line Breaks
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const btn = document.getElementById('fix-breaks');
+	const textarea = document.getElementById('pdf-fixer');
+
+	btn.addEventListener('click', () => {
+		const text = textarea.value;
+		// Replace single newlines with spaces, but keep double newlines (paragraphs)
+        // We normalize line endings first
+		const normalized = text.replace(/\r\n/g, '\n');
+        // Regex for single newline: not preceded by newline AND not followed by newline
+        const cleaned = normalized.replace(/(?<!\n)\n(?!\n)/g, ' ');
+            
+		textarea.value = cleaned;
+        textarea.dispatchEvent(new Event('input'));
+	});
+</script>

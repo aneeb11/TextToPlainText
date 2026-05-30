@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Remove All URLs from Text — Strip Links Online";
+const description = "Cleanly remove all web addresses and URLs from your text content instantly.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Remove All URLs" 
+		description="Cleanly remove all web addresses and URLs from your text content instantly." 
+		id="url-stripper"
+	>
+		<div slot="controls">
+			<button
+				id="strip-urls"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Remove All URLs
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const btn = document.getElementById('strip-urls');
+	const textarea = document.getElementById('url-stripper');
+
+	btn.addEventListener('click', () => {
+		const text = textarea.value;
+        // Simple regex to match most URLs
+		const urlPattern = /(https?:\/\/[^\s]+|www\.[^\s]+)/gi;
+		const cleaned = text.replace(urlPattern, '');
+            
+		textarea.value = cleaned;
+        textarea.dispatchEvent(new Event('input'));
+	});
+</script>

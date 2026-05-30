@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Remove Extra Spaces Online — Clean Text Spacing";
+const description = "Remove double spaces, trailing spaces, and redundant whitespace from your text instantly.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Remove Extra Spaces" 
+		description="Clean up your text by removing redundant whitespace and normalizing spacing between words." 
+		id="extra-spaces"
+	>
+		<div slot="controls">
+			<button
+				id="remove-spaces"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Remove Extra Spaces
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const btn = document.getElementById('remove-spaces');
+	const textarea = document.getElementById('extra-spaces');
+
+	btn.addEventListener('click', () => {
+		const text = textarea.value;
+		// 1. Split into lines
+        // 2. Trim each line
+        // 3. Replace multiple spaces with a single space within each line
+        // 4. Join back
+		const cleaned = text
+            .split('\n')
+            .map(line => line.trim().replace(/\s+/g, ' '))
+            .join('\n');
+            
+		textarea.value = cleaned;
+        textarea.dispatchEvent(new Event('input'));
+	});
+</script>

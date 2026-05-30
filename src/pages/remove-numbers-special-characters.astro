@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Strip Numbers and Special Characters — Text Only Tool";
+const description = "Remove all numeric digits and special symbols from your text, leaving only alphabetical characters.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Strip Numbers & Symbols" 
+		description="Clean your text by removing everything except alphabetical letters and whitespace." 
+		id="remove-numbers-special"
+	>
+		<div slot="controls">
+			<button
+				id="strip-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Strip Numbers & Symbols
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Clean</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const textarea = document.getElementById('remove-numbers-special');
+	const stripBtn = document.getElementById('strip-btn');
+
+	stripBtn.addEventListener('click', () => {
+		textarea.value = textarea.value.replace(/[^a-zA-Z\s]/g, '');
+		textarea.dispatchEvent(new Event('input'));
+	});
+</script>

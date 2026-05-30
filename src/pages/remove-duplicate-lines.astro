@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Remove Duplicate Lines Online — Clean List Arrays";
+const description = "Instantly deduplicate lists and remove repeating lines from your text. Perfect for cleaning data and arrays.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Remove Duplicate Lines" 
+		description="Instantly deduplicate lists and remove repeating lines from your text. Perfect for cleaning data and arrays." 
+		id="duplicate-lines"
+	>
+		<div slot="controls">
+			<button
+				id="remove-duplicates"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Remove Duplicate Lines
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const btn = document.getElementById('remove-duplicates');
+	const textarea = document.getElementById('duplicate-lines');
+
+	btn.addEventListener('click', () => {
+		const text = textarea.value;
+		const lines = text.split('\n');
+        const uniqueLines = [...new Set(lines)];
+            
+		textarea.value = uniqueLines.join('\n');
+        textarea.dispatchEvent(new Event('input'));
+	});
+</script>

@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "About — Text to Plain Text";
+const description = "Learn more about Text to Plain Text, a privacy-first utility suite built for speed and simplicity.";
+---
+
+<BaseLayout title={title} description={description}>
+	<div class="max-w-[700px] mx-auto py-20 px-6">
+		<header class="mb-12">
+			<h1 class="text-display-lg mb-4">About</h1>
+			<p class="text-body-lg text-body">
+				Text to Plain Text is a collection of essential tools for anyone who works with digital content. 
+				Our mission is to provide the fastest, most reliable way to clean and transform text without compromising on privacy.
+			</p>
+		</header>
+
+		<div class="space-y-8">
+			<section>
+				<h2 class="text-display-sm mb-3">Privacy-First</h2>
+				<p class="text-body-md text-body">
+					We believe your data belongs to you. That's why every utility in our suite runs entirely in your browser. 
+					No text is ever uploaded to a server, stored in a database, or tracked by third-party scripts. 
+					It's your data, processed locally, and cleared the moment you close the tab.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="text-display-sm mb-3">Speed & Simplicity</h2>
+				<p class="text-body-md text-body">
+					Our tools are designed to be "zero-friction." No accounts, no subscriptions, and no complex configurations. 
+					Just paste your text, click a button, and get the result instantly.
+				</p>
+			</section>
+
+			<section>
+				<h2 class="text-display-sm mb-3">Built for the Modern Web</h2>
+				<p class="text-body-md text-body">
+					Text to Plain Text is built as a Multi-Page Application (MPA) using 
+					<a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="text-ink underline decoration-hairline-strong hover:decoration-ink transition-colors">Astro</a> 
+					and <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer" class="text-ink underline decoration-hairline-strong hover:decoration-ink transition-colors">Tailwind CSS 4</a>. 
+					This ensures lightning-fast load times and a highly accessible user interface.
+				</p>
+			</section>
+		</div>
+	</div>
+</BaseLayout>

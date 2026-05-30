@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Strip HTML Tags From Text — Remove HTML Markup Online";
+const description = "Cleanly remove all HTML tags from your source code or web content to get pure plain text.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Strip HTML Tags" 
+		description="Extract the text content from HTML by removing all tags and markup instantly." 
+		id="html-tags"
+	>
+		<div slot="controls">
+			<button
+				id="strip-tags"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Strip HTML Tags
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const btn = document.getElementById('strip-tags');
+	const textarea = document.getElementById('html-tags');
+
+	btn.addEventListener('click', () => {
+		const text = textarea.value;
+		const cleaned = text.replace(/<[^>]*>/g, '');
+            
+		textarea.value = cleaned;
+        textarea.dispatchEvent(new Event('input'));
+	});
+</script>

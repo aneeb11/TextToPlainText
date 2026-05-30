@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Case Converter Online — Change Text Case Instantly";
+const description = "Convert text to UPPERCASE, lowercase, Title Case, or Sentence Case with one click.";
+
+const buttons = [
+    { id: 'uppercase', label: 'UPPERCASE' },
+    { id: 'lowercase', label: 'lowercase' },
+    { id: 'title-case', label: 'Title Case' },
+    { id: 'sentence-case', label: 'Sentence Case' },
+    { id: 'snake-case', label: 'snake_case' },
+    { id: 'camel-case', label: 'camelCase' },
+];
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Case Converter" 
+		description="Easily transform your text between different letter cases and formatting styles." 
+		id="case-converter"
+	>
+		<div slot="controls" class="flex flex-col gap-2">
+			{buttons.map(btn => (
+                <button
+                    id={btn.id}
+                    class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+                >
+                    {btn.label}
+                    <span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Convert</span>
+                </button>
+            ))}
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const textarea = document.getElementById('case-converter');
+
+    const toTitleCase = (str) => {
+        return str.replace(
+            /\w\S*/g,
+            (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+        );
+    };
+
+    const toSentenceCase = (str) => {
+        return str.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
+    };
+
+    const toSnakeCase = (str) => {
+        return str
+            .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+            .map(x => x.toLowerCase())
+            .join('_');
+    };
+
+    const toCamelCase = (str) => {
+        const s = str
+            .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+            .map(x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())
+            .join('');
+        return s.slice(0, 1).toLowerCase() + s.slice(1);
+    };
+
+    document.getElementById('uppercase').addEventListener('click', () => {
+        textarea.value = textarea.value.toUpperCase();
+        textarea.dispatchEvent(new Event('input'));
+    });
+
+    document.getElementById('lowercase').addEventListener('click', () => {
+        textarea.value = textarea.value.toLowerCase();
+        textarea.dispatchEvent(new Event('input'));
+    });
+
+    document.getElementById('title-case').addEventListener('click', () => {
+        textarea.value = toTitleCase(textarea.value);
+        textarea.dispatchEvent(new Event('input'));
+    });
+
+    document.getElementById('sentence-case').addEventListener('click', () => {
+        textarea.value = toSentenceCase(textarea.value);
+        textarea.dispatchEvent(new Event('input'));
+    });
+
+    document.getElementById('snake-case').addEventListener('click', () => {
+        textarea.value = toSnakeCase(textarea.value);
+        textarea.dispatchEvent(new Event('input'));
+    });
+
+    document.getElementById('camel-case').addEventListener('click', () => {
+        textarea.value = toCamelCase(textarea.value);
+        textarea.dispatchEvent(new Event('input'));
+    });
+</script>

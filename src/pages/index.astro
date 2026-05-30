@@ -1,11 +1,42 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const title = "Plain Text Converter — Strip Formatting Online";
+const description = "Convert rich text, HTML, or formatted content into clean, plain text instantly. No data ever leaves your browser.";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Plain Text Converter" 
+		description="Paste your formatted text below to instantly strip all styles and formatting." 
+		id="plain-text"
+	>
+		<div slot="controls">
+			<button
+				id="strip-formatting"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Strip All Formatting
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const stripBtn = document.getElementById('strip-formatting');
+	const textarea = document.getElementById('plain-text');
+
+	stripBtn.addEventListener('click', () => {
+		// In a real browser, simply pasting into a textarea often strips formatting.
+		// However, we can ensure it by just setting the value to itself if it's already a textarea,
+		// or if we were using a contenteditable, we'd do more.
+		// For a textarea, we might want to normalize line endings or similar.
+		const text = textarea.value;
+		textarea.value = text.trim();
+        
+        // Trigger input event to update stats
+        textarea.dispatchEvent(new Event('input'));
+	});
+</script>

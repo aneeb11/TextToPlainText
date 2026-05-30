@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Find and Replace Text Online — Batch Edit Utility";
+const description = "Instantly find and replace words, phrases, or characters in your text. Supports global replacement and case sensitivity options.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Find and Replace" 
+		description="Batch edit your text by finding specific patterns and replacing them with new content." 
+		id="find-replace"
+	>
+		<div slot="controls" class="space-y-4">
+			<div class="space-y-2">
+                <label for="find-input" class="text-caption-mono text-mute uppercase">Find</label>
+                <input 
+                    type="text" 
+                    id="find-input" 
+                    placeholder="Text to find..."
+                    class="w-full h-10 px-3 bg-canvas border border-hairline rounded-md text-body-sm focus:ring-1 focus:ring-ink outline-none"
+                />
+            </div>
+            <div class="space-y-2">
+                <label for="replace-input" class="text-caption-mono text-mute uppercase">Replace With</label>
+                <input 
+                    type="text" 
+                    id="replace-input" 
+                    placeholder="Replacement text..."
+                    class="w-full h-10 px-3 bg-canvas border border-hairline rounded-md text-body-sm focus:ring-1 focus:ring-ink outline-none"
+                />
+            </div>
+            
+            <div class="flex items-center gap-2 py-2">
+                <input type="checkbox" id="case-sensitive" class="rounded-sm border-hairline text-ink focus:ring-ink" />
+                <label for="case-sensitive" class="text-body-sm text-body cursor-pointer select-none">Case Sensitive</label>
+            </div>
+
+			<button
+				id="execute-replace"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Replace All
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<script is:inline>
+	const executeBtn = document.getElementById('execute-replace');
+	const textarea = document.getElementById('find-replace');
+    const findInput = document.getElementById('find-input');
+    const replaceInput = document.getElementById('replace-input');
+    const caseSensitive = document.getElementById('case-sensitive');
+
+	executeBtn.addEventListener('click', () => {
+		const findText = findInput.value;
+        const replaceText = replaceInput.value;
+		
+        if (!findText) return;
+
+        const text = textarea.value;
+        const flags = caseSensitive.checked ? 'g' : 'gi';
+        
+        // Escape regex special characters in findText
+        const escapedFind = findText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(escapedFind, flags);
+        
+        textarea.value = text.replace(regex, replaceText);
+        
+        // Trigger input event to update stats
+        textarea.dispatchEvent(new Event('input'));
+	});
+</script>

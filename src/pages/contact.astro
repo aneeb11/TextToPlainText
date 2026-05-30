@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Contact Us — Text to Plain Text";
+const description = "Get in touch with the team behind Text to Plain Text.";
+---
+
+<BaseLayout title={title} description={description}>
+	<div class="max-w-[700px] mx-auto py-20 px-6">
+		<header class="mb-12">
+			<h1 class="text-display-lg mb-4">Contact Us</h1>
+			<p class="text-body-lg text-body">
+				Have a suggestion, found a bug, or just want to say hi? We'd love to hear from you.
+			</p>
+		</header>
+
+		<div class="space-y-8">
+			<section>
+				<h2 class="text-display-sm mb-3">GitHub Issues</h2>
+				<p class="text-body-md text-body mb-4">
+					The best way to report bugs or request new features is through our GitHub repository. 
+					It's public, transparent, and helps us track everything in one place.
+				</p>
+				<a 
+					href="https://github.com/aneeb/text-to-plain-text/issues" 
+					target="_blank" 
+					rel="noopener noreferrer"
+					class="inline-flex items-center h-10 px-4 bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity"
+				>
+					Open an Issue on GitHub
+				</a>
+			</section>
+
+			<section>
+				<h2 class="text-display-sm mb-3">Email</h2>
+				<p class="text-body-md text-body">
+					For more private inquiries, you can reach out via email. We'll do our best to get back to you within a few business days.
+				</p>
+				<a href="mailto:hello@texttoplaintext.com" class="text-ink font-medium hover:underline">hello@texttoplaintext.com</a>
+			</section>
+
+			<section>
+				<h2 class="text-display-sm mb-3">Social</h2>
+				<p class="text-body-md text-body">
+					Follow the project updates and connect with us on social media.
+				</p>
+				<div class="flex gap-4 mt-2">
+					<a href="#" class="text-body hover:text-ink transition-colors font-medium">Twitter / X</a>
+					<a href="#" class="text-body hover:text-ink transition-colors font-medium">LinkedIn</a>
+				</div>
+			</section>
+		</div>
+	</div>
+</BaseLayout>

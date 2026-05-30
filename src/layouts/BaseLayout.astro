@@ -52,14 +52,14 @@ const currentPath = Astro.url.pathname;
 					<span class="text-display-sm tracking-tight hidden lg:inline-block">Text to Plain Text</span>
 				</a>
 				
-				<nav class="flex items-center gap-1">
-					<a href="/" class={`px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors ${currentPath === '/' ? 'bg-canvas-soft-2 text-ink font-medium' : 'text-body'}`}>Home</a>
+				<nav class="flex items-center gap-1 overflow-x-auto no-scrollbar py-1 -my-1 max-w-[calc(100vw-120px)] sm:max-w-none">
+					<a href="/" class={`whitespace-nowrap px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors ${currentPath === '/' ? 'bg-canvas-soft-2 text-ink font-medium' : 'text-body'}`}>Home</a>
 					
                     <!-- Cleaning Dropdown -->
 					<div class="relative dropdown-container">
-						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body">
+						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
 							Cleaning
-							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
 						</button>
 						<div class="dropdown-menu absolute left-0 sm:left-auto sm:right-0 top-full pt-2 hidden z-[100] min-w-[200px] sm:min-w-[220px]">
 							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
@@ -75,9 +75,9 @@ const currentPath = Astro.url.pathname;
 
                     <!-- Advanced Dropdown -->
 					<div class="relative dropdown-container">
-						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body">
+						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
 							Advanced
-							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
 						</button>
 						<div class="dropdown-menu absolute left-[-50px] sm:left-auto sm:right-0 top-full pt-2 hidden z-[100] min-w-[200px] sm:min-w-[220px]">
 							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
@@ -92,11 +92,11 @@ const currentPath = Astro.url.pathname;
 
                     <!-- Duplicate Dropdown -->
 					<div class="relative dropdown-container">
-						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body">
+						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
 							Duplicate
-							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
 						</button>
-						<div class="dropdown-menu absolute right-0 top-full pt-2 hidden z-[100] min-w-[200px] sm:min-w-[220px]">
+						<div class="dropdown-menu absolute right-[-20px] sm:right-0 top-full pt-2 hidden z-[100] min-w-[200px] sm:min-w-[220px]">
 							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
 								<a href="/remove-duplicate-lines" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Duplicate Lines</a>
 								<a href="/remove-duplicate-paragraphs" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Duplicate Paragraphs</a>
@@ -108,11 +108,11 @@ const currentPath = Astro.url.pathname;
 
                     <!-- Lists Dropdown -->
 					<div class="relative dropdown-container">
-						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body">
+						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
 							Lists
-							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
 						</button>
-						<div class="dropdown-menu absolute right-0 top-full pt-2 hidden z-[100] min-w-[200px] sm:min-w-[220px]">
+						<div class="dropdown-menu absolute right-[-10px] sm:right-0 top-full pt-2 hidden z-[100] min-w-[200px] sm:min-w-[220px]">
 							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
 								<a href="/add-prefix-suffix" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Add Prefix / Suffix</a>
 								<a href="/sort-lines" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Sort Lines</a>
@@ -123,9 +123,9 @@ const currentPath = Astro.url.pathname;
 
                     <!-- Filter Dropdown -->
 					<div class="relative dropdown-container">
-						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body">
+						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
 							Filter
-							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
 						</button>
 						<div class="dropdown-menu absolute right-0 top-full pt-2 hidden z-[100] min-w-[200px] sm:min-w-[220px]">
 							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
@@ -137,12 +137,12 @@ const currentPath = Astro.url.pathname;
 					</div>
 				</nav>
 
-				<div class="flex items-center gap-2">
-                    <div class="hidden sm:flex items-center gap-1.5 px-2 py-1 bg-success/5 border border-success/20 rounded-sm mr-2" title="Everything runs in your browser. No internet required after loading.">
+				<div class="flex items-center gap-2 shrink-0">
+                    <div class="hidden md:flex items-center gap-1.5 px-2 py-1 bg-success/5 border border-success/20 rounded-sm mr-2" title="Everything runs in your browser. No internet required after loading.">
                         <div class="w-1.5 h-1.5 rounded-full bg-success animate-pulse"></div>
                         <span class="text-[10px] font-bold text-success uppercase tracking-wider">Offline Ready</span>
                     </div>
-                    <button id="theme-toggle" class="w-8 h-8 flex items-center justify-center rounded-sm hover:bg-canvas-soft-2 transition-colors border border-hairline">
+                    <button id="theme-toggle" class="w-8 h-8 flex items-center justify-center rounded-sm hover:bg-canvas-soft-2 transition-colors border border-hairline cursor-pointer">
                         <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
                         <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
                     </button>
@@ -165,8 +165,18 @@ const currentPath = Astro.url.pathname;
             .dropdown-container.is-active .dropdown-menu {
                 display: block;
             }
-            .dropdown-container.is-active .dropdown-trigger svg {
+            .dropdown-container.is-active .dropdown-arrow {
                 transform: rotate(180deg);
+            }
+
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+            /* Hide scrollbar for IE, Edge and Firefox */
+            .no-scrollbar {
+                -ms-overflow-style: none;  /* IE and Edge */
+                scrollbar-width: none;  /* Firefox */
             }
         </style>
 
@@ -181,37 +191,56 @@ const currentPath = Astro.url.pathname;
                 html.classList.add('dark');
             }
 
-            themeToggle.addEventListener('click', () => {
-                const isDark = html.classList.toggle('dark');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            });
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const isDark = html.classList.toggle('dark');
+                    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                });
+            }
 
             // Mobile Dropdown Logic
-            const dropdowns = document.querySelectorAll('.dropdown-container');
-            
-            dropdowns.forEach(dropdown => {
-                const trigger = dropdown.querySelector('.dropdown-trigger');
+            function initDropdowns() {
+                const dropdowns = document.querySelectorAll('.dropdown-container');
                 
-                trigger.addEventListener('click', (e) => {
-                    // Only apply toggle logic on small screens or touch devices
-                    if (window.innerWidth < 1024) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        
-                        // Close other dropdowns
-                        dropdowns.forEach(d => {
-                            if (d !== dropdown) d.classList.remove('is-active');
-                        });
-                        
-                        dropdown.classList.toggle('is-active');
-                    }
+                dropdowns.forEach(dropdown => {
+                    const trigger = dropdown.querySelector('.dropdown-trigger');
+                    if (!trigger) return;
+
+                    // Remove existing listeners to avoid duplicates if re-inited
+                    const newTrigger = trigger.cloneNode(true);
+                    trigger.parentNode.replaceChild(newTrigger, trigger);
+                    
+                    newTrigger.addEventListener('click', (e) => {
+                        // Only apply toggle logic on small screens or touch devices
+                        if (window.innerWidth < 1024) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            const isActive = dropdown.classList.contains('is-active');
+                            
+                            // Close other dropdowns
+                            document.querySelectorAll('.dropdown-container').forEach(d => {
+                                d.classList.remove('is-active');
+                            });
+                            
+                            if (!isActive) {
+                                dropdown.classList.add('is-active');
+                            }
+                        }
+                    });
                 });
-            });
+            }
+
+            // Init on load
+            initDropdowns();
 
             // Close dropdowns when clicking outside
             document.addEventListener('click', () => {
-                dropdowns.forEach(d => d.classList.remove('is-active'));
+                document.querySelectorAll('.dropdown-container').forEach(d => d.classList.remove('is-active'));
             });
+
+            // Re-init when content might have changed (for Astro view transitions if used, though not explicitly here)
+            document.addEventListener('astro:page-load', initDropdowns);
         </script>
 
 		<footer class="bg-canvas border-t border-hairline py-12 px-4 md:px-8">

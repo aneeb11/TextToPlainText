@@ -22,36 +22,37 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
                 <span class="text-caption-mono text-mute uppercase tracking-wider">Input Area</span>
                 <div class="flex items-center gap-4">
                     <!-- Quick Switch Dropdown -->
-                    <div class="relative group/switch">
+                    <div class="relative dropdown-container">
                         <button
-                            class="flex items-center gap-1.5 text-body-sm font-medium text-mute hover:text-ink transition-colors group"
+                            id={`switch-trigger-${id}`}
+                            class="dropdown-trigger flex items-center gap-1.5 text-body-sm font-medium text-mute hover:text-ink transition-colors group"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 7-3-3-3 3"/><path d="M18 4v10"/><path d="m3 17 3 3 3-3"/><path d="M6 20V6"/></svg>
                             Switch Tool
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 group-hover:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
                         </button>
                         
-                        <div class="absolute right-0 top-full pt-2 opacity-0 translate-y-2 pointer-events-none group-hover/switch:opacity-100 group-hover/switch:translate-y-0 group-hover/switch:pointer-events-auto transition-all duration-200 z-[100]">
-                            <div class="bg-canvas border border-hairline rounded-lg shadow-level-4 p-4 min-w-[240px] max-h-[400px] overflow-y-auto">
-                                <div class="space-y-4">
+                        <div id={`switch-menu-${id}`} class="dropdown-menu absolute right-0 top-full pt-2 hidden z-[100] min-w-[280px] sm:min-w-[320px]">
+                            <div class="bg-canvas border border-hairline rounded-lg shadow-level-4 p-4 max-h-[70vh] overflow-y-auto">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
                                     <div>
                                         <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">Cleaning</h4>
                                         <div class="grid gap-1">
                                             <button data-tool="plain-text" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Plain Text Converter</button>
-                                            <button data-tool="remove-extra-spaces" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Extra Spaces</button>
-                                            <button data-tool="remove-all-spaces" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove All Spaces</button>
-                                            <button data-tool="remove-blank-lines" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Blank Lines</button>
-                                            <button data-tool="strip-html-tags" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip HTML Tags</button>
+                                            <button data-tool="remove-extra-spaces" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Extra Spaces</button>
+                                            <button data-tool="remove-all-spaces" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">All Spaces</button>
+                                            <button data-tool="remove-blank-lines" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Blank Lines</button>
+                                            <button data-tool="strip-html-tags" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">HTML Tags</button>
                                             <button data-tool="strip-emojis" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Emojis</button>
                                         </div>
                                     </div>
                                     <div>
                                         <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">Duplicate</h4>
                                         <div class="grid gap-1">
-                                            <button data-tool="remove-duplicate-lines" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Duplicate Lines</button>
-                                            <button data-tool="remove-duplicate-paragraphs" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Duplicate Paragraphs</button>
-                                            <button data-tool="remove-duplicate-words" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Duplicate Words</button>
-                                            <button data-tool="remove-duplicate-sentences" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Duplicate Sentences</button>
+                                            <button data-tool="remove-duplicate-lines" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Lines</button>
+                                            <button data-tool="remove-duplicate-paragraphs" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Paragraphs</button>
+                                            <button data-tool="remove-duplicate-words" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Words</button>
+                                            <button data-tool="remove-duplicate-sentences" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Sentences</button>
                                         </div>
                                     </div>
                                     <div>
@@ -61,7 +62,6 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
                                             <button data-tool="sort-za" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Sort Z-A</button>
                                             <button data-tool="sort-length" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Sort by Length</button>
                                             <button data-tool="line-numberer" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Line Numberer</button>
-                                            <a href="/add-prefix-suffix" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Add Prefix / Suffix...</a>
                                         </div>
                                     </div>
                                     <div>
@@ -69,18 +69,9 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
                                         <div class="grid gap-1">
                                             <button data-tool="case-uppercase" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">UPPERCASE</button>
                                             <button data-tool="case-lowercase" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">lowercase</button>
-                                            <button data-tool="markdown-to-plain" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Markdown to Plain Text</button>
-                                            <button data-tool="fix-pdf-breaks" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Fix PDF Line Breaks</button>
-                                            <button data-tool="decode-html" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Decode HTML Entities</button>
-                                            <a href="/find-and-replace" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Find and Replace...</a>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">Filter</h4>
-                                        <div class="grid gap-1">
-                                            <button data-tool="strip-links" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Links & URLs</button>
-                                            <button data-tool="strip-emails" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Emails</button>
-                                            <button data-tool="strip-symbols" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Symbols & Numbers</button>
+                                            <button data-tool="markdown-to-plain" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Markdown Strip</button>
+                                            <button data-tool="fix-pdf-breaks" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">PDF Breaks</button>
+                                            <button data-tool="decode-html" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Decode HTML</button>
                                         </div>
                                     </div>
                                 </div>
@@ -103,26 +94,26 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
             >
 				<textarea
 					id={id}
-					class="w-full h-[500px] p-6 bg-transparent border-none focus:ring-0 text-body-md font-mono resize-none placeholder:text-mute"
+					class="w-full h-[300px] sm:h-[400px] lg:h-[500px] p-4 sm:p-6 bg-transparent border-none focus:ring-0 text-body-md font-mono resize-none placeholder:text-mute"
 					placeholder={placeholder}></textarea>
 				
-				<div class="absolute bottom-4 right-4 flex items-center gap-2">
+				<div class="absolute bottom-4 right-4 flex flex-wrap items-center justify-end gap-2 px-2 sm:px-0">
 					<button
 						id={`copy-${id}`}
-						class="h-8 px-3 flex items-center text-body-sm-strong bg-ink text-canvas rounded-pill hover:opacity-90 transition-opacity shadow-sm"
+						class="h-9 sm:h-8 px-4 sm:px-3 flex items-center text-body-sm-strong bg-ink text-canvas rounded-pill hover:opacity-90 transition-opacity shadow-sm cursor-pointer"
 					>
-						Copy to Clipboard
+						Copy
 					</button>
                     <button
 						id={`undo-${id}`}
-						class="h-8 px-3 flex items-center text-body-sm-strong bg-canvas text-ink border border-hairline rounded-pill hover:bg-canvas-soft transition-colors shadow-sm opacity-50 pointer-events-none"
+						class="h-9 sm:h-8 px-4 sm:px-3 flex items-center text-body-sm-strong bg-canvas text-ink border border-hairline rounded-pill hover:bg-canvas-soft transition-colors shadow-sm opacity-50 pointer-events-none cursor-pointer"
 						title="Undo last change"
 					>
 						Undo
 					</button>
                     <button
 						id={`clear-${id}`}
-						class="h-8 px-3 flex items-center text-body-sm-strong bg-canvas text-ink border border-hairline rounded-pill hover:bg-canvas-soft transition-colors shadow-sm"
+						class="h-9 sm:h-8 px-4 sm:px-3 flex items-center text-body-sm-strong bg-canvas text-ink border border-hairline rounded-pill hover:bg-canvas-soft transition-colors shadow-sm cursor-pointer"
 					>
 						Clear
 					</button>
@@ -203,6 +194,9 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
         const undoBtn = document.getElementById(`undo-${id}`) as HTMLButtonElement;
         const clearBtn = document.getElementById(`clear-${id}`);
         const downloadBtn = document.getElementById(`download-${id}`);
+
+        const switchTrigger = document.getElementById(`switch-trigger-${id}`);
+        const switchMenu = document.getElementById(`switch-menu-${id}`);
         
         let history: string[] = [];
         const MAX_HISTORY = 50;
@@ -510,6 +504,11 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
                         updateStats();
                         triggerFeedback();
                         saveToLocalHistory(textarea.value);
+
+                        // Close the dropdown after selection
+                        document.querySelectorAll('.dropdown-container').forEach(d => {
+                            d.classList.remove('is-active');
+                        });
                     }
                 });
             });

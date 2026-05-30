@@ -80,14 +80,33 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
                         </div>
                     </div>
 
-                    <button
-                        id={`download-${id}`}
-                        class="flex items-center gap-1 sm:gap-1.5 text-body-sm font-medium text-ink hover:text-mute transition-colors group cursor-pointer"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-y-0.5 transition-transform"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                        <span class="hidden xs:inline">Download as .txt</span>
-                        <span class="xs:hidden">Download</span>
-                    </button>
+                    <!-- Download Dropdown -->
+                    <div class="relative dropdown-container">
+                        <button
+                            id={`download-trigger-${id}`}
+                            class="dropdown-trigger flex items-center gap-1 sm:gap-1.5 text-body-sm font-medium text-ink hover:text-mute transition-colors group cursor-pointer"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-y-0.5 transition-transform"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                            <span class="hidden xs:inline">Download</span>
+                            <span class="xs:hidden">Save</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+
+                        <div id={`download-menu-${id}`} class="dropdown-menu absolute right-0 top-full pt-2 hidden z-[100] min-w-[180px]">
+                            <div class="bg-canvas border border-hairline rounded-lg shadow-level-4 p-2">
+                                <button data-download="txt" class="w-full text-left px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer flex items-center justify-between">
+                                    Plain Text (.txt)
+                                    <span class="text-[10px] text-mute uppercase font-bold">Fast</span>
+                                </button>
+                                <button data-download="pdf" class="w-full text-left px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer flex items-center justify-between">
+                                    PDF Document (.pdf)
+                                </button>
+                                <button data-download="docx" class="w-full text-left px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer flex items-center justify-between">
+                                    Word Doc (.docx)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 			<div 
@@ -550,22 +569,77 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
             });
         }
 
-        if (downloadBtn) {
-            downloadBtn.addEventListener('click', () => {
+        // --- Multi-Format Download Logic ---
+        const downloadOptions = root.querySelectorAll('[data-download]');
+        downloadOptions.forEach(opt => {
+            opt.addEventListener('click', () => {
+                const format = opt.getAttribute('data-download');
                 const text = textarea.value;
                 if (!text) return;
-                
-                const blob = new Blob([text], { type: 'text/plain' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `${id}-processed.txt`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
+
+                const filename = `${id}-processed`;
+
+                if (format === 'txt') {
+                    const blob = new Blob([text], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${filename}.txt`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                } 
+                else if (format === 'docx') {
+                    // Simple HTML for Word
+                    const content = `
+                        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                        <head><meta charset='utf-8'><title>Export</title></head>
+                        <body>${text.split('\n').map(line => `<p>${line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>`).join('')}</body>
+                        </html>
+                    `;
+                    const blob = new Blob(['\ufeff', content], { type: 'application/msword' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${filename}.doc`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }
+                else if (format === 'pdf') {
+                    // Native Print to PDF approach (Privacy-first, no external libs)
+                    const printWindow = window.open('', '_blank');
+                    if (printWindow) {
+                        printWindow.document.write(`
+                            <html>
+                            <head>
+                                <title>${filename}</title>
+                                <style>
+                                    body { font-family: sans-serif; padding: 40px; line-height: 1.5; white-space: pre-wrap; font-size: 12pt; color: #171717; }
+                                    @page { margin: 2cm; }
+                                </style>
+                            </head>
+                            <body>${text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</body>
+                            </html>
+                        `);
+                        printWindow.document.close();
+                        printWindow.focus();
+                        setTimeout(() => {
+                            printWindow.print();
+                            printWindow.close();
+                        }, 250);
+                    }
+                }
+
+                // Close the dropdown after selection
+                document.querySelectorAll('.dropdown-container').forEach(d => {
+                    d.classList.remove('is-active');
+                });
             });
-        }
+        });
+        // --- End Download Logic ---
         
         // Initial telemetry
         updateStats();

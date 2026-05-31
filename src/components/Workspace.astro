@@ -75,6 +75,11 @@ const { title, description, placeholder = "Paste your text here...", id = "works
                                             <button data-tool="fix-pdf-breaks" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">PDF Breaks</button>
                                             <button data-tool="decode-html" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Decode HTML</button>
                                             <button data-tool="redact-info" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Redact Sensitive Info</button>
+                                            <button data-tool="encode-base64" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Base64 Encode</button>
+                                            <button data-tool="decode-base64" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Base64 Decode</button>
+                                            <button data-tool="encode-url" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">URL Encode</button>
+                                            <button data-tool="decode-url" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">URL Decode</button>
+                                            <button data-tool="slugify" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Slugify Text</button>
                                         </div>
                                     </div>
                                     <div>
@@ -544,6 +549,39 @@ const { title, description, placeholder = "Paste your text here...", id = "works
             'truncate-words-100': (t) => {
                 const words = t.trim().split(/\s+/);
                 return words.slice(0, 100).join(' ') + (words.length > 100 ? '...' : '');
+            },
+            'encode-base64': (t) => {
+                try {
+                    return btoa(unescape(encodeURIComponent(t)));
+                } catch (e) {
+                    throw e;
+                }
+            },
+            'decode-base64': (t) => {
+                try {
+                    return decodeURIComponent(escape(atob(t)));
+                } catch (e) {
+                    throw e;
+                }
+            },
+            'encode-url': (t) => encodeURIComponent(t),
+            'decode-url': (t) => {
+                try {
+                    return decodeURIComponent(t);
+                } catch (e) {
+                    throw e;
+                }
+            },
+            'slugify': (t) => {
+                return t
+                    .toString()
+                    .normalize('NFD')                   // split accented characters into their base characters and diacritical marks
+                    .replace(/[\u0300-\u036f]/g, '')   // remove all the accents, which happen to be all in the \u03xx UNICODE block.
+                    .toLowerCase()
+                    .trim()
+                    .replace(/\s+/g, '-')              // replace spaces with -
+                    .replace(/[^\w-]+/g, '')           // remove all non-word chars
+                    .replace(/--+/g, '-');             // replace multiple - with single -
             }
         };
 

@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "URL Encoder & Decoder — Privacy-First Web Utility";
+const description = "Instantly encode or decode URL strings. A secure, offline-ready tool for developers to handle URI components and special characters safely.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="URL Converter" 
+		description="Encode text to URL-safe strings or decode encoded URLs back to plain text instantly." 
+        placeholder="Enter URL to decode or text to encode..."
+	>
+		<div slot="controls" class="grid grid-cols-1 gap-2">
+			<button
+				id="encode-url-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				URL Encode
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+            <button
+				id="decode-url-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-canvas text-ink border border-hairline rounded-md hover:bg-canvas-soft transition-colors group"
+			>
+				URL Decode
+				<span class="text-[10px] bg-ink/10 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-ink/20 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+        <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is URL encoding?</h3>
+                <p class="text-body-md text-body">
+                    URL encoding, also known as percent-encoding, is a mechanism for encoding information in a Uniform Resource Identifier (URI). Characters that are not allowed in a URL must be encoded into a "%" followed by their two-digit hexadecimal representation.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Why should I use an offline URL encoder?</h3>
+                <p class="text-body-md text-body">
+                    Many online URL tools track your requests. If you are encoding URLs that contain sensitive parameters, internal staging links, or API tokens, using our 100% client-side tool ensures that your data remains entirely within your browser and is never sent to a server.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Does it handle special characters?</h3>
+                <p class="text-body-md text-body">
+                    Yes. Our tool uses the standard <code>encodeURIComponent</code> and <code>decodeURIComponent</code> functions, which properly handle spaces, slashes, ampersands, and other reserved characters according to modern web standards.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
+
+        document.getElementById('encode-url-btn')?.addEventListener('click', () => {
+            if (!textarea) return;
+            textarea.value = encodeURIComponent(textarea.value);
+            textarea.dispatchEvent(new CustomEvent('workspace:complete'));
+        });
+
+        document.getElementById('decode-url-btn')?.addEventListener('click', () => {
+            if (!textarea) return;
+            try {
+                textarea.value = decodeURIComponent(textarea.value);
+                textarea.dispatchEvent(new CustomEvent('workspace:complete'));
+            } catch (e) {
+                textarea.classList.add('border-red-500');
+                setTimeout(() => textarea.classList.remove('border-red-500'), 1000);
+            }
+        });
+    </script>
+</BaseLayout>

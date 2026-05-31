@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Slug Generator — Convert Text to URL-Safe Slugs";
+const description = "Instantly convert titles and text into clean, URL-safe slugs. Optimized for SEO, blog posts, and developer-friendly permalinks.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Slug Generator" 
+		description="Convert your text into a lowercase, hyphenated slug suitable for URLs and filenames." 
+        placeholder="Enter your title here (e.g., Hello World! This is a Title)"
+	>
+		<div slot="controls">
+			<button
+				id="slugify-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Generate Slug
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+        <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is a URL Slug?</h3>
+                <p class="text-body-md text-body">
+                    A slug is the part of a URL that identifies a specific page in a human-readable format. For example, in the URL <code>example.com/blog/how-to-slugify-text</code>, the slug is <code>how-to-slugify-text</code>.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Why are slugs important for SEO?</h3>
+                <p class="text-body-md text-body">
+                    Search engines use slugs to understand the content of a page. Clean, descriptive slugs containing relevant keywords can help improve your search engine rankings and make your links more clickable for users.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the Slug Generator work?</h3>
+                <p class="text-body-md text-body">
+                    Our generator follows standard URL conventions: it converts text to lowercase, removes special characters and accents, and replaces spaces with hyphens. It also ensures that multiple hyphens are collapsed into a single one for a clean finish.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
+
+        document.getElementById('slugify-btn')?.addEventListener('click', () => {
+            if (!textarea) return;
+            
+            const slug = textarea.value
+                .toString()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .trim()
+                .replace(/\s+/g, '-')
+                .replace(/[^\w-]+/g, '')
+                .replace(/--+/g, '-');
+
+            textarea.value = slug;
+            textarea.dispatchEvent(new CustomEvent('workspace:complete'));
+        });
+    </script>
+</BaseLayout>

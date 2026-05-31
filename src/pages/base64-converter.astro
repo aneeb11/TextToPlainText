@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Base64 Encoder & Decoder — Developer Utility";
+const description = "Instantly encode or decode Base64 strings. A privacy-first, offline-ready tool for developers to handle binary data representation safely.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Base64 Converter" 
+		description="Encode text to Base64 or decode Base64 strings back to plain text instantly." 
+        placeholder="Enter text to encode or Base64 to decode..."
+	>
+		<div slot="controls" class="grid grid-cols-1 gap-2">
+			<button
+				id="encode-base64-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Encode to Base64
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+            <button
+				id="decode-base64-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-canvas text-ink border border-hairline rounded-md hover:bg-canvas-soft transition-colors group"
+			>
+				Decode from Base64
+				<span class="text-[10px] bg-ink/10 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-ink/20 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+        <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Base64 encoding?</h3>
+                <p class="text-body-md text-body">
+                    Base64 is a group of binary-to-text encoding schemes that represent binary data in an ASCII string format. It is commonly used when there is a need to encode binary data that needs to be stored and transferred over media that are designed to deal with ASCII.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Base64 a form of encryption?</h3>
+                <p class="text-body-md text-body">
+                    No. Base64 is an <strong>encoding</strong> scheme, not encryption. It is used to represent data in a different format, but it does not provide any security or secrecy. Anyone can easily decode Base64 data.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Why use an offline Base64 tool?</h3>
+                <p class="text-body-md text-body">
+                    Many online Base64 converters send your data to their servers. If you are encoding or decoding sensitive data (like API keys or internal tokens), using a 100% client-side tool like ours ensures your data never leaves your browser.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
+
+        document.getElementById('encode-base64-btn')?.addEventListener('click', () => {
+            if (!textarea) return;
+            try {
+                textarea.value = btoa(unescape(encodeURIComponent(textarea.value)));
+                textarea.dispatchEvent(new CustomEvent('workspace:complete'));
+            } catch (e) {
+                textarea.classList.add('border-red-500');
+                setTimeout(() => textarea.classList.remove('border-red-500'), 1000);
+            }
+        });
+
+        document.getElementById('decode-base64-btn')?.addEventListener('click', () => {
+            if (!textarea) return;
+            try {
+                textarea.value = decodeURIComponent(escape(atob(textarea.value)));
+                textarea.dispatchEvent(new CustomEvent('workspace:complete'));
+            } catch (e) {
+                textarea.classList.add('border-red-500');
+                setTimeout(() => textarea.classList.remove('border-red-500'), 1000);
+            }
+        });
+    </script>
+</BaseLayout>

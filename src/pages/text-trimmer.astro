@@ -1,0 +1,164 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Text Truncator & Trimmer — Character & Word Limit Utility";
+const description = "Truncate and trim your text to specific character or word limits for Twitter, LinkedIn, SMS, and more. Precise cutting to ensure your content fits perfectly everywhere.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Text Truncator & Trimmer" 
+		description="Set your character or word limit and truncate your text instantly. Perfect for social media, SEO meta descriptions, and messaging." 
+	>
+		<div slot="controls" class="space-y-6">
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-mute uppercase tracking-widest px-1">Character Presets</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button
+                        class="trim-preset h-9 px-3 text-[11px] font-semibold border border-hairline rounded-md hover:bg-canvas-soft-2 transition-colors"
+                        data-limit="280"
+                        data-type="chars"
+                    >
+                        Twitter (280)
+                    </button>
+                    <button
+                        class="trim-preset h-9 px-3 text-[11px] font-semibold border border-hairline rounded-md hover:bg-canvas-soft-2 transition-colors"
+                        data-limit="160"
+                        data-type="chars"
+                    >
+                        SMS (160)
+                    </button>
+                    <button
+                        class="trim-preset h-9 px-3 text-[11px] font-semibold border border-hairline rounded-md hover:bg-canvas-soft-2 transition-colors"
+                        data-limit="160"
+                        data-type="chars"
+                    >
+                        Meta Desc (160)
+                    </button>
+                    <button
+                        class="trim-preset h-9 px-3 text-[11px] font-semibold border border-hairline rounded-md hover:bg-canvas-soft-2 transition-colors"
+                        data-limit="60"
+                        data-type="chars"
+                    >
+                        SEO Title (60)
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-mute uppercase tracking-widest px-1">Word Presets</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button
+                        class="trim-preset h-9 px-3 text-[11px] font-semibold border border-hairline rounded-md hover:bg-canvas-soft-2 transition-colors"
+                        data-limit="50"
+                        data-type="words"
+                    >
+                        50 Words
+                    </button>
+                    <button
+                        class="trim-preset h-9 px-3 text-[11px] font-semibold border border-hairline rounded-md hover:bg-canvas-soft-2 transition-colors"
+                        data-limit="100"
+                        data-type="words"
+                    >
+                        100 Words
+                    </button>
+                    <button
+                        class="trim-preset h-9 px-3 text-[11px] font-semibold border border-hairline rounded-md hover:bg-canvas-soft-2 transition-colors"
+                        data-limit="250"
+                        data-type="words"
+                    >
+                        250 Words
+                    </button>
+                    <button
+                        class="trim-preset h-9 px-3 text-[11px] font-semibold border border-hairline rounded-md hover:bg-canvas-soft-2 transition-colors"
+                        data-limit="500"
+                        data-type="words"
+                    >
+                        500 Words
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-mute uppercase tracking-widest px-1">Custom Truncate</label>
+                <div class="flex gap-2">
+                    <input 
+                        type="number" 
+                        id="custom-limit-input"
+                        placeholder="Limit..."
+                        class="flex-grow h-10 px-3 bg-canvas border border-hairline rounded-md text-body-sm outline-none focus:ring-1 focus:ring-ink"
+                    />
+                    <select id="custom-type-select" class="h-10 px-2 bg-canvas border border-hairline rounded-md text-body-sm outline-none">
+                        <option value="chars">Chars</option>
+                        <option value="words">Words</option>
+                    </select>
+                    <button
+                        id="trim-custom-btn"
+                        class="h-10 px-4 bg-ink text-canvas rounded-md text-body-sm-strong hover:opacity-90 transition-opacity"
+                    >
+                        Truncate
+                    </button>
+                </div>
+            </div>
+		</div>
+	</Workspace>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+        <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is the difference between Trimming and Truncating?</h3>
+                <p class="text-body-md text-body">
+                    In the context of text processing, they are often used interchangeably. "Truncating" usually refers to cutting text at a specific point to fit a container or data limit, while "Trimming" often refers to removing whitespace from the ends. Our tool handles both—cutting your text to the exact length you need.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Can I truncate by words instead of characters?</h3>
+                <p class="text-body-md text-body">
+                    Yes. Our tool allows you to truncate by character count for strict platform limits (like Twitter or SMS) or by word count for readability and content summary purposes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
+        
+        const applyTrim = (limit: number, type: string) => {
+            if (!textarea) return;
+            const input = textarea.value.trim();
+            if (!input) return;
+
+            if (type === 'chars') {
+                textarea.value = input.slice(0, limit);
+            } else {
+                const words = input.split(/\s+/);
+                textarea.value = words.slice(0, limit).join(' ') + (words.length > limit ? '...' : '');
+            }
+            
+            textarea.dispatchEvent(new CustomEvent('workspace:complete'));
+        };
+
+        // Preset Listeners
+        document.querySelectorAll('.trim-preset').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const limit = parseInt(btn.getAttribute('data-limit') || "0");
+                const type = btn.getAttribute('data-type') || "chars";
+                if (limit > 0) applyTrim(limit, type);
+            });
+        });
+
+        // Custom Limit Listener
+        document.getElementById('trim-custom-btn')?.addEventListener('click', () => {
+            const input = document.getElementById('custom-limit-input') as HTMLInputElement;
+            const select = document.getElementById('custom-type-select') as HTMLSelectElement;
+            const limit = parseInt(input.value);
+            const type = select.value;
+            if (limit > 0) applyTrim(limit, type);
+        });
+    </script>
+</BaseLayout>

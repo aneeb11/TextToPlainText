@@ -74,6 +74,7 @@ const { title, description, placeholder = "Paste your text here...", id = "works
                                             <button data-tool="markdown-to-plain" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Markdown Strip</button>
                                             <button data-tool="fix-pdf-breaks" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">PDF Breaks</button>
                                             <button data-tool="decode-html" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Decode HTML</button>
+                                            <button data-tool="redact-info" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Redact Sensitive Info</button>
                                         </div>
                                     </div>
                                     <div>
@@ -83,6 +84,16 @@ const { title, description, placeholder = "Paste your text here...", id = "works
                                             <button data-tool="minify-json" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Minify JSON</button>
                                             <button data-tool="csv-to-json" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">CSV to JSON</button>
                                             <button data-tool="strip-commas" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Strip Commas</button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">Social & SMS</h4>
+                                        <div class="grid gap-1">
+                                            <button data-tool="trim-twitter" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Trim to Twitter (280)</button>
+                                            <button data-tool="trim-sms" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Trim to SMS (160)</button>
+                                            <button data-tool="trim-linkedin" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Trim to LinkedIn (3000)</button>
+                                            <button data-tool="truncate-words-50" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">First 50 Words</button>
+                                            <button data-tool="truncate-words-100" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">First 100 Words</button>
                                         </div>
                                     </div>
                                 </div>
@@ -475,6 +486,15 @@ const { title, description, placeholder = "Paste your text here...", id = "works
                 d.innerHTML = t;
                 return d.textContent || t;
             },
+            'redact-info': (t) => {
+                const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+                const phoneRegex = /\b(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/g;
+                const ipRegex = /\b(?:\d{1,3}\.){3}\d{1,3}\b/g;
+                return t
+                    .replace(emailRegex, '[REDACTED]')
+                    .replace(phoneRegex, '[REDACTED]')
+                    .replace(ipRegex, '[REDACTED]');
+            },
             'strip-links': (t) => t.replace(/https?:\/\/\S+/gi, ''),
             'strip-emails': (t) => t.replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, ''),
             'strip-symbols': (t) => t.replace(/[^a-zA-Z0-9\s]/g, ''),
@@ -513,7 +533,18 @@ const { title, description, placeholder = "Paste your text here...", id = "works
                     throw e;
                 }
             },
-            'strip-commas': (t) => t.replace(/,/g, '')
+            'strip-commas': (t) => t.replace(/,/g, ''),
+            'trim-twitter': (t) => t.slice(0, 280),
+            'trim-sms': (t) => t.slice(0, 160),
+            'trim-linkedin': (t) => t.slice(0, 3000),
+            'truncate-words-50': (t) => {
+                const words = t.trim().split(/\s+/);
+                return words.slice(0, 50).join(' ') + (words.length > 50 ? '...' : '');
+            },
+            'truncate-words-100': (t) => {
+                const words = t.trim().split(/\s+/);
+                return words.slice(0, 100).join(' ') + (words.length > 100 ? '...' : '');
+            }
         };
 
         const triggerFeedback = () => {

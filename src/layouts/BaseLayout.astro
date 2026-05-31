@@ -134,9 +134,23 @@ const currentPath = Astro.url.pathname;
 								<a href="/strip-links-urls" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Links & URLs</a>
 								<a href="/strip-email-addresses" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Emails</a>
 								<a href="/remove-numbers-special-characters" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Symbols & Numbers</a>
+                                <a href="/redact-sensitive-info" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Redact Sensitive Info</a>
 							</div>
 						</div>
 					</div>
+                    <!-- Social Dropdown -->
+					<div class="relative dropdown-container">
+						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
+							Social
+							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
+						</button>
+						<div class="dropdown-menu absolute right-[-15px] sm:right-0 top-full pt-2 z-[100] min-w-[200px] sm:min-w-[220px]">
+							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
+								<a href="/text-trimmer" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Character & Word Trimmer</a>
+							</div>
+						</div>
+					</div>
+
                     <!-- JSON Dropdown -->
 					<div class="relative dropdown-container">
 						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
@@ -338,6 +352,7 @@ const currentPath = Astro.url.pathname;
                             <li><a href="/strip-links-urls" class="text-body-sm text-body hover:text-ink transition-colors">Strip Links & URLs</a></li>
                             <li><a href="/strip-email-addresses" class="text-body-sm text-body hover:text-ink transition-colors">Strip Emails</a></li>
                             <li><a href="/remove-numbers-special-characters" class="text-body-sm text-body hover:text-ink transition-colors">Strip Symbols & Numbers</a></li>
+                            <li><a href="/redact-sensitive-info" class="text-body-sm text-body hover:text-ink transition-colors">Redact Sensitive Info</a></li>
                         </ul>
                     </div>
 				</div>
@@ -351,15 +366,23 @@ const currentPath = Astro.url.pathname;
                         <li><a href="/decode-html-entities" class="text-body-sm text-body hover:text-ink transition-colors">Decode HTML Entities</a></li>
 					</ul>
 				</div>
-                <div>
-					<h3 class="text-caption-mono text-mute uppercase mb-4">JSON & Data</h3>
-					<ul class="space-y-2">
-                        <li><a href="/json-formatter" class="text-body-sm text-body hover:text-ink transition-colors">JSON Formatter</a></li>
-						<li><a href="/json-minifier" class="text-body-sm text-body hover:text-ink transition-colors">JSON Minifier</a></li>
-                        <li><a href="/csv-to-json" class="text-body-sm text-body hover:text-ink transition-colors">CSV to JSON</a></li>
-						<li><a href="/remove-commas" class="text-body-sm text-body hover:text-ink transition-colors">Remove Commas</a></li>
-					</ul>
-				</div>
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-caption-mono text-mute uppercase mb-4">JSON & Data</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/json-formatter" class="text-body-sm text-body hover:text-ink transition-colors">JSON Formatter</a></li>
+                            <li><a href="/json-minifier" class="text-body-sm text-body hover:text-ink transition-colors">JSON Minifier</a></li>
+                            <li><a href="/csv-to-json" class="text-body-sm text-body hover:text-ink transition-colors">CSV to JSON</a></li>
+                            <li><a href="/remove-commas" class="text-body-sm text-body hover:text-ink transition-colors">Remove Commas</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-caption-mono text-mute uppercase mb-4">Social</h3>
+                        <ul class="space-y-2">
+                            <li><a href="/text-trimmer" class="text-body-sm text-body hover:text-ink transition-colors">Text Trimmer</a></li>
+                        </ul>
+                    </div>
+                </div>
 				<div>
 					<h3 class="text-caption-mono text-mute uppercase mb-4">Company</h3>
 					<ul class="space-y-2">

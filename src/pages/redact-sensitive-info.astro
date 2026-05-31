@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Redact Sensitive Info — Emails, Phone Numbers, IPs";
+const description = "Instantly redact sensitive data like email addresses, phone numbers, and IP addresses. Replace them with [REDACTED] for legal, HR, and ops compliance.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Redact Sensitive Info" 
+		description="Replace emails, phone numbers, and IP addresses with [REDACTED] instantly." 
+        placeholder="Contact us at info@example.com or call +1 (555) 000-1111. Our server is at 192.168.1.1."
+	>
+		<div slot="controls">
+			<button
+				id="redact-info-btn"
+                data-action="redact-info"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Redact Information
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+        <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What does the Redact Sensitive Info tool do?</h3>
+                <p class="text-body-md text-body">
+                    This tool scans your text for common patterns of sensitive information, specifically email addresses, phone numbers, and IPv4 addresses, and replaces them with the string "[REDACTED]". It helps prepare documents for sharing by hiding identifiable data.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is my data safe while redacting?</h3>
+                <p class="text-body-md text-body">
+                    Yes. Just like all our tools, redaction happens 100% in your browser. No text is ever uploaded to our servers, ensuring your sensitive data remains private and secure during the processing phase.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Does it catch all phone number formats?</h3>
+                <p class="text-body-md text-body">
+                    Our tool uses a broad regex pattern designed to catch common international and domestic phone number formats. However, due to the extreme variety in how phone numbers can be written, we recommend a final manual review for highly critical documents.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('redact-info-btn')?.addEventListener('click', () => {
+            const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
+            if (!textarea) return;
+            
+            const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+            const phoneRegex = /\b(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/g;
+            const ipRegex = /\b(?:\d{1,3}\.){3}\d{1,3}\b/g;
+
+            textarea.value = textarea.value
+                .replace(emailRegex, '[REDACTED]')
+                .replace(phoneRegex, '[REDACTED]')
+                .replace(ipRegex, '[REDACTED]');
+                
+            textarea.dispatchEvent(new CustomEvent('workspace:complete'));
+        });
+    </script>
+</BaseLayout>

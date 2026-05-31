@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Remove Commas — Online Text Cleanup";
+const description = "Remove all commas from your text or numbers instantly. Perfect for cleaning up data for spreadsheets or formatting large numeric lists.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Remove Commas" 
+		description="Paste your text below to strip all commas globally." 
+	>
+		<div slot="controls">
+			<button
+				id="remove-commas-btn"
+                data-action="strip-commas"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Strip All Commas
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+        <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">When should I use the Remove Commas tool?</h3>
+                <p class="text-body-md text-body">
+                    This tool is most useful when preparing data for applications that use commas as delimiters (like CSVs) where extra commas might break the structure, or when cleaning up large numbers formatted with thousands separators.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('remove-commas-btn')?.addEventListener('click', () => {
+            const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
+            if (!textarea) return;
+            
+            textarea.value = textarea.value.replace(/,/g, '');
+            textarea.dispatchEvent(new CustomEvent('workspace:complete'));
+        });
+    </script>
+</BaseLayout>

@@ -137,6 +137,21 @@ const currentPath = Astro.url.pathname;
 							</div>
 						</div>
 					</div>
+                    <!-- JSON Dropdown -->
+					<div class="relative dropdown-container">
+						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
+							JSON
+							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
+						</button>
+						<div class="dropdown-menu absolute right-[-5px] sm:right-0 top-full pt-2 z-[100] min-w-[200px] sm:min-w-[220px]">
+							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
+								<a href="/json-formatter" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">JSON Formatter</a>
+								<a href="/json-minifier" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">JSON Minifier</a>
+								<a href="/csv-to-json" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">CSV to JSON</a>
+                                <a href="/remove-commas" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Commas</a>
+							</div>
+						</div>
+					</div>
 				</nav>
 
 				<div class="flex items-center gap-2 shrink-0">
@@ -334,6 +349,15 @@ const currentPath = Astro.url.pathname;
                         <li><a href="/markdown-to-plain-text" class="text-body-sm text-body hover:text-ink transition-colors">Markdown to Plain Text</a></li>
 						<li><a href="/fix-pdf-line-breaks" class="text-body-sm text-body hover:text-ink transition-colors">Fix PDF Line Breaks</a></li>
                         <li><a href="/decode-html-entities" class="text-body-sm text-body hover:text-ink transition-colors">Decode HTML Entities</a></li>
+					</ul>
+				</div>
+                <div>
+					<h3 class="text-caption-mono text-mute uppercase mb-4">JSON & Data</h3>
+					<ul class="space-y-2">
+                        <li><a href="/json-formatter" class="text-body-sm text-body hover:text-ink transition-colors">JSON Formatter</a></li>
+						<li><a href="/json-minifier" class="text-body-sm text-body hover:text-ink transition-colors">JSON Minifier</a></li>
+                        <li><a href="/csv-to-json" class="text-body-sm text-body hover:text-ink transition-colors">CSV to JSON</a></li>
+						<li><a href="/remove-commas" class="text-body-sm text-body hover:text-ink transition-colors">Remove Commas</a></li>
 					</ul>
 				</div>
 				<div>

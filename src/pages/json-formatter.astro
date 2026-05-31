@@ -1,0 +1,92 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "JSON Formatter & Validator — Beautify JSON Online";
+const description = "Format, beautify, and validate your JSON data instantly. Our JSON Formatter makes messy JSON readable and highlights syntax errors, all locally in your browser.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="JSON Formatter" 
+		description="Paste your messy JSON below to beautify and validate it instantly." 
+        placeholder='{ "key": "paste your json here" }'
+	>
+		<div slot="controls">
+			<button
+				id="format-json-btn"
+                data-action="format-json"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+			>
+				Beautify JSON
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+		</div>
+	</Workspace>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+        <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is a JSON Formatter?</h3>
+                <p class="text-body-md text-body">
+                    A JSON Formatter is a tool that takes raw, minified, or messy JSON strings and transforms them into a structured, human-readable format with proper indentation and line breaks. It's an essential utility for developers debugging API responses or configuration files.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is this JSON Formatter safe for sensitive data?</h3>
+                <p class="text-body-md text-body">
+                    Yes. Unlike many online tools that send your data to a server, our JSON Formatter runs 100% client-side. Your data never leaves your browser, making it safe for formatting API keys, personal records, or sensitive configuration data.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How do I fix "Invalid JSON" errors?</h3>
+                <p class="text-body-md text-body">
+                    JSON requires strict syntax: double quotes for keys and strings, no trailing commas, and balanced brackets/braces. If our tool flags your input as invalid, double-check these common syntax requirements.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script type="application/ld+json" is:inline>
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is a JSON Formatter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A JSON Formatter is a tool that takes raw, minified, or messy JSON strings and transforms them into a structured, human-readable format with proper indentation and line breaks."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is this JSON Formatter safe for sensitive data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Our JSON Formatter runs 100% client-side. Your data never leaves your browser, making it safe for formatting sensitive configuration data."
+        }
+      }]
+    }
+    </script>
+
+    <script>
+        document.getElementById('format-json-btn')?.addEventListener('click', () => {
+            const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
+            if (!textarea) return;
+            
+            try {
+                const parsed = JSON.parse(textarea.value);
+                textarea.value = JSON.stringify(parsed, null, 2);
+                textarea.dispatchEvent(new CustomEvent('workspace:complete'));
+            } catch (e) {
+                textarea.classList.add('border-red-500');
+                setTimeout(() => textarea.classList.remove('border-red-500'), 1000);
+            }
+        });
+    </script>
+</BaseLayout>

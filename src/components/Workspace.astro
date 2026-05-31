@@ -3,10 +3,10 @@ interface Props {
 	title: string;
 	description: string;
 	placeholder?: string;
-    id: string;
+    id?: string;
 }
 
-const { title, description, placeholder = "Paste your text here...", id } = Astro.props;
+const { title, description, placeholder = "Paste your text here...", id = "workspace-textarea" } = Astro.props;
 ---
 
 <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-12 workspace-root" data-id={id}>
@@ -74,6 +74,15 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
                                             <button data-tool="markdown-to-plain" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Markdown Strip</button>
                                             <button data-tool="fix-pdf-breaks" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">PDF Breaks</button>
                                             <button data-tool="decode-html" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Decode HTML</button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-2 px-2">JSON & Data</h4>
+                                        <div class="grid gap-1">
+                                            <button data-tool="format-json" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Format JSON</button>
+                                            <button data-tool="minify-json" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Minify JSON</button>
+                                            <button data-tool="csv-to-json" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">CSV to JSON</button>
+                                            <button data-tool="strip-commas" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Strip Commas</button>
                                         </div>
                                     </div>
                                 </div>
@@ -472,7 +481,39 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
             'sort-az': (t) => t.split('\n').sort((a, b) => a.localeCompare(b)).join('\n'),
             'sort-za': (t) => t.split('\n').sort((a, b) => b.localeCompare(a)).join('\n'),
             'sort-length': (t) => t.split('\n').sort((a, b) => a.length - b.length).join('\n'),
-            'line-numberer': (t) => t.split('\n').map((l, i) => `${i + 1}. ${l}`).join('\n')
+            'line-numberer': (t) => t.split('\n').map((l, i) => `${i + 1}. ${l}`).join('\n'),
+            'format-json': (t) => {
+                try {
+                    return JSON.stringify(JSON.parse(t), null, 2);
+                } catch (e) {
+                    throw e;
+                }
+            },
+            'minify-json': (t) => {
+                try {
+                    return JSON.stringify(JSON.parse(t));
+                } catch (e) {
+                    throw e;
+                }
+            },
+            'csv-to-json': (t) => {
+                try {
+                    const lines = t.trim().split('\n').filter(l => l.trim() !== '');
+                    if (lines.length < 2) return t;
+                    const headers = lines[0].split(',').map(h => h.trim());
+                    const rows = lines.slice(1).map(line => {
+                        const values = line.split(',');
+                        return headers.reduce((obj: any, header, i) => {
+                            obj[header] = values[i]?.trim();
+                            return obj;
+                        }, {});
+                    });
+                    return JSON.stringify(rows, null, 2);
+                } catch (e) {
+                    throw e;
+                }
+            },
+            'strip-commas': (t) => t.replace(/,/g, '')
         };
 
         const triggerFeedback = () => {

@@ -10,7 +10,6 @@ const description = "Instantly decode HTML entities like &amp;, &lt;, and &gt; b
 	<Workspace 
 		title="HTML Entity Decoder" 
 		description="Safely convert encoded HTML entities back into their readable character equivalents." 
-		id="html-decoder"
 	>
 		<div slot="controls">
 			<button
@@ -25,7 +24,7 @@ const description = "Instantly decode HTML entities like &amp;, &lt;, and &gt; b
 </BaseLayout>
 
 <script is:inline>
-	const textarea = document.getElementById('html-decoder');
+	const textarea = document.getElementById('workspace-textarea');
 	const decodeBtn = document.getElementById('decode-btn');
 
 	const decodeHTMLEntities = (text) => {

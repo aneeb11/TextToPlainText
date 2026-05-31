@@ -80,6 +80,7 @@ const { title, description, placeholder = "Paste your text here...", id = "works
                                             <button data-tool="encode-url" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">URL Encode</button>
                                             <button data-tool="decode-url" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">URL Decode</button>
                                             <button data-tool="slugify" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Slugify Text</button>
+                                            <button data-tool="desluggify" class="w-full text-left px-2 py-1.5 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors cursor-pointer">Desluggify Text</button>
                                         </div>
                                     </div>
                                     <div>
@@ -582,6 +583,12 @@ const { title, description, placeholder = "Paste your text here...", id = "works
                     .replace(/\s+/g, '-')              // replace spaces with -
                     .replace(/[^\w-]+/g, '')           // remove all non-word chars
                     .replace(/--+/g, '-');             // replace multiple - with single -
+            },
+            'desluggify': (t) => {
+                return t
+                    .replace(/[-_]/g, ' ')
+                    .replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
+                    .trim();
             }
         };
 

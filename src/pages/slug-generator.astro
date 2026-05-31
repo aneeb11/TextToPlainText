@@ -2,23 +2,30 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Slug Generator — Convert Text to URL-Safe Slugs";
-const description = "Instantly convert titles and text into clean, URL-safe slugs. Optimized for SEO, blog posts, and developer-friendly permalinks.";
+const title = "Slug Generator & Desluggifier — Clean URL Utility";
+const description = "Instantly convert titles to URL-safe slugs and reverse slugs back to human-readable text. Optimized for SEO, blog posts, and developer-friendly permalinks.";
 ---
 
 <BaseLayout title={title} description={description}>
 	<Workspace 
-		title="Slug Generator" 
-		description="Convert your text into a lowercase, hyphenated slug suitable for URLs and filenames." 
-        placeholder="Enter your title here (e.g., Hello World! This is a Title)"
+		title="Slug Generator & Desluggifier" 
+		description="Convert text into clean, hyphenated slugs or reverse slugs back into human-readable titles." 
+        placeholder="Enter title to slugify or slug to reverse..."
 	>
-		<div slot="controls">
+		<div slot="controls" class="grid grid-cols-1 gap-2">
 			<button
 				id="slugify-btn"
 				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
 			>
-				Generate Slug
+				Slugify Text
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+            <button
+				id="desluggify-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-canvas text-ink border border-hairline rounded-md hover:bg-canvas-soft transition-colors group"
+			>
+				Desluggify Text
+				<span class="text-[10px] bg-ink/10 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-ink/20 transition-colors">Action</span>
 			</button>
 		</div>
 	</Workspace>
@@ -36,16 +43,16 @@ const description = "Instantly convert titles and text into clean, URL-safe slug
             </div>
 
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Why are slugs important for SEO?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What does "Desluggify" mean?</h3>
                 <p class="text-body-md text-body">
-                    Search engines use slugs to understand the content of a page. Clean, descriptive slugs containing relevant keywords can help improve your search engine rankings and make your links more clickable for users.
+                    Desluggifying is the process of converting a URL-safe slug back into a human-readable title. It usually involves replacing hyphens or underscores with spaces and capitalizing the first letter of each word (Title Case).
                 </p>
             </div>
 
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the Slug Generator work?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Why are slugs important for SEO?</h3>
                 <p class="text-body-md text-body">
-                    Our generator follows standard URL conventions: it converts text to lowercase, removes special characters and accents, and replaces spaces with hyphens. It also ensures that multiple hyphens are collapsed into a single one for a clean finish.
+                    Search engines use slugs to understand the content of a page. Clean, descriptive slugs containing relevant keywords can help improve your search engine rankings and make your links more clickable for users.
                 </p>
             </div>
         </div>
@@ -70,5 +77,18 @@ const description = "Instantly convert titles and text into clean, URL-safe slug
             textarea.value = slug;
             textarea.dispatchEvent(new CustomEvent('workspace:complete'));
         });
+
+        document.getElementById('desluggify-btn')?.addEventListener('click', () => {
+            if (!textarea) return;
+            
+            const title = textarea.value
+                .replace(/[-_]/g, ' ')
+                .replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
+                .trim();
+
+            textarea.value = title;
+            textarea.dispatchEvent(new CustomEvent('workspace:complete'));
+        });
     </script>
 </BaseLayout>
+

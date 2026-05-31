@@ -12,6 +12,55 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
+
+const tools = [
+    // Cleaning
+    { name: "Plain Text Converter", href: "/", category: "Cleaning" },
+    { name: "Whitespace Visualizer", href: "/whitespace-visualizer", category: "Cleaning" },
+    { name: "Extra Spaces", href: "/remove-extra-spaces", category: "Cleaning" },
+    { name: "All Spaces", href: "/remove-all-spaces", category: "Cleaning" },
+    { name: "Blank Lines", href: "/remove-blank-lines", category: "Cleaning" },
+    { name: "HTML Tags", href: "/strip-html-tags", category: "Cleaning" },
+    { name: "Strip Emojis", href: "/strip-emojis", category: "Cleaning" },
+    
+    // Transform
+    { name: "Case Converter", href: "/case-converter", category: "Transform" },
+    { name: "Markdown Strip", href: "/markdown-to-plain-text", category: "Transform" },
+    { name: "Fix PDF Breaks", href: "/fix-pdf-line-breaks", category: "Transform" },
+    { name: "Decode HTML Entities", href: "/decode-html-entities", category: "Transform" },
+    { name: "Slugify / Desluggify", href: "/slug-generator", category: "Transform" },
+    { name: "Sort Lines", href: "/sort-lines", category: "Transform" },
+    { name: "Add Prefix / Suffix", href: "/add-prefix-suffix", category: "Transform" },
+    { name: "Line Numberer", href: "/line-numberer", category: "Transform" },
+    { name: "Find and Replace", href: "/find-and-replace", category: "Transform" },
+    
+    // Encode / Decode
+    { name: "Base64 Encoder", href: "/base64-converter", category: "Encode / Decode" },
+    { name: "Base64 Decoder", href: "/base64-converter", category: "Encode / Decode" },
+    { name: "URL Encoder", href: "/url-converter", category: "Encode / Decode" },
+    { name: "URL Decoder", href: "/url-converter", category: "Encode / Decode" },
+    
+    // Data
+    { name: "JSON Formatter", href: "/json-formatter", category: "Data" },
+    { name: "JSON Minifier", href: "/json-minifier", category: "Data" },
+    { name: "JSON ↔ CSV", href: "/json-csv-converter", category: "Data" },
+    { name: "Remove Duplicate Lines", href: "/remove-duplicate-lines", category: "Data" },
+    { name: "Remove Duplicate Paragraphs", href: "/remove-duplicate-paragraphs", category: "Data" },
+    { name: "Remove Duplicate Words", href: "/remove-duplicate-words", category: "Data" },
+    { name: "Remove Duplicate Sentences", href: "/remove-duplicate-sentences", category: "Data" },
+    { name: "Remove Commas", href: "/remove-commas", category: "Data" },
+    
+    // Filter
+    { name: "Redact Sensitive Info", href: "/redact-sensitive-info", category: "Filter" },
+    { name: "Character Frequency", href: "/character-frequency", category: "Filter" },
+    { name: "Strip Links", href: "/strip-links-urls", category: "Filter" },
+    { name: "Strip Emails", href: "/strip-email-addresses", category: "Filter" },
+    { name: "Strip Symbols", href: "/remove-numbers-special-characters", category: "Filter" },
+    { name: "Twitter Trimmer", href: "/text-trimmer", category: "Filter" },
+    { name: "SMS Trimmer", href: "/text-trimmer", category: "Filter" },
+    { name: "LinkedIn Trimmer", href: "/text-trimmer", category: "Filter" },
+    { name: "Word Truncator", href: "/text-trimmer", category: "Filter" }
+];
 ---
 
 <!doctype html>
@@ -54,7 +103,7 @@ const currentPath = Astro.url.pathname;
 					<span class="text-display-sm tracking-tight hidden lg:inline-block">Text to Plain Text</span>
 				</a>
 				
-				<nav class="flex items-center gap-1 overflow-x-auto sm:overflow-visible no-scrollbar py-1 -my-1 max-w-[calc(100vw-120px)] sm:max-w-none">
+				<nav class="flex items-center gap-1 overflow-x-auto sm:overflow-visible no-scrollbar py-1 -my-1 max-w-[calc(100vw-180px)] sm:max-w-none">
 					<a href="/" class={`whitespace-nowrap px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors ${currentPath === '/' ? 'bg-canvas-soft-2 text-ink font-medium' : 'text-body'}`}>Home</a>
 					
                     <!-- Cleaning Dropdown -->
@@ -66,6 +115,7 @@ const currentPath = Astro.url.pathname;
 						<div class="dropdown-menu absolute left-0 sm:left-auto sm:right-0 top-full pt-2 z-[100] min-w-[200px] sm:min-w-[220px]">
 							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
 								<a href="/" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Plain Text Converter</a>
+								<a href="/whitespace-visualizer" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Whitespace Visualizer</a>
 								<a href="/remove-extra-spaces" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Extra Spaces</a>
 								<a href="/remove-all-spaces" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove All Spaces</a>
 								<a href="/remove-blank-lines" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Blank Lines</a>
@@ -75,53 +125,57 @@ const currentPath = Astro.url.pathname;
 						</div>
 					</div>
 
-                    <!-- Advanced Dropdown -->
+                    <!-- Transform Dropdown -->
 					<div class="relative dropdown-container">
 						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
-							Advanced
+							Transform
 							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
 						</button>
-						<div class="dropdown-menu absolute left-[-50px] sm:left-auto sm:right-0 top-full pt-2 z-[100] min-w-[200px] sm:min-w-[220px]">
+						<div class="dropdown-menu absolute left-[-20px] sm:left-auto sm:right-0 top-full pt-2 z-[100] min-w-[200px] sm:min-w-[220px]">
 							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
 								<a href="/case-converter" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Case Converter</a>
+                                <a href="/markdown-to-plain-text" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Markdown Strip</a>
 								<a href="/find-and-replace" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Find and Replace</a>
-								<a href="/markdown-to-plain-text" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Markdown to Plain Text</a>
 								<a href="/fix-pdf-line-breaks" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Fix PDF Line Breaks</a>
 								<a href="/decode-html-entities" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Decode HTML Entities</a>
-                                <a href="/base64-converter" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Base64 Encode/Decode</a>
-                                <a href="/url-converter" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">URL Encode/Decode</a>
                                 <a href="/slug-generator" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Slugify / Desluggify</a>
+                                <a href="/sort-lines" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Sort Lines</a>
+                                <a href="/add-prefix-suffix" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Add Prefix / Suffix</a>
+                                <a href="/line-numberer" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Line Numberer</a>
 							</div>
 						</div>
 					</div>
 
-                    <!-- Duplicate Dropdown -->
+                    <!-- Encode / Decode Dropdown -->
 					<div class="relative dropdown-container">
 						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
-							Duplicate
+							Encode / Decode
+							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
+						</button>
+						<div class="dropdown-menu absolute right-[-40px] sm:right-0 top-full pt-2 z-[100] min-w-[200px] sm:min-w-[220px]">
+							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
+                                <a href="/base64-converter" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Base64 Encoder/Decoder</a>
+                                <a href="/url-converter" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">URL Encoder/Decoder</a>
+							</div>
+						</div>
+					</div>
+
+                    <!-- Data Dropdown -->
+					<div class="relative dropdown-container">
+						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
+							Data
 							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
 						</button>
 						<div class="dropdown-menu absolute right-[-20px] sm:right-0 top-full pt-2 z-[100] min-w-[200px] sm:min-w-[220px]">
 							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
+								<a href="/json-formatter" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">JSON Formatter</a>
+								<a href="/json-minifier" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">JSON Minifier</a>
+								<a href="/json-csv-converter" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">JSON ↔ CSV</a>
 								<a href="/remove-duplicate-lines" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Duplicate Lines</a>
 								<a href="/remove-duplicate-paragraphs" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Duplicate Paragraphs</a>
 								<a href="/remove-duplicate-words" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Duplicate Words</a>
 								<a href="/remove-duplicate-sentences" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Duplicate Sentences</a>
-							</div>
-						</div>
-					</div>
-
-                    <!-- Lists Dropdown -->
-					<div class="relative dropdown-container">
-						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
-							Lists
-							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
-						</button>
-						<div class="dropdown-menu absolute right-[-10px] sm:right-0 top-full pt-2 z-[100] min-w-[200px] sm:min-w-[220px]">
-							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
-								<a href="/add-prefix-suffix" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Add Prefix / Suffix</a>
-								<a href="/sort-lines" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Sort Lines</a>
-								<a href="/line-numberer" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Line Numberer</a>
+                                <a href="/remove-commas" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Commas</a>
 							</div>
 						</div>
 					</div>
@@ -134,48 +188,28 @@ const currentPath = Astro.url.pathname;
 						</button>
 						<div class="dropdown-menu absolute right-0 top-full pt-2 z-[100] min-w-[200px] sm:min-w-[220px]">
 							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
+								<a href="/redact-sensitive-info" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Redact Sensitive Info</a>
+								<a href="/character-frequency" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Character Frequency</a>
 								<a href="/strip-links-urls" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Links & URLs</a>
 								<a href="/strip-email-addresses" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Emails</a>
 								<a href="/remove-numbers-special-characters" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Strip Symbols & Numbers</a>
-                                <a href="/redact-sensitive-info" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Redact Sensitive Info</a>
+                                <a href="/text-trimmer" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Twitter/SMS/LinkedIn Trimmer</a>
+                                <a href="/text-trimmer" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Word Truncator</a>
 							</div>
 						</div>
 					</div>
-                    <!-- Social Dropdown -->
-					<div class="relative dropdown-container">
-						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
-							Social
-							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
-						</button>
-						<div class="dropdown-menu absolute right-[-15px] sm:right-0 top-full pt-2 z-[100] min-w-[200px] sm:min-w-[220px]">
-							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
-								<a href="/text-trimmer" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Character & Word Trimmer</a>
-							</div>
-						</div>
-					</div>
-
-                    <!-- JSON Dropdown -->
-					<div class="relative dropdown-container">
-						<button class="dropdown-trigger px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors flex items-center gap-1 text-body whitespace-nowrap">
-							JSON
-							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
-						</button>
-						<div class="dropdown-menu absolute right-[-5px] sm:right-0 top-full pt-2 z-[100] min-w-[200px] sm:min-w-[220px]">
-							<div class="bg-canvas border border-hairline rounded-lg shadow-level-3 p-2 grid grid-cols-1 gap-1">
-								<a href="/json-formatter" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">JSON Formatter</a>
-								<a href="/json-minifier" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">JSON Minifier</a>
-								<a href="/csv-to-json" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">CSV to JSON</a>
-                                <a href="/remove-commas" class="px-3 py-2 rounded-md text-body-sm hover:bg-canvas-soft-2 transition-colors">Remove Commas</a>
-							</div>
-						</div>
-					</div>
+                    
+                    <a href="/all-tools" class={`whitespace-nowrap px-2 sm:px-3 py-1.5 rounded-full text-body-sm hover:bg-canvas-soft-2 transition-colors ${currentPath === '/all-tools' ? 'bg-canvas-soft-2 text-ink font-medium' : 'text-body'}`}>All Tools</a>
 				</nav>
 
 				<div class="flex items-center gap-2 shrink-0">
-                    <div class="hidden md:flex items-center gap-1.5 px-2 py-1 bg-success/5 border border-success/20 rounded-sm mr-2" title="Everything runs in your browser. No internet required after loading.">
-                        <div class="w-1.5 h-1.5 rounded-full bg-success animate-pulse"></div>
-                        <span class="text-[10px] font-bold text-success uppercase tracking-wider">Offline Ready</span>
-                    </div>
+                    <button 
+                        id="command-palette-trigger" 
+                        class="w-8 h-8 flex items-center justify-center rounded-sm hover:bg-canvas-soft-2 transition-colors border border-hairline cursor-pointer text-mute hover:text-ink"
+                        title="Search tools (Cmd+K)"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    </button>
                     <button id="theme-toggle" class="w-8 h-8 flex items-center justify-center rounded-sm hover:bg-canvas-soft-2 transition-colors border border-hairline cursor-pointer">
                         <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
                         <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
@@ -190,6 +224,38 @@ const currentPath = Astro.url.pathname;
 		<main class="flex-grow">
 			<slot />
 		</main>
+
+        <!-- Command Palette Modal -->
+        <div id="command-palette" class="fixed inset-0 z-[100] hidden overflow-y-auto p-4 sm:p-6 md:p-20" role="dialog" aria-modal="true">
+            <div id="command-palette-backdrop" class="fixed inset-0 bg-zinc-900/60 backdrop-blur-sm transition-opacity"></div>
+            
+            <div class="relative mx-auto max-w-2xl transform overflow-hidden rounded-xl bg-canvas border border-hairline shadow-level-4 transition-all">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-mute">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="command-palette-input" 
+                        class="h-14 w-full border-0 bg-transparent pl-12 pr-4 text-body placeholder:text-mute focus:ring-0 sm:text-body-lg outline-none border-b border-hairline" 
+                        placeholder="Search all tools..."
+                        autocomplete="off"
+                    />
+                </div>
+
+                <div id="command-palette-results" class="max-h-96 overflow-y-auto p-2 scroll-py-2 no-scrollbar">
+                    <!-- Results injected here -->
+                </div>
+
+                <div class="flex items-center justify-between border-t border-hairline px-4 py-2 text-[10px] font-bold text-mute uppercase tracking-widest bg-canvas-soft">
+                    <div class="flex gap-4">
+                        <span><kbd class="font-sans">↑↓</kbd> Navigate</span>
+                        <span><kbd class="font-sans">↵</kbd> Select</span>
+                    </div>
+                    <span><kbd class="font-sans">esc</kbd> Dismiss</span>
+                </div>
+            </div>
+        </div>
 
         <style is:global>
             /* Dropdown interaction logic */
@@ -241,12 +307,11 @@ const currentPath = Astro.url.pathname;
             }
         </style>
 
-        <script is:inline>
+        <script is:inline define:vars={{ tools }}>
             // Theme toggle logic
             const themeToggle = document.getElementById('theme-toggle');
             const html = document.documentElement;
 
-            // Check for saved theme or default to light
             const savedTheme = localStorage.getItem('theme') || 'light';
             if (savedTheme === 'dark') {
                 html.classList.add('dark');
@@ -259,7 +324,7 @@ const currentPath = Astro.url.pathname;
                 });
             }
 
-            // Dropdown Logic (Event Delegation)
+            // Dropdown Logic
             function setupDropdowns() {
                 document.addEventListener('click', (e) => {
                     const trigger = e.target.closest('.dropdown-trigger');
@@ -271,13 +336,9 @@ const currentPath = Astro.url.pathname;
                         const container = trigger.closest('.dropdown-container');
                         if (container) {
                             const isActive = container.classList.contains('is-active');
-                            
-                            // Close all other dropdowns
                             document.querySelectorAll('.dropdown-container').forEach(d => {
                                 if (d !== container) d.classList.remove('is-active');
                             });
-                            
-                            // Toggle current
                             if (isActive) {
                                 container.classList.remove('is-active');
                             } else {
@@ -287,7 +348,6 @@ const currentPath = Astro.url.pathname;
                         return;
                     }
 
-                    // Close dropdowns when clicking outside
                     if (!e.target.closest('.dropdown-container')) {
                         document.querySelectorAll('.dropdown-container').forEach(d => {
                             d.classList.remove('is-active');
@@ -296,7 +356,90 @@ const currentPath = Astro.url.pathname;
                 });
             }
 
-            // Init on load
+            // Command Palette Logic
+            const palette = document.getElementById('command-palette');
+            const paletteInput = document.getElementById('command-palette-input');
+            const paletteResults = document.getElementById('command-palette-results');
+            const paletteTrigger = document.getElementById('command-palette-trigger');
+            const paletteBackdrop = document.getElementById('command-palette-backdrop');
+            
+            let selectedIndex = 0;
+            let currentResults = [];
+
+            function openPalette() {
+                palette.classList.remove('hidden');
+                paletteInput.focus();
+                renderResults("");
+            }
+
+            function closePalette() {
+                palette.classList.add('hidden');
+                paletteInput.value = "";
+            }
+
+            function renderResults(query) {
+                const q = query.toLowerCase().trim();
+                currentResults = tools.filter(t => 
+                    t.name.toLowerCase().includes(q) || 
+                    t.category.toLowerCase().includes(q)
+                ).slice(0, 10);
+
+                if (currentResults.length === 0) {
+                    paletteResults.innerHTML = `<div class="px-4 py-8 text-center text-body-sm text-mute">No tools matching "${query}"</div>`;
+                    return;
+                }
+
+                selectedIndex = 0;
+                updateResultsUI();
+            }
+
+            function updateResultsUI() {
+                paletteResults.innerHTML = currentResults.map((tool, i) => `
+                    <a href="${tool.href}" class="group flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${i === selectedIndex ? 'bg-canvas-soft-2' : 'hover:bg-canvas-soft-2'}">
+                        <div class="w-8 h-8 rounded bg-canvas-soft-2 border border-hairline flex items-center justify-center text-mute group-hover:text-ink transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        </div>
+                        <div class="flex-grow">
+                            <div class="text-body-sm-strong ${i === selectedIndex ? 'text-ink' : 'text-body'}">${tool.name}</div>
+                            <div class="text-[10px] text-mute uppercase font-bold tracking-widest">${tool.category}</div>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-mute opacity-0 group-hover:opacity-100 ${i === selectedIndex ? 'opacity-100' : ''}"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </a>
+                `).join('');
+            }
+
+            paletteTrigger?.addEventListener('click', openPalette);
+            paletteBackdrop?.addEventListener('click', closePalette);
+
+            paletteInput?.addEventListener('input', (e) => {
+                renderResults(e.target.value);
+            });
+
+            paletteInput?.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    selectedIndex = (selectedIndex + 1) % currentResults.length;
+                    updateResultsUI();
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    selectedIndex = (selectedIndex - 1 + currentResults.length) % currentResults.length;
+                    updateResultsUI();
+                } else if (e.key === 'Enter') {
+                    if (currentResults[selectedIndex]) {
+                        window.location.href = currentResults[selectedIndex].href;
+                    }
+                } else if (e.key === 'Escape') {
+                    closePalette();
+                }
+            });
+
+            window.addEventListener('keydown', (e) => {
+                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                    e.preventDefault();
+                    openPalette();
+                }
+            });
+
             setupDropdowns();
         </script>
 
@@ -324,6 +467,7 @@ const currentPath = Astro.url.pathname;
 					<h3 class="text-caption-mono text-mute uppercase mb-4">Cleaning</h3>
 					<ul class="space-y-2">
                         <li><a href="/" class="text-body-sm text-body hover:text-ink transition-colors">Plain Text Converter</a></li>
+						<li><a href="/whitespace-visualizer" class="text-body-sm text-body hover:text-ink transition-colors">Whitespace Visualizer</a></li>
 						<li><a href="/remove-extra-spaces" class="text-body-sm text-body hover:text-ink transition-colors">Remove Extra Spaces</a></li>
                         <li><a href="/remove-all-spaces" class="text-body-sm text-body hover:text-ink transition-colors">Remove All Spaces</a></li>
 						<li><a href="/remove-blank-lines" class="text-body-sm text-body hover:text-ink transition-colors">Remove Blank Lines</a></li>
@@ -331,72 +475,53 @@ const currentPath = Astro.url.pathname;
                         <li><a href="/strip-emojis" class="text-body-sm text-body hover:text-ink transition-colors">Strip Emojis</a></li>
 					</ul>
 				</div>
-				<div>
-					<h3 class="text-caption-mono text-mute uppercase mb-4">Duplicate</h3>
-					<ul class="space-y-2">
-						<li><a href="/remove-duplicate-lines" class="text-body-sm text-body hover:text-ink transition-colors">Remove Duplicate Lines</a></li>
-						<li><a href="/remove-duplicate-paragraphs" class="text-body-sm text-body hover:text-ink transition-colors">Remove Duplicate Paragraphs</a></li>
-						<li><a href="/remove-duplicate-words" class="text-body-sm text-body hover:text-ink transition-colors">Remove Duplicate Words</a></li>
-						<li><a href="/remove-duplicate-sentences" class="text-body-sm text-body hover:text-ink transition-colors">Remove Duplicate Sentences</a></li>
-					</ul>
-				</div>
-                <div class="space-y-8">
-                    <div>
-                        <h3 class="text-caption-mono text-mute uppercase mb-4">Lists</h3>
-                        <ul class="space-y-2">
-                            <li><a href="/add-prefix-suffix" class="text-body-sm text-body hover:text-ink transition-colors">Add Prefix / Suffix</a></li>
-                            <li><a href="/sort-lines" class="text-body-sm text-body hover:text-ink transition-colors">Sort Lines</a></li>
-                            <li><a href="/line-numberer" class="text-body-sm text-body hover:text-ink transition-colors">Line Numberer</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-caption-mono text-mute uppercase mb-4">Filter</h3>
-                        <ul class="space-y-2">
-                            <li><a href="/strip-links-urls" class="text-body-sm text-body hover:text-ink transition-colors">Strip Links & URLs</a></li>
-                            <li><a href="/strip-email-addresses" class="text-body-sm text-body hover:text-ink transition-colors">Strip Emails</a></li>
-                            <li><a href="/remove-numbers-special-characters" class="text-body-sm text-body hover:text-ink transition-colors">Strip Symbols & Numbers</a></li>
-                            <li><a href="/redact-sensitive-info" class="text-body-sm text-body hover:text-ink transition-colors">Redact Sensitive Info</a></li>
-                        </ul>
-                    </div>
-				</div>
-				<div>
-					<h3 class="text-caption-mono text-mute uppercase mb-4">Advanced</h3>
+                <div>
+					<h3 class="text-caption-mono text-mute uppercase mb-4">Transform</h3>
 					<ul class="space-y-2">
                         <li><a href="/case-converter" class="text-body-sm text-body hover:text-ink transition-colors">Case Converter</a></li>
-						<li><a href="/find-and-replace" class="text-body-sm text-body hover:text-ink transition-colors">Find and Replace</a></li>
-                        <li><a href="/markdown-to-plain-text" class="text-body-sm text-body hover:text-ink transition-colors">Markdown to Plain Text</a></li>
+						<li><a href="/markdown-to-plain-text" class="text-body-sm text-body hover:text-ink transition-colors">Markdown Strip</a></li>
+                        <li><a href="/find-and-replace" class="text-body-sm text-body hover:text-ink transition-colors">Find and Replace</a></li>
 						<li><a href="/fix-pdf-line-breaks" class="text-body-sm text-body hover:text-ink transition-colors">Fix PDF Line Breaks</a></li>
                         <li><a href="/decode-html-entities" class="text-body-sm text-body hover:text-ink transition-colors">Decode HTML Entities</a></li>
-                        <li><a href="/base64-converter" class="text-body-sm text-body hover:text-ink transition-colors">Base64 Converter</a></li>
-                        <li><a href="/url-converter" class="text-body-sm text-body hover:text-ink transition-colors">URL Converter</a></li>
                         <li><a href="/slug-generator" class="text-body-sm text-body hover:text-ink transition-colors">Slugify / Desluggify</a></li>
 					</ul>
 				</div>
-                <div class="space-y-8">
-                    <div>
-                        <h3 class="text-caption-mono text-mute uppercase mb-4">JSON & Data</h3>
-                        <ul class="space-y-2">
-                            <li><a href="/json-formatter" class="text-body-sm text-body hover:text-ink transition-colors">JSON Formatter</a></li>
-                            <li><a href="/json-minifier" class="text-body-sm text-body hover:text-ink transition-colors">JSON Minifier</a></li>
-                            <li><a href="/csv-to-json" class="text-body-sm text-body hover:text-ink transition-colors">CSV to JSON</a></li>
-                            <li><a href="/remove-commas" class="text-body-sm text-body hover:text-ink transition-colors">Remove Commas</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-caption-mono text-mute uppercase mb-4">Social</h3>
-                        <ul class="space-y-2">
-                            <li><a href="/text-trimmer" class="text-body-sm text-body hover:text-ink transition-colors">Text Trimmer</a></li>
-                        </ul>
-                    </div>
-                </div>
 				<div>
+					<h3 class="text-caption-mono text-mute uppercase mb-4">Encode / Decode</h3>
+					<ul class="space-y-2">
+                        <li><a href="/base64-converter" class="text-body-sm text-body hover:text-ink transition-colors">Base64 Encoder</a></li>
+						<li><a href="/base64-converter" class="text-body-sm text-body hover:text-ink transition-colors">Base64 Decoder</a></li>
+                        <li><a href="/url-converter" class="text-body-sm text-body hover:text-ink transition-colors">URL Encoder</a></li>
+						<li><a href="/url-converter" class="text-body-sm text-body hover:text-ink transition-colors">URL Decoder</a></li>
+					</ul>
+				</div>
+                <div>
+					<h3 class="text-caption-mono text-mute uppercase mb-4">Data</h3>
+					<ul class="space-y-2">
+                        <li><a href="/json-formatter" class="text-body-sm text-body hover:text-ink transition-colors">JSON Formatter</a></li>
+						<li><a href="/json-minifier" class="text-body-sm text-body hover:text-ink transition-colors">JSON Minifier</a></li>
+                        <li><a href="/json-csv-converter" class="text-body-sm text-body hover:text-ink transition-colors">JSON ↔ CSV</a></li>
+						<li><a href="/remove-duplicate-lines" class="text-body-sm text-body hover:text-ink transition-colors">Remove Duplicate Lines</a></li>
+					</ul>
+				</div>
+				<div>
+					<h3 class="text-caption-mono text-mute uppercase mb-4">Filter</h3>
+					<ul class="space-y-2">
+                        <li><a href="/redact-sensitive-info" class="text-body-sm text-body hover:text-ink transition-colors">Redact Sensitive Info</a></li>
+						<li><a href="/strip-links-urls" class="text-body-sm text-body hover:text-ink transition-colors">Strip Links</a></li>
+                        <li><a href="/strip-email-addresses" class="text-body-sm text-body hover:text-ink transition-colors">Strip Emails</a></li>
+						<li><a href="/remove-numbers-special-characters" class="text-body-sm text-body hover:text-ink transition-colors">Strip Symbols</a></li>
+                        <li><a href="/text-trimmer" class="text-body-sm text-body hover:text-ink transition-colors">Text Trimmer</a></li>
+					</ul>
+				</div>
+				<div class="col-span-2 md:col-span-3 lg:col-span-1">
 					<h3 class="text-caption-mono text-mute uppercase mb-4">Company</h3>
 					<ul class="space-y-2">
+                        <li><a href="/all-tools" class="text-body-sm text-body hover:text-ink transition-colors font-semibold">All Tools Directory</a></li>
                         <li><a href="/about" class="text-body-sm text-body hover:text-ink transition-colors">About</a></li>
-                        <li><a href="/#faq" class="text-body-sm text-body hover:text-ink transition-colors">FAQ</a></li>
                         <li><a href="/privacy" class="text-body-sm text-body hover:text-ink transition-colors">Privacy Policy</a></li>
-                        <li><a href="/terms" class="text-body-sm text-body hover:text-ink transition-colors">Terms & Conditions</a></li>
-                        <li><a href="/contact" class="text-body-sm text-body hover:text-ink transition-colors">Contact Us</a></li>
+                        <li><a href="/terms" class="text-body-sm text-body hover:text-ink transition-colors">Terms</a></li>
+                        <li><a href="/contact" class="text-body-sm text-body hover:text-ink transition-colors">Contact</a></li>
 					</ul>
 				</div>
 			</div>

@@ -1,0 +1,184 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Whitespace Visualizer — See Invisible Characters Online";
+const description = "Make invisible whitespace characters like spaces, tabs, and non-breaking spaces visible. Identify double spaces and carriage returns instantly.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Workspace 
+		title="Whitespace Visualizer" 
+		description="Paste your text to reveal hidden characters. Spaces, tabs, and non-breaking spaces will be visually marked." 
+	>
+		<div slot="controls" class="space-y-4">
+			<button
+				id="visualize-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group cursor-pointer"
+			>
+				Visualize Whitespace
+				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
+			</button>
+
+            <button
+				id="copy-clean-btn"
+				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-canvas text-ink border border-hairline rounded-md hover:bg-canvas-soft transition-colors group cursor-pointer"
+			>
+				Copy Clean Text
+				<span class="text-[10px] bg-ink/5 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-ink/10 transition-colors font-bold">Original</span>
+			</button>
+
+            <div class="pt-4 border-t border-hairline">
+                <h4 class="text-[10px] font-bold text-mute uppercase tracking-widest mb-3">Legend</h4>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-body-sm">
+                        <span class="w-6 h-6 flex items-center justify-center bg-canvas border border-hairline rounded text-mute">·</span>
+                        <span class="text-mute">Regular Space</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-body-sm">
+                        <span class="w-6 h-6 flex items-center justify-center bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded text-blue-500">→</span>
+                        <span class="text-mute">Tab Character</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-body-sm">
+                        <span class="w-6 h-6 flex items-center justify-center bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded text-orange-500">⊙</span>
+                        <span class="text-mute">Non-breaking Space</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-body-sm">
+                        <span class="w-6 h-6 flex items-center justify-center bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded text-red-500">¶</span>
+                        <span class="text-mute">Carriage Return (\r)</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-body-sm">
+                        <span class="w-6 h-6 flex items-center justify-center bg-yellow-200 dark:bg-yellow-900/40 border border-yellow-400 dark:border-yellow-700 rounded text-yellow-700 dark:text-yellow-300">··</span>
+                        <span class="text-mute">Double Space (Warning)</span>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</Workspace>
+</BaseLayout>
+
+<style is:global>
+    .visualizer-output {
+        white-space: pre-wrap;
+        word-break: break-all;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    
+    .visualizer-output .space { color: #6b7280; } /* gray-500 - slightly darker for visibility */
+    .visualizer-output .tab { 
+        color: #2563eb; /* blue-600 */
+        background-color: rgba(59, 130, 246, 0.15); 
+        border-radius: 2px;
+        padding: 0 1px;
+    }
+    .visualizer-output .nbsp { color: #ea580c; } /* orange-600 */
+    .visualizer-output .cr { color: #dc2626; } /* red-600 */
+    .visualizer-output .double-space { 
+        background-color: rgba(253, 224, 71, 0.5); /* yellow-300/50 */
+        border-radius: 2px;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
+        const container = document.getElementById('container-workspace-textarea');
+        const visualizeBtn = document.getElementById('visualize-btn');
+        const copyCleanBtn = document.getElementById('copy-clean-btn');
+
+        if (!textarea || !container || !visualizeBtn || !copyCleanBtn) return;
+
+        // Allow Tab key in textarea
+        textarea.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+                textarea.value = textarea.value.substring(0, start) + "\t" + textarea.value.substring(end);
+                textarea.selectionStart = textarea.selectionEnd = start + 1;
+                textarea.dispatchEvent(new Event('input'));
+            }
+        });
+
+        // Create output element
+        const outputPre = document.createElement('pre');
+        outputPre.id = 'visualizer-output';
+        outputPre.className = 'visualizer-output absolute inset-0 w-full h-full p-4 sm:p-6 bg-canvas text-body-md overflow-y-auto hidden z-10';
+        container.appendChild(outputPre);
+
+        let isVisualizing = false;
+        let originalText = "";
+
+        const toggleView = (showVisualizer: boolean) => {
+            isVisualizing = showVisualizer;
+            if (showVisualizer) {
+                textarea.classList.add('opacity-0', 'pointer-events-none');
+                outputPre.classList.remove('hidden');
+                visualizeBtn.innerHTML = 'Edit Original Text <span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider">Switch</span>';
+            } else {
+                textarea.classList.remove('opacity-0', 'pointer-events-none');
+                outputPre.classList.add('hidden');
+                visualizeBtn.innerHTML = 'Visualize Whitespace <span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider">Action</span>';
+            }
+        };
+
+        const escapeHtml = (text: string) => {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        };
+
+        const visualize = (text: string) => {
+            let html = escapeHtml(text);
+
+            // Replace characters visually
+            // 1. Tabs
+            html = html.replace(/\t/g, '<span class="tab">→</span>');
+            
+            // 2. Non-breaking spaces (NBSP)
+            html = html.replace(/\u00A0/g, '<span class="nbsp">⊙</span>');
+
+            // 3. Carriage returns \r
+            html = html.replace(/\r/g, '<span class="cr">¶</span>');
+
+            // 4. Double spaces (Warning)
+            html = html.replace(/  /g, '<span class="double-space"><span class="space">·</span><span class="space">·</span></span>');
+
+            // 5. Remaining single spaces (avoiding our own tags)
+            html = html.replace(/ (?![^<]*>)/g, '<span class="space">·</span>');
+
+            return html;
+        };
+
+        visualizeBtn.addEventListener('click', () => {
+            if (!isVisualizing) {
+                const text = textarea.value;
+                if (!text) return;
+                originalText = text;
+                outputPre.innerHTML = visualize(text);
+                toggleView(true);
+            } else {
+                toggleView(false);
+            }
+        });
+
+        copyCleanBtn.addEventListener('click', () => {
+            const textToCopy = isVisualizing ? originalText : textarea.value;
+            navigator.clipboard.writeText(textToCopy);
+            
+            const originalBtnText = copyCleanBtn.innerHTML;
+            copyCleanBtn.innerHTML = 'Copied! <span class="text-[10px] bg-ink/10 px-1.5 py-0.5 rounded uppercase tracking-wider">Success</span>';
+            setTimeout(() => {
+                copyCleanBtn.innerHTML = originalBtnText;
+            }, 2000);
+        });
+
+        // Sync original text if user edits
+        textarea.addEventListener('input', () => {
+            if (!isVisualizing) {
+                originalText = textarea.value;
+            }
+        });
+    });
+</script>

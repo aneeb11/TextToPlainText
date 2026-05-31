@@ -2,11 +2,46 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Plain Text Converter — Strip Formatting Online";
-const description = "Convert rich text, HTML, or formatted content into clean, plain text instantly. No data ever leaves your browser.";
+const title = "Plain Text Converter — Free Online Plain Text Converter | Text to Plain Text";
+const description = "Convert rich text, HTML, or formatted content into clean, plain text instantly. A privacy-first tool to strip formatting from any text entirely in your browser.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is a Plain Text Converter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Plain Text Converter is a tool that removes all formatting (like bold, italics, links, and HTML tags) from your text, leaving only the raw characters. It's essential for cleaning content copied from websites, emails, or word processors."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does the Plain Text Converter work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our converter uses client-side JavaScript to process your text. When you paste your content, the browser's internal logic strips away styling attributes and non-text elements instantly. No data is ever sent to a server."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Plain Text Converter free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Text to Plain Text is 100% free to use. There are no subscriptions, no accounts, and no hidden fees. All our tools are available to everyone without any limitations."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Plain Text Converter safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Our converter is built with a \"Privacy-First\" architecture. All text processing happens locally in your web browser. This means your data never leaves your computer, and we never store or see your content."
+        }
+      }]
+    }
+    </script>
 	<Workspace 
 		title="Plain Text Converter" 
 		description="Paste your formatted text below to instantly strip all styles and formatting." 
@@ -21,91 +56,40 @@ const description = "Convert rich text, HTML, or formatted content into clean, p
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+            <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+            
+            <div class="space-y-6">
+                <div class="group border-b border-hairline pb-6">
+                    <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is a Plain Text Converter?</h3>
+                    <p class="text-body-md text-body">
+                        A Plain Text Converter is a tool that removes all formatting (like bold, italics, links, and HTML tags) from your text, leaving only the raw characters. It's essential for cleaning content copied from websites, emails, or word processors.
+                    </p>
+                </div>
+
+                <div class="group border-b border-hairline pb-6">
+                    <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the Plain Text Converter work?</h3>
+                    <p class="text-body-md text-body">
+                        Our converter uses client-side JavaScript to process your text. When you paste your content, the browser's internal logic strips away styling attributes and non-text elements instantly. No data is ever sent to a server.
+                    </p>
+                </div>
+
+                <div class="group border-b border-hairline pb-6">
+                    <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Plain Text Converter free?</h3>
+                    <p class="text-body-md text-body">
+                        Yes, Text to Plain Text is 100% free to use. There are no subscriptions, no accounts, and no hidden fees. All our tools are available to everyone without any limitations.
+                    </p>
+                </div>
+
+                <div class="group border-b border-hairline pb-6">
+                    <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Plain Text Converter safe?</h3>
+                    <p class="text-body-md text-body">
+                        Absolutely. Our converter is built with a "Privacy-First" architecture. All text processing happens locally in your web browser. This means your data never leaves your computer, and we never store or see your content.
+                    </p>
+                </div>
+            </div>
+        </section>
 	</Workspace>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
-        <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
-        
-        <div class="space-y-6">
-            <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is a Text to Plain Text Converter?</h3>
-                <p class="text-body-md text-body">
-                    A Text to Plain Text Converter is a tool that removes all formatting (like bold, italics, links, and HTML tags) from your text, leaving only the raw characters. It's essential for cleaning content copied from websites, emails, or word processors.
-                </p>
-            </div>
-
-            <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the Text to Plain Text Converter work?</h3>
-                <p class="text-body-md text-body">
-                    Our converter uses client-side JavaScript to process your text. When you paste your content, the browser's internal logic strips away styling attributes and non-text elements instantly. No data is ever sent to a server.
-                </p>
-            </div>
-
-            <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Text to Plain Text Converter free?</h3>
-                <p class="text-body-md text-body">
-                    Yes, Text to Plain Text is 100% free to use. There are no subscriptions, no accounts, and no hidden fees. All our tools are available to everyone without any limitations.
-                </p>
-            </div>
-
-            <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Text to Plain Text Converter safe?</h3>
-                <p class="text-body-md text-body">
-                    Absolutely. Our converter is built with a "Privacy-First" architecture. All text processing happens locally in your web browser. This means your data never leaves your computer, and we never store or see your content.
-                </p>
-            </div>
-
-            <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How to use Text to Plain Text Converter?</h3>
-                <p class="text-body-md text-body">
-                    Simply paste your formatted text into the input area on the homepage. Then, click the "Strip All Formatting" button. Your clean, plain text will be ready to copy or download as a .txt file instantly.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- JSON-LD FAQ Schema -->
-    <script type="application/ld+json" is:inline>
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "What is a Text to Plain Text Converter?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "A Text to Plain Text Converter is a tool that removes all formatting (like bold, italics, links, and HTML tags) from your text, leaving only the raw characters. It's essential for cleaning content copied from websites, emails, or word processors."
-        }
-      }, {
-        "@type": "Question",
-        "name": "How does the Text to Plain Text Converter work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Our converter uses client-side JavaScript to process your text. When you paste your content, the browser's internal logic strips away styling attributes and non-text elements instantly. No data is ever sent to a server."
-        }
-      }, {
-        "@type": "Question",
-        "name": "Is Text to Plain Text Converter free?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, Text to Plain Text is 100% free to use. There are no subscriptions, no accounts, and no hidden fees. All our tools are available to everyone without any limitations."
-        }
-      }, {
-        "@type": "Question",
-        "name": "Is Text to Plain Text Converter safe?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Absolutely. Our converter is built with a \"Privacy-First\" architecture. All text processing happens locally in your web browser. This means your data never leaves your computer, and we never store or see your content."
-        }
-      }, {
-        "@type": "Question",
-        "name": "How to use Text to Plain Text Converter?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Simply paste your formatted text into the input area on the homepage. Then, click the \"Strip All Formatting\" button. Your clean, plain text will be ready to copy or download as a .txt file instantly."
-        }
-      }]
-    }
-    </script>
 </BaseLayout>

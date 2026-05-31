@@ -1,0 +1,158 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "All Tools — Text to Plain Text Utility Directory";
+const description = "Browse our complete collection of lightning-fast, privacy-first text and data utility tools. From JSON formatting to sensitive data redaction.";
+
+const tools = [
+    // Cleaning
+    { name: "Plain Text Converter", href: "/", category: "Cleaning", description: "Convert rich text or HTML into clean, plain text." },
+    { name: "Extra Spaces", href: "/remove-extra-spaces", category: "Cleaning", description: "Normalize spaces and trim line ends." },
+    { name: "All Spaces", href: "/remove-all-spaces", category: "Cleaning", description: "Strip every single space character from text." },
+    { name: "Blank Lines", href: "/remove-blank-lines", category: "Cleaning", description: "Strip out all empty or whitespace-only lines." },
+    { name: "HTML Tags", href: "/strip-html-tags", category: "Cleaning", description: "Remove HTML tags while preserving text content." },
+    { name: "Strip Emojis", href: "/strip-emojis", category: "Cleaning", description: "Remove all Unicode emoji characters." },
+    
+    // Transform
+    { name: "Case Converter", href: "/case-converter", category: "Transform", description: "Switch between UPPERCASE, lowercase, and Title Case." },
+    { name: "Markdown Strip", href: "/markdown-to-plain-text", category: "Transform", description: "Strip Markdown structural characters." },
+    { name: "Fix PDF Breaks", href: "/fix-pdf-line-breaks", category: "Transform", description: "Repair broken lines in text copied from PDF files." },
+    { name: "Decode HTML Entities", href: "/decode-html-entities", category: "Transform", description: "Convert &amp; back to literal characters." },
+    { name: "Slug Generator", href: "/slug-generator", category: "Transform", description: "Convert titles into URL-safe, hyphenated slugs." },
+    { name: "Desluggify", href: "/slug-generator", category: "Transform", description: "Reverse URL slugs back into readable titles." },
+    { name: "Sort Lines", href: "/sort-lines", category: "Transform", description: "Organize lines alphabetically or by length." },
+    { name: "Add Prefix / Suffix", href: "/add-prefix-suffix", category: "Transform", description: "Batch add text to the start or end of every line." },
+    { name: "Line Numberer", href: "/line-numberer", category: "Transform", description: "Prepend a numeric index to every line." },
+    { name: "Find and Replace", href: "/find-and-replace", category: "Transform", description: "Search and replace text patterns." },
+    
+    // Encode / Decode
+    { name: "Base64 Encoder", href: "/base64-converter", category: "Encode / Decode", description: "Encode text to Base64 representation." },
+    { name: "Base64 Decoder", href: "/base64-converter", category: "Encode / Decode", description: "Decode Base64 strings back to text." },
+    { name: "URL Encoder", href: "/url-converter", category: "Encode / Decode", description: "Percent-encode strings for URL safety." },
+    { name: "URL Decoder", href: "/url-converter", category: "Encode / Decode", description: "Decode percent-encoded URL components." },
+    
+    // Data
+    { name: "JSON Formatter", href: "/json-formatter", category: "Data", description: "Beautify and validate messy JSON strings." },
+    { name: "JSON Minifier", href: "/json-minifier", category: "Data", description: "Compress JSON data for production use." },
+    { name: "CSV to JSON", href: "/csv-to-json", category: "Data", description: "Convert CSV strings into structured JSON arrays." },
+    { name: "JSON to CSV", href: "/json-to-csv", category: "Data", description: "Convert JSON arrays of objects into formatted CSV files." },
+    { name: "Remove Duplicate Lines", href: "/remove-duplicate-lines", category: "Data", description: "Strip out identical lines from text." },
+    { name: "Remove Duplicate Paragraphs", href: "/remove-duplicate-paragraphs", category: "Data", description: "Remove duplicate blocks of text." },
+    { name: "Remove Duplicate Words", href: "/remove-duplicate-words", category: "Data", description: "Remove repetitive words within text." },
+    { name: "Remove Duplicate Sentences", href: "/remove-duplicate-sentences", category: "Data", description: "Remove identical sentences from content." },
+    { name: "Remove Commas", href: "/remove-commas", category: "Data", description: "Globally remove all comma characters." },
+    
+    // Filter
+    { name: "Redact Sensitive Info", href: "/redact-sensitive-info", category: "Filter", description: "Replace emails, phones, and IPs with [REDACTED]." },
+    { name: "Character Frequency", href: "/character-frequency", category: "Filter", description: "Analyze character usage and distribution in real time." },
+    { name: "Strip Links", href: "/strip-links-urls", category: "Filter", description: "Remove all web addresses starting with http." },
+    { name: "Strip Emails", href: "/strip-email-addresses", category: "Filter", description: "Remove email addresses from text." },
+    { name: "Strip Symbols", href: "/remove-numbers-special-characters", category: "Filter", description: "Remove all non-alphabetic characters." },
+    { name: "Twitter Trimmer", href: "/text-trimmer", category: "Filter", description: "Cut text to fit Twitter's 280-char limit." },
+    { name: "SMS Trimmer", href: "/text-trimmer", category: "Filter", description: "Truncate text to standard 160-char SMS limit." },
+    { name: "LinkedIn Trimmer", href: "/text-trimmer", category: "Filter", description: "Truncate posts to LinkedIn's 3,000-char limit." },
+    { name: "Word Truncator", href: "/text-trimmer", category: "Filter", description: "Cut text to a specific word count limit." }
+];
+---
+
+<BaseLayout title={title} description={description}>
+    <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-16">
+        <div class="mb-12 text-center">
+            <h1 class="text-display-lg tracking-tight mb-4">All Tools.</h1>
+            <p class="text-body-lg text-body max-w-[600px] mx-auto">
+                The complete collection of privacy-first text processing utilities. 
+                Everything runs 100% in your browser.
+            </p>
+        </div>
+
+        <div class="mb-8 sticky top-[80px] z-30 bg-canvas-soft/80 backdrop-blur-md py-4 -my-4 border-b border-hairline/0 transition-colors" id="search-sticky-header">
+            <div class="relative max-w-[600px] mx-auto">
+                <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-mute">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                </div>
+                <input 
+                    type="text" 
+                    id="tool-search" 
+                    placeholder="Search for a tool (e.g. 'json', 'strip', 'base64')..." 
+                    class="w-full h-12 pl-12 pr-4 bg-canvas border border-hairline rounded-full text-body focus:ring-2 focus:ring-ink focus:border-ink outline-none transition-all shadow-sm"
+                />
+            </div>
+        </div>
+
+        <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tools.map(tool => (
+                <a 
+                    href={tool.href} 
+                    class="tool-card group p-6 bg-canvas border border-hairline rounded-lg hover:border-ink hover:shadow-level-2 transition-all flex flex-col justify-between"
+                    data-name={tool.name.toLowerCase()}
+                    data-description={tool.description.toLowerCase()}
+                    data-category={tool.category.toLowerCase()}
+                >
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-bold text-mute uppercase tracking-widest px-2 py-0.5 bg-canvas-soft-2 rounded-full group-hover:bg-ink group-hover:text-canvas transition-colors">{tool.category}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-mute opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </div>
+                        <h3 class="text-body-lg-strong mb-2 group-hover:text-ink transition-colors">{tool.name}</h3>
+                        <p class="text-body-sm text-body line-clamp-2">{tool.description}</p>
+                    </div>
+                </a>
+            ))}
+        </div>
+
+        <div id="no-results" class="hidden py-20 text-center">
+            <div class="w-16 h-16 bg-canvas-soft-2 rounded-full flex items-center justify-center mx-auto mb-4 text-mute">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/></svg>
+            </div>
+            <h3 class="text-body-lg-strong mb-1">No tools found</h3>
+            <p class="text-body-sm text-mute">Try searching for something else like "JSON" or "Text".</p>
+        </div>
+    </div>
+
+    <script is:inline>
+        const searchInput = document.getElementById('tool-search');
+        const toolsGrid = document.getElementById('tools-grid');
+        const toolCards = document.querySelectorAll('.tool-card');
+        const noResults = document.getElementById('no-results');
+        const stickyHeader = document.getElementById('search-sticky-header');
+
+        // Search filtering logic
+        searchInput?.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            toolCards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                const desc = card.getAttribute('data-description');
+                const cat = card.getAttribute('data-category');
+
+                if (name.includes(query) || desc.includes(query) || cat.includes(query)) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            if (visibleCount === 0) {
+                toolsGrid.classList.add('hidden');
+                noResults.classList.remove('hidden');
+            } else {
+                toolsGrid.classList.remove('hidden');
+                noResults.classList.add('hidden');
+            }
+        });
+
+        // Sticky header transition
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 150) {
+                stickyHeader.classList.add('border-hairline');
+            } else {
+                stickyHeader.classList.remove('border-hairline');
+            }
+        });
+
+        // Focus search on mount
+        searchInput?.focus();
+    </script>
+</BaseLayout>

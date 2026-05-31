@@ -1,4 +1,6 @@
 ---
+import RelatedTools from "./RelatedTools.astro";
+
 interface Props {
 	title: string;
 	description: string;
@@ -7,6 +9,8 @@ interface Props {
 }
 
 const { title, description, placeholder = "Paste your text here...", id = "workspace-textarea" } = Astro.props;
+
+const currentPath = Astro.url.pathname;
 ---
 
 <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-12 workspace-root" data-id={id}>
@@ -249,6 +253,9 @@ const { title, description, placeholder = "Paste your text here...", id = "works
             </div>
 		</div>
 	</div>
+
+    <RelatedTools currentPath={currentPath} />
+    <slot />
 </div>
 
 <script>

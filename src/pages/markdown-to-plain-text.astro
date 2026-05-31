@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Markdown to Plain Text Converter — Strip Markdown Syntax";
-const description = "Instantly remove Markdown syntax like headers, links, bold, and code blocks to get clean, pure text.";
+const title = "Markdown to Plain Text — Free Online Markdown to Plain Text | Text to Plain Text";
+const description = "Instantly remove Markdown syntax like headers, links, bold, and code blocks to get clean, pure text. A privacy-first tool for converting technical documents online.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Markdown to Plain Text?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Markdown to Plain Text is a formatting tool that strips away Markdown syntax (like # for headers or ** for bold) and returns the clean, raw text content."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Markdown to Plain Text work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool uses a series of regular expressions to identify and remove common Markdown markers while preserving the readable text within them, ensuring a clean transition to plain text."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Markdown to Plain Text free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our Markdown stripper is completely free to use without any account creation or usage restrictions."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Markdown to Plain Text safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All processing happens locally in your web browser. Your Markdown documents are never uploaded to any server, guaranteeing total privacy."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Markdown to Plain Text" 
 		description="Cleanly strip all Markdown formatting from your technical documents or GitHub readmes." 
@@ -21,8 +57,41 @@ const description = "Instantly remove Markdown syntax like headers, links, bold,
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Markdown to Plain Text?</h3>
+            <p class="text-body-md text-body">
+                Markdown to Plain Text is a specialized converter designed to strip all formatting markers from Markdown documents. It removes syntax for headers, emphasis, links, images, and code blocks, leaving you with only the pure text content of your file.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Why strip Markdown syntax?</h3>
+            <p class="text-body-md text-body">
+                Stripping Markdown is useful when you need to repurpose technical documentation for platforms that don't support Markdown, like certain email clients, CMS editors, or when performing word counts and readability analysis.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Markdown to Plain Text free?</h3>
+            <p class="text-body-md text-body">
+                Yes, this tool is 100% free. We provide it as part of our suite of privacy-first utilities, accessible to everyone without any subscriptions or hidden fees.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Markdown to Plain Text safe?</h3>
+            <p class="text-body-md text-body">
+                Absolutely. Your documents remain private because all processing is performed client-side in your browser. We never see, store, or transmit your content to any external servers.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
 	const btn = document.getElementById('strip-markdown-btn');
@@ -64,3 +133,4 @@ const description = "Instantly remove Markdown syntax like headers, links, bold,
         textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>
+</BaseLayout>

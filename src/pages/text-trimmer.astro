@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Text Truncator & Trimmer — Character & Word Limit Utility";
-const description = "Truncate and trim your text to specific character or word limits for Twitter, LinkedIn, SMS, and more. Precise cutting to ensure your content fits perfectly everywhere.";
+const title = "Text Trimmer — Free Online Text Trimmer | Text to Plain Text";
+const description = "Truncate and trim your text to specific character or word limits for social media, SEO meta descriptions, and messaging. Precise cutting to ensure content fits.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Text Trimmer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Text Trimmer is a utility for truncating your text to specific character or word limits, ensuring it fits perfectly for social media posts, SEO meta descriptions, or messaging limits."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Text Trimmer work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool slices your text string at your chosen character or word limit, and adds an ellipsis (...) if the original text was longer than the limit."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Text Trimmer free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, this tool is part of the Text to Plain Text suite and is completely free to use without any limitations or account requirements."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Text Trimmer safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Like all our tools, processing happens entirely in your browser. Your data is never uploaded to any server, ensuring total privacy."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Text Truncator & Trimmer" 
 		description="Set your character or word limit and truncate your text instantly. Perfect for social media, SEO meta descriptions, and messaging." 
@@ -102,30 +138,43 @@ const description = "Truncate and trim your text to specific character or word l
                 </div>
             </div>
 		</div>
-	</Workspace>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
         <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
         
         <div class="space-y-6">
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is the difference between Trimming and Truncating?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Text Trimmer?</h3>
                 <p class="text-body-md text-body">
-                    In the context of text processing, they are often used interchangeably. "Truncating" usually refers to cutting text at a specific point to fit a container or data limit, while "Trimming" often refers to removing whitespace from the ends. Our tool handles both—cutting your text to the exact length you need.
+                    Text Trimmer is a utility for truncating your text to specific character or word limits, ensuring it fits perfectly for social media posts, SEO meta descriptions, or messaging limits.
                 </p>
             </div>
 
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Can I truncate by words instead of characters?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does Text Trimmer work?</h3>
                 <p class="text-body-md text-body">
-                    Yes. Our tool allows you to truncate by character count for strict platform limits (like Twitter or SMS) or by word count for readability and content summary purposes.
+                    The tool slices your text string at your chosen character or word limit, and adds an ellipsis (...) if the original text was longer than the limit.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Text Trimmer free?</h3>
+                <p class="text-body-md text-body">
+                    Yes, this tool is part of the Text to Plain Text suite and is completely free to use. There are no daily limits, premium features, or sign-up requirements.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Text Trimmer safe?</h3>
+                <p class="text-body-md text-body">
+                    Absolutely. Our tool operates entirely client-side using JavaScript. This means your text never leaves your browser and is never stored on our servers, ensuring your data remains private and secure.
                 </p>
             </div>
         </div>
     </section>
+	</Workspace>
 
-    <script>
+<script>
         const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
         
         const applyTrim = (limit: number, type: string) => {

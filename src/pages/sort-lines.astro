@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Sort Lines Online — Alphabetical & Length Sorting";
-const description = "Instantly sort your lines of text alphabetically (A-Z, Z-A) or by character length.";
+const title = "Sort Lines — Free Online Sort Lines | Text to Plain Text";
+const description = "Instantly sort your lines of text alphabetically (A-Z, Z-A) or by character length. A privacy-first tool to organize lists and data 100% locally online.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Sort Lines?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sort Lines is a list management tool that reorders your text based on alphabetical order or line length, helping you organize data instantly."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Sort Lines work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool splits your input into an array of lines, applies the chosen sorting algorithm (lexicographical or length-based), and joins them back into a single text block."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Sort Lines free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our sorting utility is 100% free with no limits on the number of lines or list size."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Sort Lines safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All sorting logic is executed locally in your web browser. Your data is never sent to our servers, ensuring total privacy for your lists."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Sort Lines" 
 		description="Reorder your list items instantly. Sort by alphabet or by line length." 
@@ -33,8 +69,41 @@ const description = "Instantly sort your lines of text alphabetically (A-Z, Z-A)
 				Sort by Length
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is the Sort Lines tool?</h3>
+            <p class="text-body-md text-body">
+                Sort Lines is a practical utility for anyone dealing with lists, code, or datasets. It allows you to quickly reorganize your content alphabetically (ascending or descending) or by the physical length of each line, making it easy to find duplicates or structure information logically.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How can I sort alphabetically?</h3>
+            <p class="text-body-md text-body">
+                Simply paste your list into the workspace and click "Sort A-Z" for standard alphabetical order, or "Sort Z-A" for reverse order. The tool handles capitalization and special characters using standard locale comparison for accurate results.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Sort Lines free?</h3>
+            <p class="text-body-md text-body">
+                Yes, this utility is completely free. We provide it as part of our mission to offer high-quality, privacy-respecting tools for data management without any subscriptions or accounts.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is my data safe and private?</h3>
+            <p class="text-body-md text-body">
+                Absolutely. Security is our priority. Since all sorting operations occur locally on your machine within your browser, your data never leaves your computer and is never transmitted to our servers.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
 	const textarea = document.getElementById('sort-lines');
@@ -57,3 +126,4 @@ const description = "Instantly sort your lines of text alphabetically (A-Z, Z-A)
         textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>
+</BaseLayout>

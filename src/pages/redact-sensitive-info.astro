@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Redact Sensitive Info — Emails, Phone Numbers, IPs";
-const description = "Instantly redact sensitive data like email addresses, phone numbers, and IP addresses. Replace them with [REDACTED] for legal, HR, and ops compliance.";
+const title = "Redact Sensitive Info — Free Online Redact Sensitive Info | Text to Plain Text";
+const description = "Instantly redact sensitive data like emails, phone numbers, and IP addresses. A privacy-first tool to replace private info with [REDACTED] 100% locally online.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Redact Sensitive Info?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Redact Sensitive Info is a privacy utility that scans your text for personally identifiable information (PII) like email addresses, phone numbers, and IP addresses, replacing them with a [REDACTED] label."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Redact Sensitive Info work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool uses pattern matching (Regular Expressions) to detect specific data formats. It processes your text instantly in your browser to swap sensitive strings with placeholders."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Redact Sensitive Info free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our redaction tool is completely free with no usage limits or accounts required."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Redact Sensitive Info safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Redaction is performed entirely client-side. Your sensitive data is never sent to our servers, making it safe for processing private or corporate documents."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Redact Sensitive Info" 
 		description="Replace emails, phone numbers, and IP addresses with [REDACTED] instantly." 
@@ -22,37 +58,43 @@ const description = "Instantly redact sensitive data like email addresses, phone
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
-	</Workspace>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
         <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
         
         <div class="space-y-6">
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What does the Redact Sensitive Info tool do?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is text redaction?</h3>
                 <p class="text-body-md text-body">
-                    This tool scans your text for common patterns of sensitive information, specifically email addresses, phone numbers, and IPv4 addresses, and replaces them with the string "[REDACTED]". It helps prepare documents for sharing by hiding identifiable data.
+                    Text redaction is the process of removing or masking sensitive information from a document before it is shared. This tool automates the process by finding and replacing common patterns like email addresses, phone numbers, and IPv4 addresses with "[REDACTED]".
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the redaction tool work?</h3>
+                <p class="text-body-md text-body">
+                    Our tool utilizes sophisticated Regular Expression (Regex) filters that run locally in your browser. It identifies strings that match the structure of private data and swaps them out instantly, ensuring your document is safe for distribution.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Redact Sensitive Info free?</h3>
+                <p class="text-body-md text-body">
+                    Yes, this utility is 100% free. We believe in providing accessible security and privacy tools for everyone, without paywalls or data collection.
                 </p>
             </div>
 
             <div class="group border-b border-hairline pb-6">
                 <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is my data safe while redacting?</h3>
                 <p class="text-body-md text-body">
-                    Yes. Just like all our tools, redaction happens 100% in your browser. No text is ever uploaded to our servers, ensuring your sensitive data remains private and secure during the processing phase.
-                </p>
-            </div>
-
-            <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Does it catch all phone number formats?</h3>
-                <p class="text-body-md text-body">
-                    Our tool uses a broad regex pattern designed to catch common international and domestic phone number formats. However, due to the extreme variety in how phone numbers can be written, we recommend a final manual review for highly critical documents.
+                    Absolutely. Security is our priority. Since the redaction happens entirely on your local machine, your un-redacted sensitive data never touches the internet or our servers.
                 </p>
             </div>
         </div>
     </section>
+	</Workspace>
 
-    <script>
+<script>
         document.getElementById('redact-info-btn')?.addEventListener('click', () => {
             const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
             if (!textarea) return;

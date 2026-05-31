@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Remove Duplicate Lines Online — Clean List Arrays";
-const description = "Instantly deduplicate lists and remove repeating lines from your text. Perfect for cleaning data and arrays.";
+const title = "Remove Duplicate Lines — Free Online Remove Duplicate Lines | Text to Plain Text";
+const description = "Instantly deduplicate lists and remove repeating lines from your text. A privacy-first tool for cleaning data and arrays 100% locally in your browser.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Remove Duplicate Lines?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Remove Duplicate Lines is a data cleaning tool that scans your list and removes any line that appears more than once, leaving only unique entries."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Remove Duplicate Lines work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool splits your text into an array of lines and uses a mathematical Set operation to filter out duplicates instantly before joining them back together."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Duplicate Lines free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our deduplication tool is 100% free with no limits on the number of lines or list size."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Duplicate Lines safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All deduplication is processed locally in your web browser. Your data is never uploaded to our servers, ensuring your lists stay private."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Remove Duplicate Lines" 
 		description="Instantly deduplicate lists and remove repeating lines from your text. Perfect for cleaning data and arrays." 
@@ -21,8 +57,41 @@ const description = "Instantly deduplicate lists and remove repeating lines from
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Remove Duplicate Lines?</h3>
+            <p class="text-body-md text-body">
+                Remove Duplicate Lines is a straightforward tool designed to clean up messy lists, logs, or datasets by eliminating redundant information. It ensures that every line in your final output is unique, saving you from manual searching and editing.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the deduplication process work?</h3>
+            <p class="text-body-md text-body">
+                Our tool converts your text into a collection of individual lines. It then uses a high-performance filtering algorithm to identify and discard any line that has already been encountered in the list, preserving only the first occurrence of each unique entry.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Remove Duplicate Lines free?</h3>
+            <p class="text-body-md text-body">
+                Yes, this utility is completely free to use. As part of the Text to Plain Text mission, we provide robust data cleaning tools without paywalls, limits, or account requirements.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is my data safe and private?</h3>
+            <p class="text-body-md text-body">
+                Absolutely. We prioritize your privacy above all else. The entire deduplication process happens within your browser's local memory. We never transmit your data to any external servers, making it safe for sensitive corporate or personal lists.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
 	const btn = document.getElementById('remove-duplicates');
@@ -39,3 +108,4 @@ const description = "Instantly deduplicate lists and remove repeating lines from
         textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>
+</BaseLayout>

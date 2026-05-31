@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Remove Duplicate Paragraphs Online — Clean Text Blocks";
-const description = "Instantly remove repeating blocks of text and paragraphs from your content. Perfect for cleaning up large documents.";
+const title = "Remove Duplicate Paragraphs — Free Online Remove Duplicate Paragraphs | Text to Plain Text";
+const description = "Instantly remove repeating blocks of text and paragraphs from your content. A privacy-first tool for cleaning up large documents and articles 100% locally.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Remove Duplicate Paragraphs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Remove Duplicate Paragraphs is a content cleaning tool that identifies and eliminates identical blocks of text separated by blank lines."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Remove Duplicate Paragraphs work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool parses your content into individual paragraphs based on double line breaks, compares them, and preserves only the first unique instance of each paragraph block."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Duplicate Paragraphs free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our paragraph deduplication tool is 100% free with no limits on document length or number of paragraphs."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Duplicate Paragraphs safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Like all our utilities, it processes your text locally in your web browser. No data is sent to our servers, keeping your documents completely private."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Remove Duplicate Paragraphs" 
 		description="Purge identical blocks of text and redundant paragraphs instantly." 
@@ -21,8 +57,41 @@ const description = "Instantly remove repeating blocks of text and paragraphs fr
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Remove Duplicate Paragraphs?</h3>
+            <p class="text-body-md text-body">
+                Remove Duplicate Paragraphs is a text processing utility designed to clean up long-form content by removing identical blocks of text. It's particularly useful for fixing copy-paste errors, merging multiple drafts of the same article, or cleaning up data exports that contain redundant info blocks.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the tool define a "paragraph"?</h3>
+            <p class="text-body-md text-body">
+                Our tool identifies paragraphs by looking for double line breaks (empty lines) in your text. Each block of text separated by these gaps is treated as an individual paragraph for comparison and deduplication.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Remove Duplicate Paragraphs free?</h3>
+            <p class="text-body-md text-body">
+                Yes, this tool is 100% free to use. We provide it as part of our privacy-first mission to offer robust text editing utilities without the need for sign-ups or payments.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is my content safe and private?</h3>
+            <p class="text-body-md text-body">
+                Absolutely. Security is core to our service. All paragraph comparisons and deletions happen locally on your computer within your browser's RAM. Your content is never uploaded, stored, or viewed by us.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
 	const btn = document.getElementById('remove-duplicates-btn');
@@ -39,3 +108,4 @@ const description = "Instantly remove repeating blocks of text and paragraphs fr
         textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>
+</BaseLayout>

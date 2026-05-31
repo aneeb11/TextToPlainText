@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "HTML Entity Decoder Online — Convert &amp; to &";
-const description = "Instantly decode HTML entities like &amp;, &lt;, and &gt; back into their original characters.";
+const title = "HTML Entity Decoder — Free Online HTML Entity Decoder | Text to Plain Text";
+const description = "Instantly decode HTML entities like &amp;, &lt;, and &gt; back into their original characters. A fast, privacy-first tool for web developers and content editors.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is HTML Entity Decoder?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "HTML Entity Decoder is a utility that converts encoded HTML character entities (like &amp; or &quot;) back into their original, human-readable symbols."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does HTML Entity Decoder work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool uses the browser's native DOM capabilities to parse and render encoded characters, translating them back into their literal text representation instantly."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is HTML Entity Decoder free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our HTML Entity Decoder is 100% free with no limits, registration, or hidden costs."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is HTML Entity Decoder safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All decoding processes are performed locally within your browser. No data is sent to our servers, keeping your information private."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="HTML Entity Decoder" 
 		description="Safely convert encoded HTML entities back into their readable character equivalents." 
@@ -20,8 +56,41 @@ const description = "Instantly decode HTML entities like &amp;, &lt;, and &gt; b
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Convert</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is an HTML Entity?</h3>
+            <p class="text-body-md text-body">
+                An HTML entity is a string that begins with an ampersand (&) and ends with a semicolon (;). They are used to display reserved characters (like &lt; or &gt;) or characters that cannot be easily typed on a keyboard.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the HTML Entity Decoder work?</h3>
+            <p class="text-body-md text-body">
+                Our decoder creates a temporary, isolated DOM element to safely parse your input text. This allows the browser to automatically resolve any valid HTML entities into their corresponding characters without executing any scripts, making it fast and secure.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is HTML Entity Decoder free?</h3>
+            <p class="text-body-md text-body">
+                Yes, our HTML Entity Decoder is completely free. It is part of our commitment to provide high-quality, privacy-respecting tools for developers and creators.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is HTML Entity Decoder safe?</h3>
+            <p class="text-body-md text-body">
+                Yes, it is very safe. The entire decoding process happens in your local environment. We do not transmit your text to any server, so your data never leaves your computer.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
 	const textarea = document.getElementById('workspace-textarea');
@@ -39,3 +108,4 @@ const description = "Instantly decode HTML entities like &amp;, &lt;, and &gt; b
 		textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>
+</BaseLayout>

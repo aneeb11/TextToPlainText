@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Remove Duplicate Sentences Online — Clean Up Repeating Text";
-const description = "Instantly remove repeating sentences from your content. Perfect for cleaning up AI-generated text or redundant drafts.";
+const title = "Remove Duplicate Sentences — Free Online Remove Duplicate Sentences | Text to Plain Text";
+const description = "Instantly remove repeating sentences from your content. A privacy-first tool to clean up AI-generated text or redundant drafts 100% locally online.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Remove Duplicate Sentences?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Remove Duplicate Sentences is a text optimization tool that identifies and deletes identical sentences within a block of text, ensuring every sentence is unique."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Remove Duplicate Sentences work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool uses natural language processing patterns to split your text into sentences, compares them regardless of case, and preserves only the first unique instance of each sentence."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Duplicate Sentences free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our sentence deduplication tool is 100% free with no limits, accounts, or hidden charges."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Duplicate Sentences safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All processing is performed locally in your web browser. Your content is never uploaded to any server, guaranteeing complete privacy."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Remove Duplicate Sentences" 
 		description="Purge identical sentences and redundant phrasing from your text instantly." 
@@ -21,8 +57,41 @@ const description = "Instantly remove repeating sentences from your content. Per
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Remove Duplicate Sentences?</h3>
+            <p class="text-body-md text-body">
+                Remove Duplicate Sentences is a specialized text editor designed to clean up repetitive content. It scans your text for sentences that appear more than once—often a result of copy-paste errors or redundant drafting—and removes the extras to improve readability and flow.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the sentence detection work?</h3>
+            <p class="text-body-md text-body">
+                The tool uses intelligent pattern matching to identify sentence boundaries (like periods, exclamation marks, and question marks). It then compares the content of these segments, ignoring capitalization, to ensure that only truly unique sentences remain in your document.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Remove Duplicate Sentences free?</h3>
+            <p class="text-body-md text-body">
+                Yes, this utility is completely free. We provide it as part of our privacy-first suite of text tools, available to everyone without any subscription or registration requirements.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is my text safe and private?</h3>
+            <p class="text-body-md text-body">
+                Absolutely. Security is our top priority. All sentence processing happens directly in your browser's local memory. Your text never leaves your computer, making it safe for editing private emails, articles, or confidential reports.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
 	const btn = document.getElementById('remove-duplicates-btn');
@@ -49,3 +118,4 @@ const description = "Instantly remove repeating sentences from your content. Per
         textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>
+</BaseLayout>

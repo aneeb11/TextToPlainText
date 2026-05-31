@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Strip Numbers and Special Characters — Text Only Tool";
-const description = "Remove all numeric digits and special symbols from your text, leaving only alphabetical characters.";
+const title = "Strip Numbers and Symbols — Free Online Strip Numbers and Symbols | Text to Plain Text";
+const description = "Remove all numeric digits and special symbols from your text instantly. A privacy-first tool to leave only alphabetical characters 100% locally online.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Strip Numbers & Symbols?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Strip Numbers & Symbols is a text cleaning utility that removes everything except letters (A-Z, a-z) and whitespace from your content."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Strip Numbers & Symbols work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool uses a regular expression that matches any character that is not a letter or a space and replaces it with an empty string instantly in your browser."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Strip Numbers & Symbols free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our tool for stripping numbers and symbols is 100% free with no hidden costs or usage limits."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Strip Numbers & Symbols safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Like all our tools, it processes your text locally on your device. Your data is never transmitted to any server, ensuring complete privacy."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Strip Numbers & Symbols" 
 		description="Clean your text by removing everything except alphabetical letters and whitespace." 
@@ -21,8 +57,41 @@ const description = "Remove all numeric digits and special symbols from your tex
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Clean</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Strip Numbers & Symbols?</h3>
+            <p class="text-body-md text-body">
+                Strip Numbers & Symbols is a specialized text filter designed to isolate alphabetical content. It effectively removes all numeric digits (0-9) and all special characters (like punctuation, currency symbols, and mathematical operators), leaving you with just raw text and spaces.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Why would I need to strip non-alphabetical characters?</h3>
+            <p class="text-body-md text-body">
+                This tool is helpful for cleaning up OCR data, preparing text for linguistic analysis, creating word-only lists, or removing technical artifacts like IP addresses or timestamps from logs to focus on the narrative content.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Strip Numbers & Symbols free?</h3>
+            <p class="text-body-md text-body">
+                Yes, this utility is completely free. It is part of the Text to Plain Text mission to provide accessible, high-performance text tools without accounts or advertisements.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Strip Numbers & Symbols safe?</h3>
+            <p class="text-body-md text-body">
+                Absolutely. We prioritize your privacy by ensuring all text transformations occur locally in your web browser. Your content never crosses the network, making it safe for processing private notes or sensitive documents.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
 	const textarea = document.getElementById('remove-numbers-special');
@@ -35,3 +104,4 @@ const description = "Remove all numeric digits and special symbols from your tex
 		textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>
+</BaseLayout>

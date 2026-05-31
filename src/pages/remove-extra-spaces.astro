@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Remove Extra Spaces Online — Clean Text Spacing";
-const description = "Remove double spaces, trailing spaces, and redundant whitespace from your text instantly.";
+const title = "Remove Extra Spaces — Free Online Remove Extra Spaces | Text to Plain Text";
+const description = "Remove double spaces, trailing spaces, and redundant whitespace from your text instantly. A privacy-first tool to normalize spacing 100% locally online.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Remove Extra Spaces?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Remove Extra Spaces is a text formatting utility that cleans up your content by removing unnecessary double spaces, trailing spaces, and redundant whitespace between words."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Remove Extra Spaces work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool processes your text line-by-line, trims the start and end of each line, and collapses multiple consecutive spaces into a single space using optimized JavaScript."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Extra Spaces free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our extra space removal tool is 100% free with no limits on usage or text length."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Extra Spaces safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All whitespace normalization happens locally in your web browser. Your text never leaves your computer, ensuring total privacy."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Remove Extra Spaces" 
 		description="Clean up your text by removing redundant whitespace and normalizing spacing between words." 
@@ -21,8 +57,41 @@ const description = "Remove double spaces, trailing spaces, and redundant whites
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Remove Extra Spaces?</h3>
+            <p class="text-body-md text-body">
+                Remove Extra Spaces is a text optimization tool designed to fix formatting issues caused by accidental multiple key presses or copying content from different sources. It ensures your text has clean, standardized spacing between every word.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the tool normalize whitespace?</h3>
+            <p class="text-body-md text-body">
+                Our algorithm performs three key actions: it removes spaces from the beginning and end of every line, collapses any sequence of multiple spaces (like "  ") into a single space (" "), and preserves your intentional line breaks while cleaning the content within them.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Remove Extra Spaces free?</h3>
+            <p class="text-body-md text-body">
+                Yes, this utility is completely free. We provide it as part of our suite of privacy-first text tools, available to everyone without any subscription or registration requirements.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is my text safe and private?</h3>
+            <p class="text-body-md text-body">
+                Absolutely. Your privacy is guaranteed because all text processing happens directly in your web browser. Your data is never transmitted to our servers, keeping your information secure on your local device.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
 	const btn = document.getElementById('remove-spaces');
@@ -45,3 +114,4 @@ const description = "Remove double spaces, trailing spaces, and redundant whites
         textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>
+</BaseLayout>

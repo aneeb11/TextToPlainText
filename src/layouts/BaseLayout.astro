@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { tools } from "../lib/tools";
 
 interface Props {
 	title?: string;
@@ -12,56 +13,8 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
-
-const tools = [
-    // Cleaning
-    { name: "Plain Text Converter", href: "/", category: "Cleaning" },
-    { name: "Whitespace Visualizer", href: "/whitespace-visualizer", category: "Cleaning" },
-    { name: "Extra Spaces", href: "/remove-extra-spaces", category: "Cleaning" },
-    { name: "All Spaces", href: "/remove-all-spaces", category: "Cleaning" },
-    { name: "Blank Lines", href: "/remove-blank-lines", category: "Cleaning" },
-    { name: "HTML Tags", href: "/strip-html-tags", category: "Cleaning" },
-    { name: "Strip Emojis", href: "/strip-emojis", category: "Cleaning" },
-    
-    // Transform
-    { name: "Case Converter", href: "/case-converter", category: "Transform" },
-    { name: "Markdown Strip", href: "/markdown-to-plain-text", category: "Transform" },
-    { name: "Fix PDF Breaks", href: "/fix-pdf-line-breaks", category: "Transform" },
-    { name: "Decode HTML Entities", href: "/decode-html-entities", category: "Transform" },
-    { name: "Slugify / Desluggify", href: "/slug-generator", category: "Transform" },
-    { name: "Sort Lines", href: "/sort-lines", category: "Transform" },
-    { name: "Add Prefix / Suffix", href: "/add-prefix-suffix", category: "Transform" },
-    { name: "Line Numberer", href: "/line-numberer", category: "Transform" },
-    { name: "Find and Replace", href: "/find-and-replace", category: "Transform" },
-    
-    // Encode / Decode
-    { name: "Base64 Encoder", href: "/base64-converter", category: "Encode / Decode" },
-    { name: "Base64 Decoder", href: "/base64-converter", category: "Encode / Decode" },
-    { name: "URL Encoder", href: "/url-converter", category: "Encode / Decode" },
-    { name: "URL Decoder", href: "/url-converter", category: "Encode / Decode" },
-    
-    // Data
-    { name: "JSON Formatter", href: "/json-formatter", category: "Data" },
-    { name: "JSON Minifier", href: "/json-minifier", category: "Data" },
-    { name: "JSON ↔ CSV", href: "/json-csv-converter", category: "Data" },
-    { name: "Remove Duplicate Lines", href: "/remove-duplicate-lines", category: "Data" },
-    { name: "Remove Duplicate Paragraphs", href: "/remove-duplicate-paragraphs", category: "Data" },
-    { name: "Remove Duplicate Words", href: "/remove-duplicate-words", category: "Data" },
-    { name: "Remove Duplicate Sentences", href: "/remove-duplicate-sentences", category: "Data" },
-    { name: "Remove Commas", href: "/remove-commas", category: "Data" },
-    
-    // Filter
-    { name: "Redact Sensitive Info", href: "/redact-sensitive-info", category: "Filter" },
-    { name: "Character Frequency", href: "/character-frequency", category: "Filter" },
-    { name: "Strip Links", href: "/strip-links-urls", category: "Filter" },
-    { name: "Strip Emails", href: "/strip-email-addresses", category: "Filter" },
-    { name: "Strip Symbols", href: "/remove-numbers-special-characters", category: "Filter" },
-    { name: "Twitter Trimmer", href: "/text-trimmer", category: "Filter" },
-    { name: "SMS Trimmer", href: "/text-trimmer", category: "Filter" },
-    { name: "LinkedIn Trimmer", href: "/text-trimmer", category: "Filter" },
-    { name: "Word Truncator", href: "/text-trimmer", category: "Filter" }
-];
 ---
+
 
 <!doctype html>
 <html lang="en">
@@ -89,6 +42,7 @@ const tools = [
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+		<slot name="head" />
 	</head>
 	<body class="bg-canvas-soft min-h-screen flex flex-col transition-colors duration-300">
 		<header class="sticky top-0 z-50 bg-canvas/80 backdrop-blur-md border-b border-hairline h-16 flex items-center px-4 md:px-8">

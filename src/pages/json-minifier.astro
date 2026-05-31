@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "JSON Minifier — Compress JSON Online";
-const description = "Minify and compress your JSON data to reduce file size. Our JSON Minifier removes all unnecessary whitespace and formatting for production use.";
+const title = "JSON Minifier — Free Online JSON Minifier | Text to Plain Text";
+const description = "Minify and compress your JSON data to reduce file size instantly. Our JSON Minifier removes all unnecessary whitespace 100% locally in your browser.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is JSON Minifier?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "JSON Minifier is a tool that removes all unnecessary whitespace, tabs, and newlines from a JSON string to create the smallest possible file size for production data transfer."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does JSON Minifier work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool parses the JSON input and then re-stringifies it without any indentation or spacing, resulting in a condensed, single-line representation of the data."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is JSON Minifier free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our JSON Minifier is completely free to use with no usage limits or registration required."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is JSON Minifier safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. The minification process happens entirely within your browser. Your JSON data is never sent to our servers, keeping your information private."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="JSON Minifier" 
 		description="Paste your JSON below to strip all whitespace and minify it for production." 
@@ -22,30 +58,43 @@ const description = "Minify and compress your JSON data to reduce file size. Our
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
-	</Workspace>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
         <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
         
         <div class="space-y-6">
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Why should I minify JSON?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is JSON Minification?</h3>
                 <p class="text-body-md text-body">
-                    Minifying JSON reduces the payload size of API responses and configuration files by removing whitespace, tabs, and newlines. This leads to faster data transfer and reduced bandwidth usage in production environments.
+                    JSON Minification is the process of stripping out all formatting characters—like spaces, tabs, and newlines—that are added for human readability but are not required for a computer to understand the data. This reduces the total byte size of the file.
                 </p>
             </div>
 
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Does minification change the data?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the JSON Minifier work?</h3>
                 <p class="text-body-md text-body">
-                    No. Minification only affects the formatting (the "pretty" parts). The data structure, keys, and values remain exactly the same. It is a non-destructive process.
+                    Our tool uses a JavaScript engine to parse your input string into a structured object. It then converts that object back into a string without any optional whitespace, creating a compact version that is ready for production APIs and storage.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is JSON Minifier free?</h3>
+                <p class="text-body-md text-body">
+                    Yes, JSON Minifier is part of the Text to Plain Text suite and is 100% free. We provide these developer utilities without charging or requiring any user information.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is JSON Minifier safe?</h3>
+                <p class="text-body-md text-body">
+                    Absolutely. Privacy and security are our priorities. All minification is performed client-side on your device. Your data never leaves your browser, ensuring it remains confidential and secure.
                 </p>
             </div>
         </div>
     </section>
+	</Workspace>
 
-    <script>
+<script>
         document.getElementById('minify-json-btn')?.addEventListener('click', () => {
             const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
             if (!textarea) return;

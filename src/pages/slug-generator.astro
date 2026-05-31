@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Slug Generator & Desluggifier — Clean URL Utility";
-const description = "Instantly convert titles to URL-safe slugs and reverse slugs back to human-readable text. Optimized for SEO, blog posts, and developer-friendly permalinks.";
+const title = "Slug Generator & Desluggifier — Free Online Slug Generator | Text to Plain Text";
+const description = "Instantly convert titles to URL-safe slugs and reverse slugs back to human-readable text. Optimized for SEO and developers. 100% privacy-first online tool.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Slug Generator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Slug Generator is a utility that transforms titles or phrases into URL-friendly strings (slugs) by converting them to lowercase and replacing spaces with hyphens."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Slug Generator work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool normalizes your text, removes special characters, converts it to lowercase, and swaps whitespace for hyphens. It also supports 'desluggifying' back to title case."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Slug Generator free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our slug generation and reversal tool is 100% free with no limits on usage or registration needed."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Slug Generator safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Like all our tools, it runs entirely in your browser. Your titles and slugs are never sent to our servers, ensuring your content stays private."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Slug Generator & Desluggifier" 
 		description="Convert text into clean, hyphenated slugs or reverse slugs back into human-readable titles." 
@@ -28,37 +64,43 @@ const description = "Instantly convert titles to URL-safe slugs and reverse slug
 				<span class="text-[10px] bg-ink/10 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-ink/20 transition-colors">Action</span>
 			</button>
 		</div>
-	</Workspace>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
         <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
         
         <div class="space-y-6">
             <div class="group border-b border-hairline pb-6">
                 <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is a URL Slug?</h3>
                 <p class="text-body-md text-body">
-                    A slug is the part of a URL that identifies a specific page in a human-readable format. For example, in the URL <code>example.com/blog/how-to-slugify-text</code>, the slug is <code>how-to-slugify-text</code>.
+                    A slug is the part of a URL that identifies a specific page in a human-readable format. For example, in the URL <code>example.com/blog/how-to-slugify-text</code>, the slug is <code>how-to-slugify-text</code>. It's essential for SEO and user-friendly link sharing.
                 </p>
             </div>
 
             <div class="group border-b border-hairline pb-6">
                 <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What does "Desluggify" mean?</h3>
                 <p class="text-body-md text-body">
-                    Desluggifying is the process of converting a URL-safe slug back into a human-readable title. It usually involves replacing hyphens or underscores with spaces and capitalizing the first letter of each word (Title Case).
+                    Desluggifying is the process of converting a URL-safe slug back into a human-readable title. Our tool replaces hyphens or underscores with spaces and capitalizes the first letter of each word to restore the original title's appearance.
                 </p>
             </div>
 
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Why are slugs important for SEO?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Slug Generator free?</h3>
                 <p class="text-body-md text-body">
-                    Search engines use slugs to understand the content of a page. Clean, descriptive slugs containing relevant keywords can help improve your search engine rankings and make your links more clickable for users.
+                    Yes, this utility is completely free. We provide it as part of our privacy-first suite of developer tools, allowing you to generate safe permalinks for blog posts or applications without any cost.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is my data safe while generating slugs?</h3>
+                <p class="text-body-md text-body">
+                    Absolutely. Security is built into our architecture. All text transformation happens locally in your web browser. We never store, view, or transmit your content to any servers, making it safe for processing private project titles.
                 </p>
             </div>
         </div>
     </section>
+	</Workspace>
 
-    <script>
+<script>
         const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
 
         document.getElementById('slugify-btn')?.addEventListener('click', () => {
@@ -91,4 +133,3 @@ const description = "Instantly convert titles to URL-safe slugs and reverse slug
         });
     </script>
 </BaseLayout>
-

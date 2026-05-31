@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Remove Email Addresses from Text — Sanitization Tool";
-const description = "Protect privacy by stripping all email addresses from your data blocks and text strings.";
+const title = "Remove Email Addresses — Free Online Remove Email Addresses | Text to Plain Text";
+const description = "Instantly strip email addresses from your text blocks. A fast, privacy-first tool for cleaning data and protecting personal contact information.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Remove Email Addresses?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Remove Email Addresses is a privacy-focused utility that allows you to instantly strip all email addresses from your text blocks, making it easier to clean your data and protect sensitive contact information."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Remove Email Addresses work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool scans your input text for email address patterns (regex) and replaces all matches with empty strings, effectively removing them from your data block while keeping the rest of the content intact."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Email Addresses free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, this tool is part of the Text to Plain Text suite and is completely free to use without any limitations or account requirements."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Email Addresses safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Like all our tools, processing happens entirely in your browser. Your data is never uploaded to any server, ensuring total privacy."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Remove Email Addresses" 
 		description="Protect privacy by stripping all email addresses from your data blocks and text strings." 
@@ -21,22 +57,56 @@ const description = "Protect privacy by stripping all email addresses from your 
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+        <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+
+        <div class="space-y-6">
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Remove Email Addresses?</h3>
+                <p class="text-body-md text-body">
+                    Remove Email Addresses is a privacy-focused utility that allows you to instantly strip all email addresses from your text blocks, making it easier to clean your data and protect sensitive contact information.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does Remove Email Addresses work?</h3>
+                <p class="text-body-md text-body">
+                    The tool scans your input text for email address patterns (regex) and replaces all matches with empty strings, effectively removing them from your data block while keeping the rest of the content intact.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Remove Email Addresses free?</h3>
+                <p class="text-body-md text-body">
+                    Yes, this tool is part of the Text to Plain Text suite and is completely free to use. There are no daily limits, premium features, or sign-up requirements.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Remove Email Addresses safe?</h3>
+                <p class="text-body-md text-body">
+                    Absolutely. Our tool operates entirely client-side using JavaScript. This means your text never leaves your browser and is never stored on our servers, ensuring your data remains private and secure.
+                </p>
+            </div>
+        </div>
+    </section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
-	const btn = document.getElementById('strip-emails');
-	const textarea = document.getElementById('email-stripper');
-
-	btn.addEventListener('click', () => {
-		textarea.dispatchEvent(new Event('workspace:save'));
-		const text = textarea.value;
-        // Basic email regex
-		const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
-		const cleaned = text.replace(emailPattern, '');
-            
-		textarea.value = cleaned;
-        textarea.dispatchEvent(new Event('input'));
-        textarea.dispatchEvent(new Event('workspace:complete'));
-	});
-</script>
+        const btn = document.getElementById('strip-emails');
+        const textarea = document.getElementById('email-stripper');
+    
+        btn.addEventListener('click', () => {
+            textarea.dispatchEvent(new Event('workspace:save'));
+            const text = textarea.value;
+            // Basic email regex
+            const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+            const cleaned = text.replace(emailPattern, '');
+                
+            textarea.value = cleaned;
+            textarea.dispatchEvent(new Event('input'));
+            textarea.dispatchEvent(new Event('workspace:complete'));
+        });
+    </script>
+</BaseLayout>

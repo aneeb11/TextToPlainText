@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Remove Duplicate Words Online — Clean Up Repetition";
-const description = "Instantly remove repeating words from your text. Clean up stuttering, redundant vocabulary, and word lists.";
+const title = "Remove Duplicate Words — Free Online Remove Duplicate Words | Text to Plain Text";
+const description = "Instantly remove repeating words from your text. A privacy-first tool to clean up stuttering, redundant vocabulary, and word lists 100% locally online.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Remove Duplicate Words?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Remove Duplicate Words is a text optimization utility that scans your content and eliminates redundant, repeating words while preserving the first instance of each."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Remove Duplicate Words work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool tokenizes your text into individual words, compares them using a case-insensitive check, and filters out any subsequent occurrences of the same word instantly in your browser."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Duplicate Words free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our word deduplication tool is 100% free with no limits on text length or usage frequency."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Duplicate Words safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Like all our tools, it operates entirely client-side. Your text is never sent to our servers, ensuring your information remains completely private."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Remove Duplicate Words" 
 		description="Purge identical words and redundant vocabulary from your text instantly." 
@@ -21,8 +57,41 @@ const description = "Instantly remove repeating words from your text. Clean up s
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Remove Duplicate Words?</h3>
+            <p class="text-body-md text-body">
+                Remove Duplicate Words is a tool designed to clean up repetitive phrasing and redundant vocabulary. It's especially useful for cleaning up draft notes, fixing typing stutters, or processing long word lists where only unique terms are required.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the word filtering work?</h3>
+            <p class="text-body-md text-body">
+                Our algorithm uses a word-boundary detection method to isolate each term in your text. It then performs a case-insensitive comparison, ensuring that "Word" and "word" are recognized as duplicates, and keeps only the very first version it finds.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Remove Duplicate Words free?</h3>
+            <p class="text-body-md text-body">
+                Yes, this utility is completely free to use. We provide it as part of our privacy-first collection of text editors, available to everyone without any subscription or registration.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is my data safe and private?</h3>
+            <p class="text-body-md text-body">
+                Absolutely. Your privacy is our priority. Since all processing happens in your web browser's RAM, your text never leaves your computer and is never transmitted to our servers.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
 	const btn = document.getElementById('remove-duplicates-btn');
@@ -49,3 +118,4 @@ const description = "Instantly remove repeating words from your text. Clean up s
         textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>
+</BaseLayout>

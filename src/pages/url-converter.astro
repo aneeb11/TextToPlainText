@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "URL Encoder & Decoder — Privacy-First Web Utility";
+const title = "URL Converter — Free Online URL Converter | Text to Plain Text";
 const description = "Instantly encode or decode URL strings. A secure, offline-ready tool for developers to handle URI components and special characters safely.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is URL Converter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "URL Converter is a secure, offline-ready tool for developers that allows you to instantly encode or decode URL strings, making it easy to handle URI components and special characters."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does URL Converter work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool utilizes standard browser functions to safely convert special characters into percent-encoded format or vice-versa."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is URL Converter free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, this tool is part of the Text to Plain Text suite and is completely free to use without any limitations or account requirements."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is URL Converter safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Like all our tools, processing happens entirely in your browser. Your data is never uploaded to any server, ensuring total privacy."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="URL Converter" 
 		description="Encode text to URL-safe strings or decode encoded URLs back to plain text instantly." 
@@ -28,37 +64,43 @@ const description = "Instantly encode or decode URL strings. A secure, offline-r
 				<span class="text-[10px] bg-ink/10 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-ink/20 transition-colors">Action</span>
 			</button>
 		</div>
-	</Workspace>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
         <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
         
         <div class="space-y-6">
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is URL encoding?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is URL Converter?</h3>
                 <p class="text-body-md text-body">
-                    URL encoding, also known as percent-encoding, is a mechanism for encoding information in a Uniform Resource Identifier (URI). Characters that are not allowed in a URL must be encoded into a "%" followed by their two-digit hexadecimal representation.
+                    URL Converter is a secure, offline-ready tool for developers that allows you to instantly encode or decode URL strings, making it easy to handle URI components and special characters.
                 </p>
             </div>
 
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Why should I use an offline URL encoder?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does URL Converter work?</h3>
                 <p class="text-body-md text-body">
-                    Many online URL tools track your requests. If you are encoding URLs that contain sensitive parameters, internal staging links, or API tokens, using our 100% client-side tool ensures that your data remains entirely within your browser and is never sent to a server.
+                    The tool utilizes standard browser functions to safely convert special characters into percent-encoded format or vice-versa.
                 </p>
             </div>
 
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Does it handle special characters?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is URL Converter free?</h3>
                 <p class="text-body-md text-body">
-                    Yes. Our tool uses the standard <code>encodeURIComponent</code> and <code>decodeURIComponent</code> functions, which properly handle spaces, slashes, ampersands, and other reserved characters according to modern web standards.
+                    Yes, this tool is part of the Text to Plain Text suite and is completely free to use. There are no daily limits, premium features, or sign-up requirements.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is URL Converter safe?</h3>
+                <p class="text-body-md text-body">
+                    Absolutely. Our tool operates entirely client-side using JavaScript. This means your text never leaves your browser and is never stored on our servers, ensuring your data remains private and secure.
                 </p>
             </div>
         </div>
     </section>
+	</Workspace>
 
-    <script>
+<script>
         const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
 
         document.getElementById('encode-url-btn')?.addEventListener('click', () => {

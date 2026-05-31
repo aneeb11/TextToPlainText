@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Remove All Spaces From Text — Condensed Text Tool";
-const description = "Strip all spaces, tabs, and whitespace characters from your text to create a single condensed block.";
+const title = "Remove All Spaces — Free Online Remove All Spaces | Text to Plain Text";
+const description = "Instantly strip all spaces, tabs, and whitespace characters from your text. A privacy-first tool to create condensed strings or clean up code 100% locally.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Remove All Spaces?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Remove All Spaces is a text utility that deletes every single whitespace character—including spaces, tabs, and line breaks—from your input text."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Remove All Spaces work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool uses a regular expression to find all whitespace characters in your text and replaces them with an empty string, effectively condensing the text into one continuous block."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove All Spaces free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our tool for removing all spaces is 100% free with no limits on usage or text size."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove All Spaces safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Like all our tools, it processes your text locally in your browser. Your data is never transmitted to any server, ensuring complete privacy."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Remove All Spaces" 
 		description="Instantly eliminate every whitespace character from your text to create a compact, continuous string." 
@@ -21,8 +57,41 @@ const description = "Strip all spaces, tabs, and whitespace characters from your
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Strip</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Remove All Spaces?</h3>
+            <p class="text-body-md text-body">
+                Remove All Spaces is a straightforward tool designed to eliminate every whitespace character from a block of text. This includes standard spaces, tabs, carriage returns, and line feeds, leaving you with a single, unbroken string of characters.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Why would I need to remove all spaces?</h3>
+            <p class="text-body-md text-body">
+                This tool is useful for cleaning up data for specific software requirements, preparing text for custom code functions, creating condensed keys, or simply stripping away accidental formatting from copied lists.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Remove All Spaces free?</h3>
+            <p class="text-body-md text-body">
+                Yes, this utility is completely free. It is part of the Text to Plain Text suite of tools, provided without any costs, accounts, or daily restrictions.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Remove All Spaces safe?</h3>
+            <p class="text-body-md text-body">
+                Absolutely. We prioritize your data security by performing all operations locally in your web browser. Your text never leaves your computer, making it safe for processing even sensitive internal documentation.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
 	const textarea = document.getElementById('remove-all-spaces');
@@ -34,3 +103,4 @@ const description = "Strip all spaces, tabs, and whitespace characters from your
 		textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>
+</BaseLayout>

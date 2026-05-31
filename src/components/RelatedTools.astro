@@ -1,0 +1,57 @@
+---
+import { tools } from "../lib/tools";
+
+const { currentPath } = Astro.props;
+
+// Helper to get 3 related tools
+const getRelatedTools = (path: string) => {
+    // Normalize path (remove trailing slash)
+    const normalizedPath = path.replace(/\/$/, "") || "/";
+    const currentTool = tools.find(t => t.href === normalizedPath);
+    
+    // If not a known tool page, don't show related tools
+    if (!currentTool) return [];
+
+    let related = tools.filter(t => t.href !== normalizedPath);
+    
+    // Prioritize tools from the same category
+    const sameCategory = related.filter(t => t.category === currentTool.category);
+    const differentCategory = related.filter(t => t.category !== currentTool.category);
+
+    // Combine and shuffle same category first
+    let candidates = [
+        ...sameCategory.sort(() => 0.5 - Math.random()),
+        ...differentCategory.sort(() => 0.5 - Math.random())
+    ];
+
+    // Remove duplicates by href (just in case)
+    const uniqueCandidates = Array.from(new Set(candidates.map(t => t.href)))
+        .map(href => candidates.find(t => t.href === href)!);
+
+    return uniqueCandidates.slice(0, 3);
+};
+
+const relatedTools = getRelatedTools(currentPath);
+
+if (relatedTools.length === 0) return null;
+---
+
+<section class="max-w-[1400px] mx-auto px-4 md:px-8 py-20 border-t border-hairline">
+    <div class="mb-10">
+        <h2 class="text-display-md tracking-tight mb-2">You might also like.</h2>
+        <p class="text-body-lg text-body">Explore more privacy-first text utilities.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {relatedTools.map(tool => (
+            <a href={tool.href} class="group bg-canvas border border-hairline rounded-xl p-6 hover:border-ink transition-all shadow-sm hover:shadow-level-2">
+                <div class="w-10 h-10 rounded-lg bg-canvas-soft-2 border border-hairline flex items-center justify-center text-mute group-hover:text-ink transition-colors mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 group-hover:opacity-100 transition-opacity"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                </div>
+                <h3 class="text-body-lg-strong group-hover:text-ink transition-colors mb-1">{tool.name}</h3>
+                <p class="text-body-sm text-mute mb-4 line-clamp-2">{tool.description}</p>
+                <p class="text-[10px] text-mute uppercase font-bold tracking-widest">{tool.category}</p>
+            </a>
+        ))}
+    </div>
+</section>

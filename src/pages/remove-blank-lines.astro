@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Remove Blank Lines Online — Clean Paragraph Spacing";
-const description = "Instantly remove empty lines and white space gaps from your text or code.";
+const title = "Remove Blank Lines — Free Online Remove Blank Lines | Text to Plain Text";
+const description = "Instantly remove empty lines and white space gaps from your text or code. A privacy-first tool to clean up paragraph spacing and redundant vertical whitespace.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Remove Blank Lines?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Remove Blank Lines is a text cleaning utility that identifies and deletes all lines in your document that contain no characters or only whitespace characters."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Remove Blank Lines work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool splits your text into individual lines, filters out those that are empty after trimming whitespace, and then joins the remaining lines back together."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Blank Lines free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our tool for removing blank lines is 100% free with no limits, registration, or hidden fees."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Blank Lines safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All processing is performed locally in your web browser. Your text is never uploaded to our servers, ensuring your data remains private."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Remove Blank Lines" 
 		description="Quickly strip out empty lines and redundant vertical whitespace from your document." 
@@ -21,8 +57,41 @@ const description = "Instantly remove empty lines and white space gaps from your
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Remove Blank Lines?</h3>
+            <p class="text-body-md text-body">
+                Remove Blank Lines is a utility designed to clean up your text by stripping out any empty lines or lines that only contain spaces/tabs. It's particularly useful for formatting code, cleaning up list exports, or consolidating multi-paragraph documents.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the Remove Blank Lines tool work?</h3>
+            <p class="text-body-md text-body">
+                Our tool analyzes your text line by line. It identifies any line that has zero length or contains only "non-visible" whitespace characters and excludes them from the final output, instantly giving you a condensed version of your content.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Remove Blank Lines free?</h3>
+            <p class="text-body-md text-body">
+                Yes, this tool is 100% free. We provide it as part of our privacy-focused suite of text utilities, available to everyone without usage caps or account requirements.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Remove Blank Lines safe?</h3>
+            <p class="text-body-md text-body">
+                Absolutely. Your privacy is guaranteed because all text processing happens directly in your web browser. Your data never is transmitted to our servers, keeping your information secure on your local device.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
 	const btn = document.getElementById('remove-blanks');
@@ -40,3 +109,4 @@ const description = "Instantly remove empty lines and white space gaps from your
         textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>
+</BaseLayout>

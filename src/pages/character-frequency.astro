@@ -1,0 +1,253 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "Character Frequency Counter — Free Online Character Frequency | Text to Plain Text";
+const description = "Analyze character usage in your text in real time. View detailed counts, percentages, and distribution. A privacy-first tool for linguists, writers, and developers.";
+---
+
+<BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Character Frequency?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Character Frequency is a text analysis tool that counts how many times each character (letters, numbers, symbols, and whitespace) appears in your content and calculates its percentage of the total."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Character Frequency work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool iterates through your text character by character, building a statistical map. It updates in real-time as you type or paste content, providing an instant breakdown."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Character Frequency free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our Character Frequency counter is entirely free to use with no hidden fees, accounts, or daily limits on text analysis."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Character Frequency safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All character counting and analysis are performed locally in your web browser. Your text is never sent to our servers, ensuring your data remains private and secure."
+        }
+      }]
+    }
+    </script>
+
+	<Workspace 
+		title="Character Frequency" 
+		description="Paste your text below to see a detailed breakdown of character usage and distribution." 
+	>
+		<div slot="controls" class="space-y-6">
+            <div class="space-y-3">
+                <label class="text-[10px] font-bold text-mute uppercase tracking-widest px-1">Filter View</label>
+                <div class="grid grid-cols-1 gap-2">
+                    <button id="filter-all" class="filter-btn active w-full h-10 px-4 flex items-center justify-between text-body-sm font-medium rounded-md transition-all border border-hairline bg-canvas hover:bg-canvas-soft-2 cursor-pointer">
+                        All Characters
+                        <span class="text-[10px] opacity-50">Default</span>
+                    </button>
+                    <button id="filter-letters" class="filter-btn w-full h-10 px-4 flex items-center justify-between text-body-sm font-medium rounded-md transition-all border border-hairline bg-canvas hover:bg-canvas-soft-2 cursor-pointer">
+                        Letters Only
+                        <span class="text-[10px] opacity-50">A-Z</span>
+                    </button>
+                    <button id="filter-numbers" class="filter-btn w-full h-10 px-4 flex items-center justify-between text-body-sm font-medium rounded-md transition-all border border-hairline bg-canvas hover:bg-canvas-soft-2 cursor-pointer">
+                        Numbers Only
+                        <span class="text-[10px] opacity-50">0-9</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between p-3 bg-canvas-soft-2 rounded-lg border border-hairline">
+                <label for="ignore-whitespace" class="text-body-sm font-medium cursor-pointer select-none">Ignore Whitespace</label>
+                <input type="checkbox" id="ignore-whitespace" checked class="w-4 h-4 rounded-sm border-hairline text-ink focus:ring-ink cursor-pointer" />
+            </div>
+
+            <div id="stats-summary" class="grid grid-cols-2 gap-4 p-4 bg-ink text-canvas rounded-lg shadow-sm">
+                <div>
+                    <div class="text-[10px] uppercase font-bold opacity-70 tracking-tighter">Unique</div>
+                    <div id="unique-count" class="text-display-sm">0</div>
+                </div>
+                <div>
+                    <div class="text-[10px] uppercase font-bold opacity-70 tracking-tighter">Total</div>
+                    <div id="total-count" class="text-display-sm">0</div>
+                </div>
+            </div>
+		</div>
+
+        <div slot="footer" class="mt-8">
+            <div class="bg-canvas border border-hairline rounded-xl overflow-hidden shadow-sm">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-canvas-soft border-b border-hairline">
+                            <th class="sortable px-6 py-4 text-[10px] font-bold text-mute uppercase tracking-widest cursor-pointer hover:text-ink transition-colors" data-sort="char">Char</th>
+                            <th class="sortable px-6 py-4 text-[10px] font-bold text-mute uppercase tracking-widest cursor-pointer hover:text-ink transition-colors text-right" data-sort="count">Count</th>
+                            <th class="sortable px-6 py-4 text-[10px] font-bold text-mute uppercase tracking-widest cursor-pointer hover:text-ink transition-colors text-right" data-sort="percent">Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody id="freq-table-body" class="divide-y divide-hairline">
+                        <!-- Rows injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+	
+<style is:global>
+        .filter-btn.active {
+            background-color: var(--color-ink) !important;
+            color: var(--color-canvas) !important;
+            border-color: var(--color-ink) !important;
+        }
+    </style>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+        <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Character Frequency?</h3>
+                <p class="text-body-md text-body">
+                    Character Frequency is a text analysis tool that provides a detailed breakdown of every character used in your text. It shows the unique count of characters, total count, and a table featuring each character's frequency and percentage of usage.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the Character Frequency counter work?</h3>
+                <p class="text-body-md text-body">
+                    Our tool uses a JavaScript algorithm that scans your input text in real-time. It categorizes each character and updates a statistical model, allowing you to filter results by letters or numbers and sort them by character name or frequency.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Character Frequency free?</h3>
+                <p class="text-body-md text-body">
+                    Yes, Character Frequency is 100% free to use. Like all tools on Text to Plain Text, it is designed to be accessible to everyone without any registration or usage restrictions.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Character Frequency safe?</h3>
+                <p class="text-body-md text-body">
+                    Absolutely. We value your privacy, which is why all calculations are performed locally on your device. Your data never leaves your browser, ensuring that your text remains confidential and secure.
+                </p>
+            </div>
+        </div>
+    </section>
+	</Workspace>
+
+<script is:inline>
+        document.addEventListener('DOMContentLoaded', () => {
+            const textarea = document.getElementById('workspace-textarea');
+            const tableBody = document.getElementById('freq-table-body');
+            const uniqueEl = document.getElementById('unique-count');
+            const totalEl = document.getElementById('total-count');
+            const ignoreWhitespace = document.getElementById('ignore-whitespace');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const sortHeaders = document.querySelectorAll('.sortable');
+
+            let currentFilter = 'all';
+            let sortKey = 'count';
+            let sortOrder = 'desc';
+
+            const updateStats = () => {
+                const text = textarea.value;
+                if (!text) {
+                    tableBody.innerHTML = '<tr><td colspan="3" class="px-6 py-12 text-center text-body-sm text-mute italic">Start typing to see analysis...</td></tr>';
+                    uniqueEl.textContent = '0';
+                    totalEl.textContent = '0';
+                    return;
+                }
+
+                let charMap = {};
+                let total = 0;
+
+                for (let char of text) {
+                    if (ignoreWhitespace.checked && /\s/.test(char)) continue;
+
+                    if (currentFilter === 'letters' && !/[a-zA-Z]/.test(char)) continue;
+                    if (currentFilter === 'numbers' && !/[0-9]/.test(char)) continue;
+
+                    charMap[char] = (charMap[char] || 0) + 1;
+                    total++;
+                }
+
+                const data = Object.entries(charMap).map(([char, count]) => ({
+                    char,
+                    count,
+                    percent: ((count / total) * 100).toFixed(2)
+                }));
+
+                // Sorting
+                data.sort((a, b) => {
+                    let valA = a[sortKey];
+                    let valB = b[sortKey];
+
+                    if (sortKey === 'char') {
+                        valA = valA.toLowerCase();
+                        valB = valB.toLowerCase();
+                    } else {
+                        valA = parseFloat(valA);
+                        valB = parseFloat(valB);
+                    }
+
+                    if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
+                    if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
+                    return 0;
+                });
+
+                uniqueEl.textContent = data.length.toString();
+                totalEl.textContent = total.toString();
+
+                tableBody.innerHTML = data.map(item => `
+                    <tr class="hover:bg-canvas-soft-2 transition-colors">
+                        <td class="px-6 py-4 font-mono text-body-sm text-ink bg-canvas-soft/30">${item.char === ' ' ? '␣ (Space)' : item.char}</td>
+                        <td class="px-6 py-4 text-body-sm text-body text-right font-medium">${item.count}</td>
+                        <td class="px-6 py-4 text-right">
+                            <div class="flex items-center justify-end gap-3">
+                                <span class="text-body-sm text-mute">${item.percent}%</span>
+                                <div class="w-16 h-1.5 bg-canvas-soft-2 rounded-full overflow-hidden">
+                                    <div class="h-full bg-ink/20" style="width: ${item.percent}%"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            };
+
+            textarea?.addEventListener('input', updateStats);
+            ignoreWhitespace?.addEventListener('change', updateStats);
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.id.replace('filter-', '');
+                    updateStats();
+                });
+            });
+
+            sortHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const key = header.getAttribute('data-sort');
+                    if (sortKey === key) {
+                        sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+                    } else {
+                        sortKey = key;
+                        sortOrder = key === 'char' ? 'asc' : 'desc';
+                    }
+                    updateStats();
+                });
+            });
+
+            updateStats();
+        });
+    </script>
+</BaseLayout>

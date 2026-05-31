@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Line Numberer — Add Numbers to Every Line";
-const description = "Automatically add line numbers to your text or code blocks. Perfect for making referenced lists.";
+const title = "Line Numberer — Free Online Line Numberer | Text to Plain Text";
+const description = "Automatically add sequential numbers to every line in your text or code blocks. A fast, privacy-first tool for creating referenced lists or structured data.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Line Numberer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Line Numberer is a text utility that automatically prefixes each line of your input with a sequential number (1., 2., 3., etc.)."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Line Numberer work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool splits your text into an array of lines based on line breaks, iterates through them to add the corresponding index number, and then joins them back together instantly."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Line Numberer free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our Line Numberer tool is 100% free with no limits, subscriptions, or account registration required."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Line Numberer safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All line numbering is processed locally in your web browser. Your text never leaves your computer, ensuring total data privacy."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Line Numberer" 
 		description="Automatically prefix every line in your text with a sequential number (1., 2., 3.)." 
@@ -21,8 +57,41 @@ const description = "Automatically add line numbers to your text or code blocks.
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is a Line Numberer?</h3>
+            <p class="text-body-md text-body">
+                A Line Numberer is a simple but powerful tool that organizes your text by adding sequential digits to the start of every line. It's incredibly useful for legal documents, code snippets, or any list where line-by-line referencing is required.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the Line Numberer work?</h3>
+            <p class="text-body-md text-body">
+                Our tool scans your input for newline characters and inserts a numbered prefix (starting from 1) followed by a period and a space before the original content of each line. This process is instant and automated.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Line Numberer free?</h3>
+            <p class="text-body-md text-body">
+                Yes, this utility is completely free. We provide it as part of our suite of lightweight, browser-based tools designed to help writers, developers, and data entry professionals.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Line Numberer safe?</h3>
+            <p class="text-body-md text-body">
+                Absolutely. Security is built into our architecture. All text manipulation happens client-side in your browser's memory. We do not store, view, or transmit your content to any servers.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
 	const btn = document.getElementById('add-numbers');
@@ -38,3 +107,4 @@ const description = "Automatically add line numbers to your text or code blocks.
         textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>
+</BaseLayout>

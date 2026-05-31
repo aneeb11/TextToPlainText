@@ -2,8 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Case Converter Online — Change Text Case Instantly";
-const description = "Convert text to UPPERCASE, lowercase, Title Case, or Sentence Case with one click.";
+const title = "Case Converter — Free Online Case Converter | Text to Plain Text";
+const description = "Instantly convert text to UPPERCASE, lowercase, Title Case, or Sentence Case with one click. A fast, privacy-first tool for formatting your text perfectly.";
 
 const buttons = [
     { id: 'uppercase', label: 'UPPERCASE' },
@@ -11,92 +11,139 @@ const buttons = [
     { id: 'title-case', label: 'Title Case' },
     { id: 'sentence-case', label: 'Sentence Case' },
     { id: 'snake-case', label: 'snake_case' },
-    { id: 'camel-case', label: 'camelCase' },
+    { id: 'camel-case', label: 'camelCase' }
 ];
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Case Converter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Case Converter is a text utility that allows you to change the capitalization of your content into various formats like uppercase, lowercase, sentence case, or title case automatically."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Case Converter work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool analyzes each character and word in your text and applies specific transformation rules (like capitalizing the first letter of every word) based on your selected case format."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Case Converter free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our Case Converter is 100% free to use. You can transform as much text as you need without any costs or account requirements."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Case Converter safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All case transformations are processed locally in your web browser. Your text is never sent to our servers, ensuring your data remains completely private."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Case Converter" 
 		description="Easily transform your text between different letter cases and formatting styles." 
-		id="case-converter"
 	>
 		<div slot="controls" class="flex flex-col gap-2">
 			{buttons.map(btn => (
                 <button
                     id={btn.id}
-                    class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+                    class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group cursor-pointer"
                 >
                     {btn.label}
                     <span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Convert</span>
                 </button>
             ))}
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Case Converter?</h3>
+            <p class="text-body-md text-body">
+                Case Converter is a convenient online tool designed to help you quickly change the case of any text. Whether you need to fix accidentally clicked Caps Lock text or format headings for a blog post, our converter handles everything from UPPERCASE to camelCase instantly.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the Case Converter work?</h3>
+            <p class="text-body-md text-body">
+                Our converter uses built-in JavaScript string methods to modify the casing of your text. When you select a format, the tool iterates through your content and applies the appropriate transformation, such as capitalizing the first letter of each sentence or replacing spaces with underscores for snake_case.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Case Converter free?</h3>
+            <p class="text-body-md text-body">
+                Yes, Case Converter is completely free to use. There are no subscriptions, no daily usage limits, and no hidden features behind a paywall.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Case Converter safe?</h3>
+            <p class="text-body-md text-body">
+                Yes, it is extremely safe. We prioritize your privacy, which is why all processing occurs locally on your machine. Your text never touches our servers, making it safe to use even for sensitive documents.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
-	const textarea = document.getElementById('workspace-textarea');
+    document.addEventListener('DOMContentLoaded', () => {
+        const textarea = document.getElementById('workspace-textarea');
+        if (!textarea) return;
 
-    const toTitleCase = (str) => {
-        return str.replace(
-            /\w\S*/g,
-            (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-        );
-    };
+        const toTitleCase = (str) => {
+            return str.replace(
+                /\w\S*/g,
+                (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+            );
+        };
 
-    const toSentenceCase = (str) => {
-        return str.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
-    };
+        const toSentenceCase = (str) => {
+            return str.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
+        };
 
-    const toSnakeCase = (str) => {
-        return str
-            .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-            .map(x => x.toLowerCase())
-            .join('_');
-    };
+        const toSnakeCase = (str) => {
+            const matches = str.match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g);
+            if (!matches) return str;
+            return matches.map(x => x.toLowerCase()).join('_');
+        };
 
-    const toCamelCase = (str) => {
-        const s = str
-            .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-            .map(x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())
-            .join('');
-        return s.slice(0, 1).toLowerCase() + s.slice(1);
-    };
+        const toCamelCase = (str) => {
+            const matches = str.match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g);
+            if (!matches) return str;
+            const s = matches.map(x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase()).join('');
+            return s.slice(0, 1).toLowerCase() + s.slice(1);
+        };
 
-    document.getElementById('uppercase').addEventListener('click', () => {
-        textarea.dispatchEvent(new Event('workspace:save'));
-        textarea.value = textarea.value.toUpperCase();
-        textarea.dispatchEvent(new Event('workspace:complete'));
-    });
+        const applyAction = (fn) => {
+            textarea.dispatchEvent(new Event('workspace:save'));
+            textarea.value = fn(textarea.value);
+            textarea.dispatchEvent(new Event('workspace:complete'));
+        };
 
-    document.getElementById('lowercase').addEventListener('click', () => {
-        textarea.dispatchEvent(new Event('workspace:save'));
-        textarea.value = textarea.value.toLowerCase();
-        textarea.dispatchEvent(new Event('workspace:complete'));
-    });
-
-    document.getElementById('title-case').addEventListener('click', () => {
-        textarea.dispatchEvent(new Event('workspace:save'));
-        textarea.value = toTitleCase(textarea.value);
-        textarea.dispatchEvent(new Event('workspace:complete'));
-    });
-
-    document.getElementById('sentence-case').addEventListener('click', () => {
-        textarea.dispatchEvent(new Event('workspace:save'));
-        textarea.value = toSentenceCase(textarea.value);
-        textarea.dispatchEvent(new Event('workspace:complete'));
-    });
-
-    document.getElementById('snake-case').addEventListener('click', () => {
-        textarea.dispatchEvent(new Event('workspace:save'));
-        textarea.value = toSnakeCase(textarea.value);
-        textarea.dispatchEvent(new Event('workspace:complete'));
-    });
-
-    document.getElementById('camel-case').addEventListener('click', () => {
-        textarea.dispatchEvent(new Event('workspace:save'));
-        textarea.value = toCamelCase(textarea.value);
-        textarea.dispatchEvent(new Event('workspace:complete'));
+        document.getElementById('uppercase')?.addEventListener('click', () => applyAction((t) => t.toUpperCase()));
+        document.getElementById('lowercase')?.addEventListener('click', () => applyAction((t) => t.toLowerCase()));
+        document.getElementById('title-case')?.addEventListener('click', () => applyAction(toTitleCase));
+        document.getElementById('sentence-case')?.addEventListener('click', () => applyAction(toSentenceCase));
+        document.getElementById('snake-case')?.addEventListener('click', () => applyAction(toSnakeCase));
+        document.getElementById('camel-case')?.addEventListener('click', () => applyAction(toCamelCase));
     });
 </script>
+</BaseLayout>

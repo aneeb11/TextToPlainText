@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Fix PDF Line Breaks Online — Restore Text Flow";
-const description = "Repair broken line breaks and formatting artifacts from PDF copy-pastes. Restores text into unified blocks.";
+const title = "Fix PDF Line Breaks — Free Online Fix PDF Line Breaks | Text to Plain Text";
+const description = "Repair broken line breaks and formatting artifacts from PDF copy-pastes instantly. A privacy-first tool to restore text flow and unified paragraphs online.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Fix PDF Line Breaks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Fix PDF Line Breaks is a specialized utility designed to repair the 'broken' formatting that often occurs when copying text from PDF documents, which frequently inserts unnecessary line breaks at the end of every line."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Fix PDF Line Breaks work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool uses an algorithm that identifies single line breaks and replaces them with spaces while preserving double line breaks, effectively reconstructing original paragraphs."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Fix PDF Line Breaks free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our PDF line break fixer is 100% free to use with no hidden costs or registration requirements."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Fix PDF Line Breaks safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Like all tools in our ecosystem, the processing is done locally in your browser. Your text never leaves your device, ensuring complete privacy."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Fix PDF Line Breaks" 
 		description="Repair broken line breaks and formatting artifacts from PDF copy-pastes. Restores text into unified blocks." 
@@ -21,8 +57,41 @@ const description = "Repair broken line breaks and formatting artifacts from PDF
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Why does copying from PDF break line breaks?</h3>
+            <p class="text-body-md text-body">
+                PDFs are designed for layout and printing, not for text editing. When you copy text, many PDF viewers interpret the end of a visual line as a literal hard line break (\n). This makes the text difficult to use in word processors or emails.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the PDF Line Break Fixer work?</h3>
+            <p class="text-body-md text-body">
+                Our tool scans your text for single carriage returns or newlines. It assumes that single breaks are artifacts of the PDF layout and replaces them with spaces to restore sentence flow, while keeping double breaks to preserve actual paragraph divisions.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Fix PDF Line Breaks free?</h3>
+            <p class="text-body-md text-body">
+                Yes, this tool is completely free. We provide it as part of our privacy-first text utility ecosystem, accessible to everyone without any usage limits.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Fix PDF Line Breaks safe?</h3>
+            <p class="text-body-md text-body">
+                Absolutely. Your privacy is paramount. All text "fixing" happens locally in your browser's RAM. We never see, store, or transmit your data to any external servers.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
 	const btn = document.getElementById('fix-breaks');
@@ -41,3 +110,4 @@ const description = "Repair broken line breaks and formatting artifacts from PDF
         textarea.dispatchEvent(new Event('workspace:complete'));
 	});
 </script>
+</BaseLayout>

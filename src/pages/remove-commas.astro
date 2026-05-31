@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Remove Commas — Online Text Cleanup";
-const description = "Remove all commas from your text or numbers instantly. Perfect for cleaning up data for spreadsheets or formatting large numeric lists.";
+const title = "Remove Commas — Free Online Remove Commas | Text to Plain Text";
+const description = "Remove all commas from your text or numbers instantly. A privacy-first tool for cleaning up data for spreadsheets or formatting large numeric lists 100% locally.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Remove Commas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Remove Commas is a text cleaning utility that scans your input and deletes every comma character (,) while keeping the rest of the text intact."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Remove Commas work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool uses a global string replacement method in JavaScript to identify all commas and replace them with an empty string instantly in your browser."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Commas free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our comma removal tool is 100% free with no hidden charges, accounts, or usage limitations."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Remove Commas safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All processing is performed locally on your device. Your text or data is never sent to any server, ensuring complete privacy."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Remove Commas" 
 		description="Paste your text below to strip all commas globally." 
@@ -21,23 +57,43 @@ const description = "Remove all commas from your text or numbers instantly. Perf
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
-	</Workspace>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
         <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
         
         <div class="space-y-6">
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">When should I use the Remove Commas tool?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Remove Commas?</h3>
                 <p class="text-body-md text-body">
-                    This tool is most useful when preparing data for applications that use commas as delimiters (like CSVs) where extra commas might break the structure, or when cleaning up large numbers formatted with thousands separators.
+                    Remove Commas is a specialized tool designed to strip all comma characters from your text or numeric data. It's an essential utility for data analysts, developers, and office professionals who need to clean up formatted data for technical processing.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the Remove Commas tool work?</h3>
+                <p class="text-body-md text-body">
+                    Our tool utilizes a local JavaScript replacement function. When you click the "Strip All Commas" button, the script scans your entire input and eliminates every comma character instantly, providing a clean output for your needs.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Remove Commas free?</h3>
+                <p class="text-body-md text-body">
+                    Yes, this tool is 100% free. We provide it as part of our privacy-first text utility collection, available to everyone without any subscription or registration requirements.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Remove Commas safe?</h3>
+                <p class="text-body-md text-body">
+                    Absolutely. Your data privacy is our priority. Since all processing occurs client-side in your web browser, your sensitive data or lists never leave your machine and are never transmitted to our servers.
                 </p>
             </div>
         </div>
     </section>
+	</Workspace>
 
-    <script>
+<script>
         document.getElementById('remove-commas-btn')?.addEventListener('click', () => {
             const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
             if (!textarea) return;

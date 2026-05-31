@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Base64 Encoder & Decoder — Developer Utility";
-const description = "Instantly encode or decode Base64 strings. A privacy-first, offline-ready tool for developers to handle binary data representation safely.";
+const title = "Base64 Encoder & Decoder — Free Online Base64 Converter | Text to Plain Text";
+const description = "Instantly encode or decode Base64 strings. A privacy-first, developer-friendly tool to handle binary data representation safely without any server interaction.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Base64 Converter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Base64 Converter is a specialized tool that translates text into Base64 format (Encoding) or returns Base64 strings back to their original plain text form (Decoding)."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Base64 Converter work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool uses the standard Base64 algorithm to process your input. This conversion happens entirely within your browser's memory using local JavaScript functions."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Base64 Converter free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our Base64 Encoder and Decoder is completely free for all users with no registration, usage limits, or premium tiers required."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Base64 Converter safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, it is extremely safe. Because the conversion is done locally in your browser, your data (including sensitive keys or passwords) is never transmitted to our servers."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Base64 Converter" 
 		description="Encode text to Base64 or decode Base64 strings back to plain text instantly." 
@@ -28,37 +64,43 @@ const description = "Instantly encode or decode Base64 strings. A privacy-first,
 				<span class="text-[10px] bg-ink/10 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-ink/20 transition-colors">Action</span>
 			</button>
 		</div>
-	</Workspace>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
         <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
         
         <div class="space-y-6">
             <div class="group border-b border-hairline pb-6">
                 <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Base64 encoding?</h3>
                 <p class="text-body-md text-body">
-                    Base64 is a group of binary-to-text encoding schemes that represent binary data in an ASCII string format. It is commonly used when there is a need to encode binary data that needs to be stored and transferred over media that are designed to deal with ASCII.
+                    Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format. It's widely used in web development for embedding images in CSS/HTML or sending data via APIs that only support text.
                 </p>
             </div>
 
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Base64 a form of encryption?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the Base64 Converter work?</h3>
                 <p class="text-body-md text-body">
-                    No. Base64 is an <strong>encoding</strong> scheme, not encryption. It is used to represent data in a different format, but it does not provide any security or secrecy. Anyone can easily decode Base64 data.
+                    The converter uses standard JavaScript algorithms to process your input. When you click encode or decode, the transformation is performed instantly within your browser's memory without any network requests.
                 </p>
             </div>
 
             <div class="group border-b border-hairline pb-6">
-                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Why use an offline Base64 tool?</h3>
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Base64 Converter free?</h3>
                 <p class="text-body-md text-body">
-                    Many online Base64 converters send your data to their servers. If you are encoding or decoding sensitive data (like API keys or internal tokens), using a 100% client-side tool like ours ensures your data never leaves your browser.
+                    Yes, our Base64 converter is 100% free. We do not require accounts, subscriptions, or any form of payment to use any of our developer utilities.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Base64 Converter safe?</h3>
+                <p class="text-body-md text-body">
+                    Absolutely. Security is our priority. Since the encoding and decoding happen locally on your device, sensitive data like credentials or API keys are never exposed to the internet or our servers.
                 </p>
             </div>
         </div>
     </section>
+	</Workspace>
 
-    <script>
+<script>
         const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
 
         document.getElementById('encode-base64-btn')?.addEventListener('click', () => {

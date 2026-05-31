@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Strip HTML Tags From Text — Remove HTML Markup Online";
-const description = "Cleanly remove all HTML tags from your source code or web content to get pure plain text.";
+const title = "Strip HTML Tags — Free Online Strip HTML Tags | Text to Plain Text";
+const description = "Cleanly remove all HTML tags from your source code or web content to get pure plain text. A fast, privacy-first tool for developers and content editors.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Strip HTML Tags?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Strip HTML Tags is a developer-focused utility that quickly removes HTML markup from your text, leaving behind only the readable content."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Strip HTML Tags work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool uses a regular expression to identify and remove all content contained within angle brackets (< >), resulting in only the visible text content."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Strip HTML Tags free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, this tool is part of the Text to Plain Text suite and is completely free to use without any limitations or account requirements."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Strip HTML Tags safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Like all our tools, processing happens entirely in your browser. Your data is never uploaded to any server, ensuring total privacy."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Strip HTML Tags" 
 		description="Extract the text content from HTML by removing all tags and markup instantly." 
@@ -21,20 +57,54 @@ const description = "Cleanly remove all HTML tags from your source code or web c
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+        <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Strip HTML Tags?</h3>
+                <p class="text-body-md text-body">
+                    Strip HTML Tags is a developer-focused utility that quickly removes HTML markup from your text, leaving behind only the readable content.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does Strip HTML Tags work?</h3>
+                <p class="text-body-md text-body">
+                    The tool uses a regular expression to identify and remove all content contained within angle brackets (&lt; &gt;), resulting in only the visible text content.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Strip HTML Tags free?</h3>
+                <p class="text-body-md text-body">
+                    Yes, this tool is part of the Text to Plain Text suite and is completely free to use. There are no daily limits, premium features, or sign-up requirements.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Strip HTML Tags safe?</h3>
+                <p class="text-body-md text-body">
+                    Absolutely. Our tool operates entirely client-side using JavaScript. This means your text never leaves your browser and is never stored on our servers, ensuring your data remains private and secure.
+                </p>
+            </div>
+        </div>
+    </section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
-	const btn = document.getElementById('strip-tags');
-	const textarea = document.getElementById('html-tags');
-
-	btn.addEventListener('click', () => {
-		textarea.dispatchEvent(new Event('workspace:save'));
-		const text = textarea.value;
-		const cleaned = text.replace(/<[^>]*>/g, '');
-            
-		textarea.value = cleaned;
-        textarea.dispatchEvent(new Event('input'));
-        textarea.dispatchEvent(new Event('workspace:complete'));
-	});
-</script>
+        const btn = document.getElementById('strip-tags');
+        const textarea = document.getElementById('html-tags');
+    
+        btn.addEventListener('click', () => {
+            textarea.dispatchEvent(new Event('workspace:save'));
+            const text = textarea.value;
+            const cleaned = text.replace(/<[^>]*>/g, '');
+                
+            textarea.value = cleaned;
+            textarea.dispatchEvent(new Event('input'));
+            textarea.dispatchEvent(new Event('workspace:complete'));
+        });
+    </script>
+</BaseLayout>

@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Whitespace Visualizer — See Invisible Characters Online";
-const description = "Make invisible whitespace characters like spaces, tabs, and non-breaking spaces visible. Identify double spaces and carriage returns instantly.";
+const title = "Whitespace Visualizer — Free Online Whitespace Visualizer | Text to Plain Text";
+const description = "Make invisible whitespace characters like spaces, tabs, and non-breaking spaces visible. Identify double spaces and carriage returns instantly. A fast tool.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Whitespace Visualizer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Whitespace Visualizer is a utility that makes invisible whitespace characters like spaces, tabs, and non-breaking spaces visible, allowing you to easily identify formatting issues like double spaces or unexpected line breaks."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Whitespace Visualizer work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool replaces invisible characters with distinct visible symbols and styles them so you can see the structure of your text, including spaces, tabs, and carriage returns."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Whitespace Visualizer free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, this tool is part of the Text to Plain Text suite and is completely free to use without any limitations or account requirements."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Whitespace Visualizer safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Like all our tools, processing happens entirely in your browser. Your data is never uploaded to any server, ensuring total privacy."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Whitespace Visualizer" 
 		description="Paste your text to reveal hidden characters. Spaces, tabs, and non-breaking spaces will be visually marked." 
@@ -54,131 +90,165 @@ const description = "Make invisible whitespace characters like spaces, tabs, and
                 </div>
             </div>
 		</div>
-	</Workspace>
-</BaseLayout>
-
+	
 <style is:global>
-    .visualizer-output {
-        white-space: pre-wrap;
-        word-break: break-all;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    }
-    
-    .visualizer-output .space { color: #6b7280; } /* gray-500 - slightly darker for visibility */
-    .visualizer-output .tab { 
-        color: #2563eb; /* blue-600 */
-        background-color: rgba(59, 130, 246, 0.15); 
-        border-radius: 2px;
-        padding: 0 1px;
-    }
-    .visualizer-output .nbsp { color: #ea580c; } /* orange-600 */
-    .visualizer-output .cr { color: #dc2626; } /* red-600 */
-    .visualizer-output .double-space { 
-        background-color: rgba(253, 224, 71, 0.5); /* yellow-300/50 */
-        border-radius: 2px;
-    }
-</style>
+        .visualizer-output {
+            white-space: pre-wrap;
+            word-break: break-all;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+        
+        .visualizer-output .space { color: #6b7280; } /* gray-500 - slightly darker for visibility */
+        .visualizer-output .tab { 
+            color: #2563eb; /* blue-600 */
+            background-color: rgba(59, 130, 246, 0.15); 
+            border-radius: 2px;
+            padding: 0 1px;
+        }
+        .visualizer-output .nbsp { color: #ea580c; } /* orange-600 */
+        .visualizer-output .cr { color: #dc2626; } /* red-600 */
+        .visualizer-output .double-space { 
+            background-color: rgba(253, 224, 71, 0.5); /* yellow-300/50 */
+            border-radius: 2px;
+        }
+    </style>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+        <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Whitespace Visualizer?</h3>
+                <p class="text-body-md text-body">
+                    Whitespace Visualizer is a utility that makes invisible whitespace characters like spaces, tabs, and non-breaking spaces visible, allowing you to easily identify formatting issues like double spaces or unexpected line breaks.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does Whitespace Visualizer work?</h3>
+                <p class="text-body-md text-body">
+                    The tool replaces invisible characters with distinct visible symbols and styles them so you can see the structure of your text, including spaces, tabs, and carriage returns.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Whitespace Visualizer free?</h3>
+                <p class="text-body-md text-body">
+                    Yes, this tool is part of the Text to Plain Text suite and is completely free to use. There are no daily limits, premium features, or sign-up requirements.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Whitespace Visualizer safe?</h3>
+                <p class="text-body-md text-body">
+                    Absolutely. Our tool operates entirely client-side using JavaScript. This means your text never leaves your browser and is never stored on our servers, ensuring your data remains private and secure.
+                </p>
+            </div>
+        </div>
+    </section>
+	</Workspace>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
-        const container = document.getElementById('container-workspace-textarea');
-        const visualizeBtn = document.getElementById('visualize-btn');
-        const copyCleanBtn = document.getElementById('copy-clean-btn');
+        document.addEventListener('DOMContentLoaded', () => {
+            const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
+            const container = document.getElementById('container-workspace-textarea');
+            const visualizeBtn = document.getElementById('visualize-btn');
+            const copyCleanBtn = document.getElementById('copy-clean-btn');
 
-        if (!textarea || !container || !visualizeBtn || !copyCleanBtn) return;
+            if (!textarea || !container || !visualizeBtn || !copyCleanBtn) return;
 
-        // Allow Tab key in textarea
-        textarea.addEventListener('keydown', (e) => {
-            if (e.key === 'Tab') {
-                e.preventDefault();
-                const start = textarea.selectionStart;
-                const end = textarea.selectionEnd;
-                textarea.value = textarea.value.substring(0, start) + "\t" + textarea.value.substring(end);
-                textarea.selectionStart = textarea.selectionEnd = start + 1;
-                textarea.dispatchEvent(new Event('input'));
-            }
+            // Allow Tab key in textarea
+            textarea.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    const start = textarea.selectionStart;
+                    const end = textarea.selectionEnd;
+                    textarea.value = textarea.value.substring(0, start) + "\t" + textarea.value.substring(end);
+                    textarea.selectionStart = textarea.selectionEnd = start + 1;
+                    textarea.dispatchEvent(new Event('input'));
+                }
+            });
+
+            // Create output element
+            const outputPre = document.createElement('pre');
+            outputPre.id = 'visualizer-output';
+            outputPre.className = 'visualizer-output absolute inset-0 w-full h-full p-4 sm:p-6 bg-canvas text-body-md overflow-y-auto hidden z-10';
+            container.appendChild(outputPre);
+
+            let isVisualizing = false;
+            let originalText = "";
+
+            const toggleView = (showVisualizer: boolean) => {
+                isVisualizing = showVisualizer;
+                if (showVisualizer) {
+                    textarea.classList.add('opacity-0', 'pointer-events-none');
+                    outputPre.classList.remove('hidden');
+                    visualizeBtn.innerHTML = 'Edit Original Text <span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider">Switch</span>';
+                } else {
+                    textarea.classList.remove('opacity-0', 'pointer-events-none');
+                    outputPre.classList.add('hidden');
+                    visualizeBtn.innerHTML = 'Visualize Whitespace <span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider">Action</span>';
+                }
+            };
+
+            const escapeHtml = (text: string) => {
+                return text
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+            };
+
+            const visualize = (text: string) => {
+                let html = escapeHtml(text);
+
+                // Replace characters visually
+                // 1. Tabs
+                html = html.replace(/\t/g, '<span class="tab">→</span>');
+                
+                // 2. Non-breaking spaces (NBSP)
+                html = html.replace(/\u00A0/g, '<span class="nbsp">⊙</span>');
+
+                // 3. Carriage returns \r
+                html = html.replace(/\r/g, '<span class="cr">¶</span>');
+
+                // 4. Double spaces (Warning)
+                html = html.replace(/  /g, '<span class="double-space"><span class="space">·</span><span class="space">·</span></span>');
+
+                // 5. Remaining single spaces (avoiding our own tags)
+                html = html.replace(/ (?![^<]*>)/g, '<span class="space">·</span>');
+
+                return html;
+            };
+
+            visualizeBtn.addEventListener('click', () => {
+                if (!isVisualizing) {
+                    const text = textarea.value;
+                    if (!text) return;
+                    originalText = text;
+                    outputPre.innerHTML = visualize(text);
+                    toggleView(true);
+                } else {
+                    toggleView(false);
+                }
+            });
+
+            copyCleanBtn.addEventListener('click', () => {
+                const textToCopy = isVisualizing ? originalText : textarea.value;
+                navigator.clipboard.writeText(textToCopy);
+                
+                const originalBtnText = copyCleanBtn.innerHTML;
+                copyCleanBtn.innerHTML = 'Copied! <span class="text-[10px] bg-ink/10 px-1.5 py-0.5 rounded uppercase tracking-wider">Success</span>';
+                setTimeout(() => {
+                    copyCleanBtn.innerHTML = originalBtnText;
+                }, 2000);
+            });
+
+            // Sync original text if user edits
+            textarea.addEventListener('input', () => {
+                if (!isVisualizing) {
+                    originalText = textarea.value;
+                }
+            });
         });
-
-        // Create output element
-        const outputPre = document.createElement('pre');
-        outputPre.id = 'visualizer-output';
-        outputPre.className = 'visualizer-output absolute inset-0 w-full h-full p-4 sm:p-6 bg-canvas text-body-md overflow-y-auto hidden z-10';
-        container.appendChild(outputPre);
-
-        let isVisualizing = false;
-        let originalText = "";
-
-        const toggleView = (showVisualizer: boolean) => {
-            isVisualizing = showVisualizer;
-            if (showVisualizer) {
-                textarea.classList.add('opacity-0', 'pointer-events-none');
-                outputPre.classList.remove('hidden');
-                visualizeBtn.innerHTML = 'Edit Original Text <span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider">Switch</span>';
-            } else {
-                textarea.classList.remove('opacity-0', 'pointer-events-none');
-                outputPre.classList.add('hidden');
-                visualizeBtn.innerHTML = 'Visualize Whitespace <span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider">Action</span>';
-            }
-        };
-
-        const escapeHtml = (text: string) => {
-            return text
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
-        };
-
-        const visualize = (text: string) => {
-            let html = escapeHtml(text);
-
-            // Replace characters visually
-            // 1. Tabs
-            html = html.replace(/\t/g, '<span class="tab">→</span>');
-            
-            // 2. Non-breaking spaces (NBSP)
-            html = html.replace(/\u00A0/g, '<span class="nbsp">⊙</span>');
-
-            // 3. Carriage returns \r
-            html = html.replace(/\r/g, '<span class="cr">¶</span>');
-
-            // 4. Double spaces (Warning)
-            html = html.replace(/  /g, '<span class="double-space"><span class="space">·</span><span class="space">·</span></span>');
-
-            // 5. Remaining single spaces (avoiding our own tags)
-            html = html.replace(/ (?![^<]*>)/g, '<span class="space">·</span>');
-
-            return html;
-        };
-
-        visualizeBtn.addEventListener('click', () => {
-            if (!isVisualizing) {
-                const text = textarea.value;
-                if (!text) return;
-                originalText = text;
-                outputPre.innerHTML = visualize(text);
-                toggleView(true);
-            } else {
-                toggleView(false);
-            }
-        });
-
-        copyCleanBtn.addEventListener('click', () => {
-            const textToCopy = isVisualizing ? originalText : textarea.value;
-            navigator.clipboard.writeText(textToCopy);
-            
-            const originalBtnText = copyCleanBtn.innerHTML;
-            copyCleanBtn.innerHTML = 'Copied! <span class="text-[10px] bg-ink/10 px-1.5 py-0.5 rounded uppercase tracking-wider">Success</span>';
-            setTimeout(() => {
-                copyCleanBtn.innerHTML = originalBtnText;
-            }, 2000);
-        });
-
-        // Sync original text if user edits
-        textarea.addEventListener('input', () => {
-            if (!isVisualizing) {
-                originalText = textarea.value;
-            }
-        });
-    });
-</script>
+    </script>
+</BaseLayout>

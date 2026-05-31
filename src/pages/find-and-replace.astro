@@ -2,11 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Workspace from "../components/Workspace.astro";
 
-const title = "Find and Replace Text Online — Batch Edit Utility";
-const description = "Instantly find and replace words, phrases, or characters in your text. Supports global replacement and case sensitivity options.";
+const title = "Find and Replace Text — Free Online Find and Replace | Text to Plain Text";
+const description = "Instantly find and replace words, phrases, or characters in your text with support for Regex and case sensitivity. A fast, privacy-first bulk text editor.";
 ---
 
 <BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Find and Replace?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Find and Replace is a text editing utility that allows you to search for specific strings or patterns within your text and replace them with new content globally."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does Find and Replace work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool uses JavaScript's regular expression engine to scan your text. It can perform literal string matches or complex pattern matching (Regex) to execute replacements instantly."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Find and Replace free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our Find and Replace tool is 100% free with no usage caps, registration requirements, or hidden fees."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is Find and Replace safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All searching and replacing occur locally in your browser memory. We never transmit your text to any server, ensuring your data remains private."
+        }
+      }]
+    }
+    </script>
+
 	<Workspace 
 		title="Find and Replace" 
 		description="Batch edit your text by finding specific patterns and replacing them with new content." 
@@ -14,15 +50,32 @@ const description = "Instantly find and replace words, phrases, or characters in
 	>
 		<div slot="controls" class="space-y-4">
 			<div class="space-y-2">
-                <label for="find-input" class="text-caption-mono text-mute uppercase">Find</label>
-                <input 
-                    type="text" 
-                    id="find-input" 
-                    placeholder="Text to find..."
-                    class="w-full h-10 px-3 bg-canvas border border-hairline rounded-md text-body-sm focus:ring-1 focus:ring-ink outline-none"
-                />
+                <div class="flex items-center justify-between">
+                    <label for="find-input" class="text-caption-mono text-mute uppercase">Find</label>
+                    <div class="flex gap-1">
+                        <button 
+                            id="toggle-regex" 
+                            title="Use Regular Expression (.*)"
+                            class="w-7 h-7 flex items-center justify-center rounded border border-hairline bg-canvas text-[11px] font-mono hover:bg-canvas-soft-2 transition-colors cursor-pointer"
+                        >.*</button>
+                        <button 
+                            id="toggle-case" 
+                            title="Match Case (Aa)"
+                            class="w-7 h-7 flex items-center justify-center rounded border border-hairline bg-canvas text-[11px] font-medium hover:bg-canvas-soft-2 transition-colors cursor-pointer"
+                        >Aa</button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        id="find-input" 
+                        placeholder="Text to find..."
+                        class="w-full h-10 px-3 bg-canvas border border-hairline rounded-md text-body-sm focus:ring-1 focus:ring-ink outline-none"
+                    />
+                    <div id="regex-error" class="hidden absolute -bottom-5 left-0 text-[10px] text-red-500 font-medium">Invalid regex</div>
+                </div>
             </div>
-            <div class="space-y-2">
+            <div class="space-y-2 pt-1">
                 <label for="replace-input" class="text-caption-mono text-mute uppercase">Replace With</label>
                 <input 
                     type="text" 
@@ -31,47 +84,129 @@ const description = "Instantly find and replace words, phrases, or characters in
                     class="w-full h-10 px-3 bg-canvas border border-hairline rounded-md text-body-sm focus:ring-1 focus:ring-ink outline-none"
                 />
             </div>
-            
-            <div class="flex items-center gap-2 py-2">
-                <input type="checkbox" id="case-sensitive" class="rounded-sm border-hairline text-ink focus:ring-ink" />
-                <label for="case-sensitive" class="text-body-sm text-body cursor-pointer select-none">Case Sensitive</label>
-            </div>
 
 			<button
 				id="execute-replace"
-				class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group"
+				class="w-full h-10 px-4 mt-2 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group cursor-pointer"
 			>
 				Replace All
 				<span class="text-[10px] bg-canvas/20 px-1.5 py-0.5 rounded uppercase tracking-wider group-hover:bg-canvas/30 transition-colors">Action</span>
 			</button>
 		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+    <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-6">
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">What is Find and Replace?</h3>
+            <p class="text-body-md text-body">
+                Find and Replace is an essential text editing tool that helps you locate specific words, characters, or patterns and swap them for something else. It supports basic text matching as well as advanced Regular Expressions (Regex) for complex batch editing.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How do I use Regex in Find and Replace?</h3>
+            <p class="text-body-md text-body">
+                To use Regular Expressions, simply click the ".*" button in the controls. This allows you to use powerful patterns like \d for digits or ^ to match the start of lines. The tool will validate your regex in real-time to prevent errors.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Find and Replace free?</h3>
+            <p class="text-body-md text-body">
+                Yes, this tool is completely free. We believe in providing powerful text utilities without the need for accounts or payments, making it easy for anyone to clean and edit their data.
+            </p>
+        </div>
+
+        <div class="group border-b border-hairline pb-6">
+            <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is Find and Replace safe?</h3>
+            <p class="text-body-md text-body">
+                Absolutely. Security is central to our philosophy. All text processing is performed client-side in your browser, meaning your data never leaves your computer and is never stored on our servers.
+            </p>
+        </div>
+    </div>
+</section>
 	</Workspace>
-</BaseLayout>
 
 <script is:inline>
-	const executeBtn = document.getElementById('execute-replace');
-	const textarea = document.getElementById('find-replace');
-    const findInput = document.getElementById('find-input');
-    const replaceInput = document.getElementById('replace-input');
-    const caseSensitive = document.getElementById('case-sensitive');
+    document.addEventListener('DOMContentLoaded', () => {
+        const executeBtn = document.getElementById('execute-replace');
+        const textarea = document.getElementById('find-replace');
+        const findInput = document.getElementById('find-input');
+        const replaceInput = document.getElementById('replace-input');
+        const regexToggle = document.getElementById('toggle-regex');
+        const caseToggle = document.getElementById('toggle-case');
+        const regexError = document.getElementById('regex-error');
 
-	executeBtn.addEventListener('click', () => {
-		textarea.dispatchEvent(new Event('workspace:save'));
-		const findText = findInput.value;
-        const replaceText = replaceInput.value;
-		
-        if (!findText) return;
+        let useRegex = false;
+        let matchCase = false;
 
-        const text = textarea.value;
-        const flags = caseSensitive.checked ? 'g' : 'gi';
-        
-        // Escape regex special characters in findText
-        const escapedFind = findText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(escapedFind, flags);
-        
-        textarea.value = text.replace(regex, replaceText);
-        
-        // Trigger workspace:complete event to update stats and show success
-        textarea.dispatchEvent(new Event('workspace:complete'));
-	});
+        const updateToggleStyles = () => {
+            const activeClasses = ['bg-ink', 'text-canvas', 'border-ink'];
+            const inactiveClasses = ['bg-canvas', 'text-body', 'border-hairline'];
+
+            if (useRegex) {
+                regexToggle.classList.add(...activeClasses);
+                regexToggle.classList.remove(...inactiveClasses);
+            } else {
+                regexToggle.classList.remove(...activeClasses);
+                regexToggle.classList.add(...inactiveClasses);
+            }
+
+            if (matchCase) {
+                caseToggle.classList.add(...activeClasses);
+                caseToggle.classList.remove(...inactiveClasses);
+            } else {
+                caseToggle.classList.remove(...activeClasses);
+                caseToggle.classList.add(...inactiveClasses);
+            }
+        };
+
+        regexToggle.addEventListener('click', () => {
+            useRegex = !useRegex;
+            updateToggleStyles();
+            regexError.classList.add('hidden');
+        });
+
+        caseToggle.addEventListener('click', () => {
+            matchCase = !matchCase;
+            updateToggleStyles();
+        });
+
+        executeBtn.addEventListener('click', () => {
+            const findText = findInput.value;
+            const replaceText = replaceInput.value;
+            
+            if (!findText) return;
+
+            textarea.dispatchEvent(new Event('workspace:save'));
+            const text = textarea.value;
+            
+            try {
+                let flags = 'g';
+                if (!matchCase) flags += 'i';
+
+                let pattern = findText;
+                if (!useRegex) {
+                    // Escape literal string for regex use
+                    pattern = findText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                }
+
+                const regex = new RegExp(pattern, flags);
+                textarea.value = text.replace(regex, replaceText);
+                
+                regexError.classList.add('hidden');
+                findInput.classList.remove('border-red-500');
+                textarea.dispatchEvent(new Event('workspace:complete'));
+            } catch (e) {
+                console.error('Invalid Regex:', e);
+                regexError.classList.remove('hidden');
+                findInput.classList.add('border-red-500');
+            }
+        });
+
+        updateToggleStyles();
+    });
 </script>
+</BaseLayout>

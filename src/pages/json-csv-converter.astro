@@ -1,0 +1,226 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Workspace from "../components/Workspace.astro";
+
+const title = "JSON ↔ CSV Converter — Free Online JSON ↔ CSV Converter | Text to Plain Text";
+const description = "Instantly convert JSON arrays to CSV or CSV data to JSON. A privacy-first, developer utility to handle data transformation 100% locally in your browser.";
+---
+
+<BaseLayout title={title} description={description}>
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is JSON ↔ CSV Converter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "JSON ↔ CSV Converter is a bi-directional data transformation tool that allows you to turn JSON arrays into comma-separated values (CSV) or convert CSV tables back into JSON objects."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does JSON ↔ CSV Converter work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool parses your input data (JSON or CSV) and maps the fields accordingly. For JSON to CSV, it flattens objects to create headers; for CSV to JSON, it uses the first row as keys for the resulting array of objects."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is JSON ↔ CSV Converter free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our JSON and CSV converter is completely free with no daily limits, paywalls, or account requirements."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is JSON ↔ CSV Converter safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All data processing is performed locally on your device. Your sensitive data is never transmitted to any server, ensuring complete privacy and security."
+        }
+      }]
+    }
+    </script>
+
+	<Workspace 
+		title="JSON ↔ CSV Converter" 
+		description="Transform data between JSON and CSV formats instantly. High-performance, privacy-first conversion." 
+        placeholder='Paste JSON array or CSV text here...'
+	>
+		<div slot="controls" class="space-y-3">
+			<div class="grid grid-cols-1 gap-2">
+                <button
+                    id="json-to-csv-btn"
+                    class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-ink text-canvas rounded-md hover:opacity-90 transition-opacity group cursor-pointer"
+                >
+                    JSON to CSV
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 group-hover:opacity-100 transition-all rotate-90 sm:rotate-0"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </button>
+                <button
+                    id="csv-to-json-btn"
+                    class="w-full h-10 px-4 flex items-center justify-between text-body-sm-strong bg-canvas text-ink border border-hairline rounded-md hover:bg-canvas-soft transition-colors group cursor-pointer"
+                >
+                    CSV to JSON
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 group-hover:opacity-100 transition-all rotate-90 sm:rotate-0"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+                </button>
+            </div>
+            
+            <div class="pt-2 border-t border-hairline">
+                <button
+                    id="download-btn"
+                    class="w-full h-10 px-4 flex items-center justify-between text-body-sm font-medium text-mute hover:text-ink transition-colors group cursor-pointer"
+                >
+                    Download Result
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 group-hover:opacity-100 transition-opacity"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                </button>
+            </div>
+		</div>
+
+	<section id="faq" class="max-w-[800px] mx-auto px-6 py-20 border-t border-hairline scroll-mt-20">
+        <h2 class="text-display-md mb-8 text-center">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">How does the bi-directional conversion work?</h3>
+                <p class="text-body-md text-body">
+                    This tool detects your input format automatically. Use "JSON to CSV" to flatten structured arrays into tables, or "CSV to JSON" to turn row-based data into indexed objects. All processing happens instantly in your browser using local JavaScript.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Does it handle nested JSON?</h3>
+                <p class="text-body-md text-body">
+                    Yes. When converting to CSV, nested objects are flattened one level deep (e.g., <code>user.name</code>). This ensures your data remains readable in spreadsheet software like Microsoft Excel or Google Sheets while preserving the data structure.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is JSON ↔ CSV Converter free?</h3>
+                <p class="text-body-md text-body">
+                    Yes, our JSON ↔ CSV utility is 100% free. We are committed to providing high-quality developer tools that are accessible to everyone without subscriptions or fees.
+                </p>
+            </div>
+
+            <div class="group border-b border-hairline pb-6">
+                <h3 class="text-body-lg font-semibold mb-2 group-hover:text-ink transition-colors">Is my data safe and private?</h3>
+                <p class="text-body-md text-body">
+                    Absolutely. Privacy is our core mandate. Both conversion engines run entirely on your local machine using JavaScript. Your data never crosses the network, making it safe to process internal company data or sensitive information.
+                </p>
+            </div>
+        </div>
+    </section>
+	</Workspace>
+
+<script>
+        const textarea = document.getElementById('workspace-textarea') as HTMLTextAreaElement;
+
+        const flattenObject = (obj: any, prefix = '') => {
+            const flattened: any = {};
+            for (const key in obj) {
+                if (Object.prototype.hasOwnProperty.call(obj, key)) {
+                    const propName = prefix ? `${prefix}.${key}` : key;
+                    if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
+                        const nested = obj[key];
+                        for (const nestedKey in nested) {
+                            if (Object.prototype.hasOwnProperty.call(nested, nestedKey)) {
+                                flattened[`${propName}.${nestedKey}`] = nested[nestedKey];
+                            }
+                        }
+                    } else {
+                        flattened[propName] = obj[key];
+                    }
+                }
+            }
+            return flattened;
+        };
+
+        const jsonToCsv = () => {
+            if (!textarea) return;
+            const input = textarea.value.trim();
+            if (!input) return;
+
+            try {
+                const json = JSON.parse(input);
+                const array = Array.isArray(json) ? json : [json];
+                
+                if (array.length === 0) {
+                    textarea.value = "";
+                    return;
+                }
+
+                const flattenedData = array.map(item => flattenObject(item));
+                const allKeys = new Set<string>();
+                flattenedData.forEach(item => {
+                    Object.keys(item).forEach(key => allKeys.add(key));
+                });
+                const headers = Array.from(allKeys);
+
+                const csvRows = [];
+                csvRows.push(headers.map(h => `"${h.replace(/"/g, '""')}"`).join(','));
+
+                flattenedData.forEach(item => {
+                    const row = headers.map(header => {
+                        const val = item[header];
+                        const stringVal = val === null || val === undefined ? '' : String(val);
+                        return `"${stringVal.replace(/"/g, '""')}"`;
+                    });
+                    csvRows.push(row.join(','));
+                });
+
+                textarea.value = csvRows.join('\n');
+                textarea.dispatchEvent(new CustomEvent('workspace:complete'));
+            } catch (e: any) {
+                textarea.classList.add('border-red-500');
+                setTimeout(() => textarea.classList.remove('border-red-500'), 1500);
+            }
+        };
+
+        const csvToJson = () => {
+            if (!textarea) return;
+            const input = textarea.value.trim();
+            if (!input) return;
+
+            try {
+                const lines = input.split('\n').filter(l => l.trim() !== '');
+                if (lines.length < 1) return;
+
+                const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+                const rows = lines.slice(1).map(line => {
+                    const values = line.split(',').map(v => v.trim().replace(/^"|"$/g, ''));
+                    return headers.reduce((obj: any, header, i) => {
+                        obj[header] = values[i];
+                        return obj;
+                    }, {});
+                });
+
+                textarea.value = JSON.stringify(rows, null, 2);
+                textarea.dispatchEvent(new CustomEvent('workspace:complete'));
+            } catch (e) {
+                textarea.classList.add('border-red-500');
+                setTimeout(() => textarea.classList.remove('border-red-500'), 1500);
+            }
+        };
+
+        document.getElementById('json-to-csv-btn')?.addEventListener('click', jsonToCsv);
+        document.getElementById('csv-to-json-btn')?.addEventListener('click', csvToJson);
+
+        document.getElementById('download-btn')?.addEventListener('click', () => {
+            if (!textarea || !textarea.value.trim()) return;
+            const content = textarea.value.trim();
+            const isJson = content.startsWith('[') || content.startsWith('{');
+            const fileName = isJson ? 'data.json' : 'data.csv';
+            const mimeType = isJson ? 'application/json' : 'text/csv';
+
+            const blob = new Blob([content], { type: `${mimeType};charset=utf-8;` });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", fileName);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
+</BaseLayout>

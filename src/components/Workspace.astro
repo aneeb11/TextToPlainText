@@ -25,11 +25,12 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
                     <div class="relative dropdown-container">
                         <button
                             id={`switch-trigger-${id}`}
+                            type="button"
                             class="dropdown-trigger flex items-center gap-1 sm:gap-1.5 text-body-sm font-medium text-mute hover:text-ink transition-colors group cursor-pointer"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 7-3-3-3 3"/><path d="M18 4v10"/><path d="m3 17 3 3 3-3"/><path d="M6 20V6"/></svg>
-                            <span class="hidden xs:inline">Switch Tool</span>
-                            <span class="xs:hidden">Switch</span>
+                            <span class="hidden xs:inline">Instant Apply</span>
+                            <span class="xs:hidden">Apply</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
                         </button>
                         
@@ -84,10 +85,11 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
                     <div class="relative dropdown-container">
                         <button
                             id={`download-trigger-${id}`}
+                            type="button"
                             class="dropdown-trigger flex items-center gap-1 sm:gap-1.5 text-body-sm font-medium text-ink hover:text-mute transition-colors group cursor-pointer"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-y-0.5 transition-transform"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                            <span class="hidden xs:inline">Download</span>
+                            <span class="hidden xs:inline">Save as File</span>
                             <span class="xs:hidden">Save</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform dropdown-arrow"><path d="m6 9 6 6 6-6"/></svg>
                         </button>
@@ -474,6 +476,8 @@ const { title, description, placeholder = "Paste your text here...", id } = Astr
         };
 
         const triggerFeedback = () => {
+            if (!textarea.value.trim()) return;
+
             // Feedback Loop A: Workspace Flash
             if (container) {
                 container.classList.add('ring-2', 'ring-ink', 'bg-canvas-soft-2');

@@ -164,7 +164,6 @@ const currentPath = Astro.url.pathname;
             .dropdown-menu {
                 display: none;
             }
-            .dropdown-container:hover > .dropdown-menu,
             .dropdown-container.is-active > .dropdown-menu {
                 display: block !important;
             }
@@ -172,14 +171,13 @@ const currentPath = Astro.url.pathname;
             .dropdown-container.is-closed-on-click > .dropdown-menu {
                 display: none !important;
             }
-            .dropdown-container.is-active .dropdown-arrow,
-            .dropdown-container:hover .dropdown-arrow {
+            .dropdown-container.is-active .dropdown-arrow {
                 transform: rotate(180deg);
             }
 
             /* Mobile Dropdown Refinements */
             @media (max-width: 640px) {
-                .dropdown-menu {
+                header .dropdown-menu {
                     position: fixed !important;
                     top: 64px !important; /* Header height */
                     left: 0 !important;
@@ -193,8 +191,8 @@ const currentPath = Astro.url.pathname;
                     box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
                 }
                 
-                /* Add a dimmed backdrop on mobile when a dropdown is active */
-                body:has(.dropdown-container.is-active) main {
+                /* Add a dimmed backdrop on mobile when a header dropdown is active */
+                body:has(header .dropdown-container.is-active) main {
                     filter: brightness(0.9);
                     pointer-events: none;
                 }
@@ -229,47 +227,45 @@ const currentPath = Astro.url.pathname;
                 });
             }
 
-            // Mobile Dropdown Logic
-            function initDropdowns() {
-                const dropdowns = document.querySelectorAll('.dropdown-container');
-                
-                dropdowns.forEach(dropdown => {
-                    const trigger = dropdown.querySelector('.dropdown-trigger');
-                    if (!trigger) return;
+            // Dropdown Logic (Event Delegation)
+            function setupDropdowns() {
+                document.addEventListener('click', (e) => {
+                    const trigger = e.target.closest('.dropdown-trigger');
                     
-                    trigger.addEventListener('click', (e) => {
-                        // Only apply toggle logic on small screens or touch devices
-                        if (window.innerWidth < 1024) {
-                            e.preventDefault();
-                            e.stopPropagation();
+                    if (trigger) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        const container = trigger.closest('.dropdown-container');
+                        if (container) {
+                            const isActive = container.classList.contains('is-active');
                             
-                            const isActive = dropdown.classList.contains('is-active');
-                            
-                            // Close other dropdowns
+                            // Close all other dropdowns
                             document.querySelectorAll('.dropdown-container').forEach(d => {
-                                d.classList.remove('is-active');
+                                if (d !== container) d.classList.remove('is-active');
                             });
                             
-                            if (!isActive) {
-                                dropdown.classList.add('is-active');
+                            // Toggle current
+                            if (isActive) {
+                                container.classList.remove('is-active');
+                            } else {
+                                container.classList.add('is-active');
                             }
                         }
-                    });
+                        return;
+                    }
+
+                    // Close dropdowns when clicking outside
+                    if (!e.target.closest('.dropdown-container')) {
+                        document.querySelectorAll('.dropdown-container').forEach(d => {
+                            d.classList.remove('is-active');
+                        });
+                    }
                 });
             }
 
             // Init on load
-            initDropdowns();
-
-            // Close dropdowns when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.dropdown-container')) {
-                    document.querySelectorAll('.dropdown-container').forEach(d => d.classList.remove('is-active'));
-                }
-            });
-
-            // Re-init when content might have changed (for Astro view transitions if used, though not explicitly here)
-            document.addEventListener('astro:page-load', initDropdowns);
+            setupDropdowns();
         </script>
 
 		<footer class="bg-canvas border-t border-hairline py-12 px-4 md:px-8">

@@ -82,20 +82,20 @@ const description = "Truncate and trim your text to specific character or word l
 
             <div class="space-y-2">
                 <label class="text-[10px] font-bold text-mute uppercase tracking-widest px-1">Custom Truncate</label>
-                <div class="flex gap-2">
+                <div class="flex flex-wrap gap-2">
                     <input 
                         type="number" 
                         id="custom-limit-input"
                         placeholder="Limit..."
-                        class="flex-grow h-10 px-3 bg-canvas border border-hairline rounded-md text-body-sm outline-none focus:ring-1 focus:ring-ink"
+                        class="flex-grow min-w-[80px] h-10 px-3 bg-canvas border border-hairline rounded-md text-body-sm outline-none focus:ring-1 focus:ring-ink"
                     />
-                    <select id="custom-type-select" class="h-10 px-2 bg-canvas border border-hairline rounded-md text-body-sm outline-none">
+                    <select id="custom-type-select" class="flex-grow sm:flex-grow-0 h-10 px-2 bg-canvas border border-hairline rounded-md text-body-sm outline-none">
                         <option value="chars">Chars</option>
                         <option value="words">Words</option>
                     </select>
                     <button
                         id="trim-custom-btn"
-                        class="h-10 px-4 bg-ink text-canvas rounded-md text-body-sm-strong hover:opacity-90 transition-opacity"
+                        class="w-full sm:w-auto h-10 px-4 bg-ink text-canvas rounded-md text-body-sm-strong hover:opacity-90 transition-opacity cursor-pointer"
                     >
                         Truncate
                     </button>
